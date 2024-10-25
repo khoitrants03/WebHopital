@@ -31,6 +31,7 @@
    outline: none;
    border: none;
    text-decoration: none;
+   
 }
 
 *::selection {
@@ -67,7 +68,7 @@ section {
 .title {
    text-align: justify;
    margin-bottom: 2.5rem;
-   font-size: 3.2rem;
+   font-size: 3rem;
    color: var(--black);
    text-transform: uppercase;
    text-decoration: none;
@@ -87,7 +88,7 @@ section {
 }
 
 .heading h3 {
-   font-size: 5rem;
+   font-size: 3rem;
    color: var(--white);
    text-transform: capitalize;
 }
@@ -99,6 +100,7 @@ section {
 
 .heading p a {
    color: var(--pink);
+   font-size: 2.3rem;
 }
 
 .heading p a:hover {
@@ -367,13 +369,13 @@ section {
 .category .box-container {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
-   gap: 1.5rem;
+   gap: 6.5rem;
    align-items: flex-start;
 }
 
 .category .box-container .box {
    border: var(--border);
-   padding: 2rem;
+   padding: 1rem;
    text-align: center;
    border-radius: 2rem;
    background: var(--ble-gr)
@@ -381,7 +383,7 @@ section {
 
 .category .box-container .box img {
    width: 100%;
-   height: 10rem;
+   height: 8rem;
    object-fit: contain;
    fill: rgb(114, 52, 52);
 }
@@ -424,7 +426,7 @@ section {
 
 .products .box-container .box img {
    height: 25rem;
-   width: 100%;
+   width: 80%;
    object-fit: contain;
    margin-bottom: 1rem;
 }
@@ -478,7 +480,7 @@ section {
 }
 
 .products .box-container .box .name {
-   font-size: 2rem;
+   font-size: 1.5rem;
    color: var(--black);
    margin: 1rem 0;
 }
@@ -492,7 +494,7 @@ section {
 
 .products .box-container .box .flex .price {
    margin-right: auto;
-   font-size: 2.5rem;
+   font-size: 2.2rem;
    color: var(--black);
 }
 
@@ -504,8 +506,9 @@ section {
 .products .box-container .box .flex .qty {
    padding: 1rem;
    border: var(--border);
-   font-size: 1.8rem;
+   font-size: 1.2rem;
    color: var(--black);
+   border-radius: 0.6rem
 }
 
 .products .box-container .box .flex .fa-edit {
@@ -1015,10 +1018,10 @@ section {
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
    gap: 1.5rem;
    align-items: flex-start; */
-   display: inline-flex;
-   grid-template-columns: min-content;
-   gap: 6.5rem;
-   align-items: unset;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+   gap: 1rem;
+   align-items: flex-start;
 }
 
 .footer .grid .box {
@@ -1034,7 +1037,7 @@ section {
    width: 100%;
    object-fit: contain;
    margin-bottom: 1.5rem;
-   font-size: 8rem;
+   font-size: 7rem;
    color: var(--light-color);
 }
 
