@@ -12,18 +12,26 @@ if (isset($message)) {
 ?>
 
 <header class="header">
+   <section class="content_bg-white">
 
+      <a href="home.php" class="logo"><i id="logo" class="fa-sharp-duotone fa-solid fa-hospital"></i>Bèo Hospital</a>
+
+      <nav class="navbar">
+         <a href="#"><i class="fa-duotone fa-solid fa-phone-volume" ></i> KHẨN CẤP 1900 10854</a>
+         <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i></i>GIỜ LÀM VIỆC 27/7</a>
+         <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>
+            </i>VỊ TRÍ: TP.HCM</a>
+      </nav>
+   </section>
    <section class="flex">
 
-      <a href="home.php" class="logo"><i class="fa-sharp-duotone fa-solid fa-hospital"></i>Bèo<br> Hospital</a>
-
+ 
       <nav class="navbar">
          <a href="home.php">Trang chủ</a>
          <a href="about.php">Về chúng tôi</a>
          <a href="product.php">Dịch vụ </a>
          <a href="orders.php">Bác sĩ</a>
          <a href="contact.php">Mới</a>
-
          <a href="contact.php">Liên hệ</a>
       </nav>
 
@@ -45,26 +53,30 @@ if (isset($message)) {
          $select_profile->execute([$user_id]);
          if ($select_profile->rowCount() > 0) {
             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
-         ?>
-            <p class="name"><?= $fetch_profile['name']; ?></p>
+            ?>
+            <p class="name">
+               <?= $fetch_profile['name']; ?>
+            </p>
             <div class="flex">
                <a href="profile.php" class="btn">Thông tin</a>
-               <a href="components/user_logout.php" onclick="return confirm('Bạn có chắc muốn đăng xuất?');" class="delete-btn">Đăng xuất</a>
+               <a href="components/user_logout.php" onclick="return confirm('Bạn có chắc muốn đăng xuất?');"
+                  class="delete-btn">Đăng xuất</a>
             </div>
             <p class="account">
                <a href="login.php">Đăng nhập</a> or
                <a href="register.php">Đăng ký</a>
             </p>
-         <?php
+            <?php
          } else {
-         ?>
+            ?>
             <p class="name">Vui lòng đăng nhập!</p>
             <a href="login.php" class="btn">Đăng nhập</a>
-         <?php
+            <?php
          }
          ?>
       </div>
-
    </section>
+
+</header>
 
 </header>
