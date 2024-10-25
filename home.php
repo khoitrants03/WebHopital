@@ -110,12 +110,12 @@ include './convert_currency.php';
 
          <a href="category.php?category=acer" class="box">
          <img src="imgs/people-group-solid.svg" alt="">
-            <h3>Đặt lịch hẹn</h3>
+            <h3>Tìm Chuyên Gia</h3>
          </a>
 
          <a href="category.php?category=msi" class="box">
             <img src="imgs/money-check-dollar-solid.svg" alt="">
-            <h3>Chi phí</h3>
+            <h3>Hóa Đơn Điện Tử</h3>
          </a>
 
          <!-- <a href="category.php?category=razer" class="box">
@@ -130,7 +130,7 @@ include './convert_currency.php';
 
    <section class="products">
 
-      <h1 class="title">laptop mới nhất</h1>
+      <h1 class="title">Thông báo mới nhất</h1>
 
       <div class="box-container">
 
@@ -170,7 +170,7 @@ include './convert_currency.php';
       </div>
 
       <section class="content">
-   <h1 class="title">Bài viết mới nhất</h1>
+   <h1 class="title">Tin mới nhất từ bệnh viện</h1>
    
    <div class="box-container">
       <?php
