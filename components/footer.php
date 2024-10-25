@@ -2,25 +2,23 @@
 
    <section class="grid">
       <div class="box">
-         <img src="imgs/phone-icon.png" alt="">
+          <i class="fa-solid fa-phone-volume"></i>
          <h3>số điện thoại</h3>
          <a href="tel://0384104942">0384.104.942</a>
-         <!-- <a href="tel://0797517278">0797.517.278</a> -->
-      </div>
+       </div>
       <div class="box">
-         <img src="imgs/map-icon.png" alt="">
+          <i class="fa-duotone fa-solid fa-location-dot"></i>
          <h3>địa chỉ</h3>
          <a href="#">Phường 4, Quận Gò Vấp.</a>
       </div>      
       <div class="box">
-         <img src="imgs/email-icon.png" alt="">
+          <i class="fa-regular fa-envelope"></i>
          <h3>email liên hệ</h3>
          <a href="mailto:Phanthienkhai111@gmail.com">Phanthienkhai111@gmail.com</a>
-         <!-- <a href="mailto:Caolananh2003@gmail.com">Caolananh2003@gmail.com</a> -->
-      </div>
+       </div>
 
       <div class="box">
-         <img src="imgs/clock-icon.png" alt="">
+          <i class="fa-regular fa-clock"></i>
          <h3>giờ mở cửa</h3>
          <p>Sáng: 07:00 đến 11:00</p>
          <p>Chiều: 13:00 đến 18:00</p>

@@ -130,7 +130,7 @@ include './convert_currency.php';
 
    <section class="products">
 
-      <h1 class="title">Thông báo mới nhất</h1>
+      <h1 class="title">TIN TỨC & HOẠT ĐỘNG</h1>
 
       <div class="box-container">
 
@@ -170,7 +170,7 @@ include './convert_currency.php';
       </div>
 
       <section class="content">
-   <h1 class="title">Tin mới nhất từ bệnh viện</h1>
+   <h1 class="title">THÔNG BÁO MỚI NHẤT</h1>
    
    <div class="box-container">
       <?php

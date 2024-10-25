@@ -9,10 +9,11 @@
    --light-orange: #e1af25;
    --green: #159EEC;
    --grey: #016466;
-   --border-service: .2rem solid var(--green);
+   --border-service: .25rem solid var(--green);
    --border: .2rem solid var(--black);
-   --blue:#1F2B6C;
-   --ble-gr:#BABFD3;
+   --blue: #1F2B6C;
+   --ble-gr: #BABFD3;
+   --original: #F0EEFE;
 }
 
 .description .warranty .manufacturer {
@@ -64,13 +65,15 @@ section {
 }
 
 .title {
-   text-align: center;
+   text-align: justify;
    margin-bottom: 2.5rem;
-   font-size: 4rem;
+   font-size: 3.2rem;
    color: var(--black);
    text-transform: uppercase;
    text-decoration: none;
    text-underline-offset: 1rem;
+   font-family: serif;
+   border-bottom: var(--grey);
 }
 
 .heading {
@@ -180,60 +183,67 @@ section {
    gap: 1rem;
 }
 
-.header {
-   position: sticky;
-   top: 0;
+.header { 
+
+    top: 0;
    left: 0;
    right: 0;
    z-index: 1000;
    background-color: var(--white);
-   
+
 }
 
- 
+
 
 /* .header .flex a {
    font-size: 3.0rem;
    color: var(#660b01);
 } */
- 
+
 
 
 /* copy */
 .header .content_bg-white {
-   display: flex;
+  position: sticky;
+   display: flex;  
    align-items: center;
    justify-content: space-around;
-   position: relative;
+   /* position: relative; */
    border-bottom: var(--border);
 }
+
 .header .content_bg-white .logo {
    font-size: 3rem;
    color: var(--blue);
    display: flex;
 }
+
 .header .content_bg-white #logo {
    font-size: 3.5rem;
    color: var(--grey);
 }
+
 .header .content_bg-white a {
    font-size: 2rem;
    color: var(--black);
    margin: 0 1rem;
 
 }
+
 .header .content_bg-white .navbar a {
    font-size: 2rem;
    color: var(--black);
    margin: 0 1rem;
 
 }
+
 .header .content_bg-white i {
    font-size: 2.5rem;
-   color: var(--black);
+   color: var(--swiper-theme-color);;
    margin: 0 1rem;
 
 }
+
 .header .flex {
    display: flex;
    align-items: center;
@@ -241,6 +251,7 @@ section {
    position: relative;
    background: var(--blue);
 }
+
 .header .flex .navbar a {
    font-size: 2rem;
    color: var(--ble-gr);
@@ -404,10 +415,11 @@ section {
 }
 
 .products .box-container .box {
-   border: var(--border);
+   border: var(--border-service);
    padding: 1.5rem;
    position: relative;
    overflow: hidden;
+   border-radius: 1rem;
 }
 
 .products .box-container .box img {
@@ -999,28 +1011,36 @@ section {
 
 
 .footer .grid {
-   display: grid;
+   /* display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
    gap: 1.5rem;
-   align-items: flex-start;
+   align-items: flex-start; */
+   display: inline-flex;
+   grid-template-columns: min-content;
+   gap: 6.5rem;
+   align-items: unset;
 }
 
 .footer .grid .box {
    border: var(--border);
    padding: 2rem;
    text-align: center;
+   border-radius: 0.8rem;
+   background: var(--original);
 }
 
-.footer .grid .box img {
-   height: 10rem;
+.footer .grid .box i {
+   height: 6rem;
    width: 100%;
    object-fit: contain;
-   margin-bottom: .5rem;
+   margin-bottom: 1.5rem;
+   font-size: 8rem;
+   color: var(--light-color);
 }
 
 .footer .grid .box h3 {
    margin: 1rem 0;
-   font-size: 2rem;
+   font-size: 1.6rem;
    color: var(--black);
    text-transform: capitalize;
 }

@@ -36,7 +36,7 @@ include 'components/add_cart.php';
    <!-- header section starts  -->
    <?php include 'components/user_header.php'; ?>
    <!-- header section ends -->
-
+    
    <!-- search form section starts  -->
 
    <section class="search-form">
