@@ -1,0 +1,98 @@
+/* Đặt nền và kiểu cho toàn bộ trang */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Khung chứa form */
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Tiêu đề trang */
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Phong cách cho các ô input */
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Phong cách cho nút gửi */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Thông báo lỗi */
+.error-message {
+    color: #ff4d4d;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Thông báo thành công */
+.success-message {
+    color: #4CAF50;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+/* Thiết lập nền cho toàn trang */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../imgs/background_patient.jpg'); /* Đường dẫn đến hình nền */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Khung chứa form */
+.container {
+    background-color: rgba(255, 255, 255, 0.85); /* Màu nền trắng với độ trong suốt */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
