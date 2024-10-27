@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 04, 2024 lúc 06:17 PM
+-- Thời gian đã tạo: Th10 27, 2024 lúc 08:09 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -43,6 +43,27 @@ INSERT INTO `admin` (`id`, `name`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `bacsi`
+--
+
+CREATE TABLE `bacsi` (
+  `id` int(11) NOT NULL,
+  `imge` text NOT NULL,
+  `ten` text NOT NULL,
+  `chuyenkhoa` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `bacsi`
+--
+
+INSERT INTO `bacsi` (`id`, `imge`, `ten`, `chuyenkhoa`) VALUES
+(1, 'download (2).jfif', 'BS.CKII : Trần Văn A', 'Chuyên Khoa : Tai - Mũi - Họng'),
+(2, 'download (2).jfif', 'BS.CKII : Trần Văn Toàn', 'Chuyên Khoa: Nhi');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `cart`
 --
 
@@ -61,7 +82,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `pid`, `name`, `price`, `quantity`, `image`) VALUES
-(5, 3, 2, 'Razer Blade 14 Gaming', 52130000, 1, 'Razer1.jpg');
+(8, 3, 1, 'Asus ExpertBook B5402CB i5', 22000000, 1, 'latop.png');
 
 -- --------------------------------------------------------
 
@@ -125,7 +146,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`) VALUES
 (3, 3, 'Phan Thiên Khải', '0384104942', 'phanthienkhai111@gmail.com', 'MoMo', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234', 'Razer Blade 14 Gaming (52.130.000<span>đ</span> x 1)', 52130000, '2024-09-26', 'completed'),
-(4, 3, 'Phan Thiên Khải', '0384104942', 'phanthienkhai111@gmail.com', 'ZaloPay', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234', 'Laptop Asus Vivobook X415EA-EB640W (12.999.000<span>đ</span> x 1)', 12999000, '2024-09-28', 'completed');
+(4, 3, 'Phan Thiên Khải', '0384104942', 'phanthienkhai111@gmail.com', 'ZaloPay', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234', 'Laptop Asus Vivobook X415EA-EB640W (12.999.000<span>đ</span> x 1)', 12999000, '2024-09-28', 'completed'),
+(5, 3, 'Phan Thiên Khải', '0384104942', 'phanthienkhai111@gmail.com', 'MoMo', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234', 'Razer Blade 14 Gaming (52.130.000<span>đ</span> x 1)', 52130000, '2024-10-05', 'pending');
 
 -- --------------------------------------------------------
 
@@ -149,14 +171,34 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category`, `price`, `image`, `description`, `warranty`, `manufacturer`) VALUES
-(1, 'Asus ExpertBook B5402CB i5', 'Asus', 22000000, 'latop.png', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay!', 24, 'Asus'),
-(2, 'Razer Blade 14 Gaming', 'Razer', 52130000, 'Razer1.jpg', NULL, NULL, NULL),
-(3, 'Laptop Acer Predator PH315-51', 'Acer', 20500000, 'acer1.png', NULL, NULL, NULL),
-(4, 'Laptop MSI Gaming Katana GF66', 'Msi', 21490000, 'MSI-Katana-GF66-14.png', NULL, NULL, NULL),
-(5, 'Laptop Asus Vivobook X415EA-EB640W', 'Asus', 12999000, 'asusvivobookx415.png', NULL, NULL, NULL),
-(6, 'Laptop MSI Gaming GF63 -Black- 15.6', 'Msi', 20390000, 'GF63-11UD-473VN__15390.jpg', NULL, NULL, NULL),
-(7, 'Razer Blade 14 2017', 'Razer', 22500000, 'Razer-Blade-14-2017.jpg', NULL, NULL, NULL),
-(8, 'Laptop Acer Aspire 3 A315', 'Acer', 11390000, 'laptop_acer_aspire.jpg', NULL, NULL, NULL);
+(1, 'THẠC SĨ, BS LÊ THỊ THU HÀ', 'Asus', 22000000, 'BS-HA-KHOA-DD.png', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay!', 24, 'Asus'),
+(2, 'BSCKII. TRẦN ĐĂNG KHOA', 'Razer', 52130000, 'bs-Khoa-4x6-1-433x650.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Razer'),
+(3, 'BSCKII. Thân Hồng Anh', 'Acer', 20500000, 'BS-Than-Hong-Anh-433x650.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Acer'),
+(4, 'BS TRƯƠNG MINH THƯƠNG', 'Msi', 21490000, 'CNK_c8.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Msi'),
+(5, 'BSCKII ĐỖ HỮU LƯƠNG', 'Asus', 12999000, 'CNK_YHTT.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Asus'),
+(6, 'BS NG.THỊ HUYỀN TRANG', 'Msi', 20390000, 'NguyenThiHuyenTrang.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Msi');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tintuc`
+--
+
+CREATE TABLE `tintuc` (
+  `id` int(1) NOT NULL,
+  `imge` text NOT NULL,
+  `name` text NOT NULL,
+  `name1` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tintuc`
+--
+
+INSERT INTO `tintuc` (`id`, `imge`, `name`, `name1`) VALUES
+(1, 'k.jpg', 'Khai giảng Khóa 4: Hồi sức cấp cứu cơ bản', 'Ngày 14/10/2024 Bệnh viện Nhân dân 115 tiếp tục tổ chức Khai giảng Lớp đào tạo Hồi sức cấp cứu cơ bản Khóa 4 ngắn hạn cho nhân viên y tế đang công tác tại các Cơ sở khám chữa bệnh trên địa bàn Thành phố Hồ Chí Minh.'),
+(2, 'khoi1.jpg', 'Nhân 1 trường hợp đột ngột ngưng tim khi nội soi, Bác sĩ cảnh báo điều gì?', 'Tại khoa Cấp cứu BV Nhân dân 115, Người bệnh tỉnh táo, được hỗ trợ bóp bóng qua nội khí quản, sinh hiệu ổn. Điện tâm đồ đo tại Khoa Cấp cứu ghi nhận ST chênh lên ở chuyển đạo aVR....'),
+(3, 'khoi2.jpg', 'Cập nhật kiến thức y khoa liên tục về Bệnh viêm ruột tại Bệnh viện  \r\n', 'Bệnh viêm ruột (IBD) là một trong những bệnh lý tiêu hóa ngày càng trở nên phổ biến và phức tạp. Để nâng cao chất lượng chẩn đoán và điều trị bệnh lý này, Bệnh viện Nhân dân 115 tổ chức chương trình cập nhật kiến thức y khoa liên tục');
 
 -- --------------------------------------------------------
 
@@ -191,6 +233,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `bacsi`
+--
+ALTER TABLE `bacsi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `cart`
 --
 ALTER TABLE `cart`
@@ -221,6 +269,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `tintuc`
+--
+ALTER TABLE `tintuc`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
@@ -240,7 +294,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `messages`
@@ -258,13 +312,13 @@ ALTER TABLE `new`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
