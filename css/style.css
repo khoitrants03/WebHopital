@@ -16,6 +16,93 @@
    --original: #F0EEFE;
 }
 
+/* css Khải - datlich.php */
+.appointment-section {
+   display: flex;
+   justify-content: space-between;
+   padding: 70px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-container {
+   width: 68%;
+
+}
+
+.appointment-form {
+   width: 66%;
+   /* display: flex; */
+   flex-wrap: wrap;
+   gap: 15px;
+   margin-left: 20%;
+
+}
+
+.appointment-form .row {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.appointment-form .box {
+   width: 49%;
+   padding: 12px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+}
+
+textarea.box {
+   width: 100%;
+   resize: none;
+}
+
+.btn {
+   width: 100%;
+   padding: 12px;
+   background-color: #0066cc;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.working-hours {
+   width: 42%;
+   background-color: #003366;
+   color: white;
+   padding: 20px;
+   border-radius: 10px;
+}
+
+.working-hours h2 {
+   margin-bottom: 20px;
+   font-size: 24px;
+}
+
+.working-hours ul {
+   list-style: none;
+   padding: 0;
+}
+
+.working-hours ul li {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px;
+   font-size: 20px;
+}
+
+.working-hours .emergency {
+   margin-top: 20px;
+   font-size: 20px;
+}
+
+.working-hours .emergency p {
+   font-size: 24px;
+}
+/* --------- */
 .description .warranty .manufacturer {
    margin: 15px 0;
    font-size: 50px;
