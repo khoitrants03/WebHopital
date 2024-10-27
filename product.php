@@ -21,7 +21,7 @@ include './convert_currency.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Sản phẩm</title>
+   <title>Bác sĩ</title>
    <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -38,8 +38,8 @@ include './convert_currency.php';
    <!-- header section ends -->
 
    <div class="heading">
-      <h3>Dịch vụ hiện có</h3>
-      <p><a href="home.php">Trang chủ</a> <span> / Dịch vụ</span></p>
+      <h3>Bác sĩ hiện có</h3>
+      <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
    </div>
 
    <!-- menu section starts  -->
