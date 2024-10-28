@@ -57,8 +57,9 @@ include './convert_currency.php';
 
 
                     </div>
-                    <div class="box-item"  >
-                        <a href="Register_medical_new.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân mới</a>
+                    <div class="box-item">
+                        <a href="Register_medical_new.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
+                            mới</a>
                     </div>
                     <div class="box-item">
                         <a href="Register_medical_old.php">
@@ -68,32 +69,45 @@ include './convert_currency.php';
                 </div>
             </div>
             <div class="register">
-         <div class="form-title">Đăng kí khám bệnh cũ </div>
-        <form>
-            <div class="form-group">
-                <label for="name">Họ tên</label>
-                <input type="text" id="name" placeholder="Trần A">
+                <div class="form-container">
+                    <div class="form-title">Đăng kí khám bệnh mới</div>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Họ tên</label>
+                            <input type="text" id="name" placeholder="Trần A">
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Ngày sinh</label>
+                            <input type="date" id="dob">
+                        </div>
+                        <div class="form-group">
+                            <label>Giới tính</label>
+                            <div class="gender-options">
+                                <label><input type="radio" name="gender" value="male"> Nam</label>
+                                <label><input type="radio" name="gender" value="female"> Nữ</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bhyt">Mã BHYT</label>
+                            <input type="text" id="bhyt">
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Khoa khám bệnh</label>
+                            <select id="department">
+                                <option value="tmh">Tai - Mũi - Họng</option>
+                                <option value="nhi">Nhi</option>
+                                <option value="noikhoa">Nội khoa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment">Ngày khám</label>
+                            <input type="date" id="appointment">
+                        </div>
+                        <button type="submit" class="submit-btn">Xác nhận</button>
+                    </form>
+      
+                </div>
             </div>
-           
-            <div class="form-group">
-                <label for="bhyt">Mã định danh</label>
-                <input type="text" id="bhyt">
-            </div>
-            <div class="form-group">
-                <label for="department">Khoa khám bệnh</label>
-                <select id="department">
-                    <option value="tmh">Tai - Mũi - Họng</option>
-                    <option value="nhi">Nhi</option>
-                    <option value="noikhoa">Nội khoa</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="appointment">Ngày khám</label>
-                <input type="date" id="appointment">
-            </div>
-            <button type="submit" class="submit-btn">Xác nhận</button>
-        </form>
-             </div>
 
     </section>
 
