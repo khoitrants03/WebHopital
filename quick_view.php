@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 };
 
 include 'components/add_cart.php';
-include './convert_currency.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ include './convert_currency.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Xem chi thonong báo mới</title>
+   <title>Xem chi tiết</title>
    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -57,8 +57,6 @@ include './convert_currency.php';
                <!-- Danh mục sản phẩm -->
                <!-- Tên sản phẩm -->
                <div class="name"><?= $fetch_products['name']; ?></div>
-
-<<<<<<< HEAD
                <div class="description"><?= $fetch_products['description']; ?></div>
                <div class="price"><?= $fetch_products['text']; ?></div>
 
@@ -67,9 +65,8 @@ include './convert_currency.php';
                   <input type="number" name="qty" class="qty" min="1" max="99" value="1" maxlength="2">
                </div>
                <button type="submit" name="add_to_cart" class="cart-btn">Chọn khám</button>
-=======
+               
              
->>>>>>> 19430b4a0dec18198cff4ab335e39e76914080e5
             </form>
       <?php
          }
