@@ -15,7 +15,7 @@ if (isset($_POST['delete'])) {
    $cart_id = $_POST['cart_id'];
    $delete_cart_item = $conn->prepare("DELETE FROM `cart` WHERE id = ?");
    $delete_cart_item->execute([$cart_id]);
-   $message[] = 'Item đã được xóa!';
+   $message[] = 'Đơn đặt lịch đã được xóa!';
 }
 
 if (isset($_POST['delete_all'])) {
@@ -72,7 +72,7 @@ include './convert_currency.php';
 
    <section class="products">
 
-      <h1 class="title">Đơn hàng của bạn</h1>
+      <h1 class="title">Đơn đặt lịch của bạn</h1>
 
       <div class="box-container">
 
@@ -123,7 +123,7 @@ include './convert_currency.php';
          <form action="" method="post">
             <button type="submit" class="delete-btn <?= ($grand_total > 1) ? '' : 'disabled'; ?>" name="delete_all" onclick="return confirm('Bạn có chắc muốn xóa tất cả?');">Xóa tất cả</button>
          </form>
-         <a href="./product.php" class="btn">Tiếp tục mua sắm</a>
+         <a href="./product.php" class="btn">Tiếp tục đặt lịch</a>
       </div>
 
    </section>

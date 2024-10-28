@@ -1,7 +1,5 @@
 <?php
-
 include 'components/connect.php';
-
 session_start();
 
 if (isset($_SESSION['user_id'])) {
@@ -9,162 +7,118 @@ if (isset($_SESSION['user_id'])) {
 } else {
    $user_id = '';
    header('location:home.php');
-};
-
-if (isset($_POST['submit'])) {
-
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $number = $_POST['number'];
-   $number = filter_var($number, FILTER_SANITIZE_STRING);
-   $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $method = $_POST['method'];
-   $method = filter_var($method, FILTER_SANITIZE_STRING);
-   $address = $_POST['address'];
-   $address = filter_var($address, FILTER_SANITIZE_STRING);
-   $total_products = $_POST['total_products'];
-   $total_price = $_POST['total_price'];
-
-   $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-   $check_cart->execute([$user_id]);
-
-   if ($check_cart->rowCount() > 0) {
-
-      if ($address == '') {
-         $message[] = 'Vui lòng thêm địa chỉ của bạn!';
-      } else {
-
-         $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
-         $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
-
-         $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
-         $delete_cart->execute([$user_id]);
-
-         $message[] = 'Đặt hàng thành công!';
-      }
-   } else {
-      $message[] = 'Giỏ hàng của bạn không có gì!';
-   }
 }
-include './convert_currency.php';
+
+// Xử lý khi form được submit
+if (isset($_POST['submit'])) {
+   // Lấy dữ liệu từ form
+   $patient_id = $_POST['patient_id'];
+   $name = $_POST['name'];
+   $department = $_POST['department'];
+   $consultation_fee = $_POST['consultation_fee'];
+   $medicine_fee = $_POST['medicine_fee'];
+   $test_fee = $_POST['test_fee'];
+   $insurance_id = $_POST['insurance_id'];
+   $total_amount = $_POST['total_amount'];
+   $payment_method = $_POST['payment_method'];
+
+   // Tiếp tục xử lý dữ liệu và lưu vào cơ sở dữ liệu nếu cần
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Thanh toán</title>
+   <title>Thanh Toán</title>
    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
-   <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
+   <link rel="stylesheet" href="css/style.css"> 
+   <!-- Đường dẫn tới CSS -->
+   <link rel="stylesheet" href="css/checkout.css">
 </head>
-
 <body>
-
-   <!-- header section starts  -->
-   <?php include 'components/user_header.php'; ?>
+<!-- header section starts  -->
+<?php include 'components/user_header.php'; ?>
    <!-- header section ends -->
+<div class="heading">
+   <h3>Thông tin Thanh Toán</h3>
+   <p><a href="home.php">Trang chủ</a> <span> / Thanh Toán</span></p>
+</div>
+<section class="checkout">
+   <h1 class="title">Thanh Toán</h1>
 
-   <div class="heading">
-      <h3>Thủ tục thanh toán</h3>
-      <p><a href="home.php">Trang chủ</a> <span> / Thanh toán</span></p>
-   </div>
+   <form action="" method="post" class="payment-form">
+      <div class="form-group">
+         <label for="patient_id">Mã bệnh nhân</label>
+         <input type="text" id="patient_id" name="patient_id" placeholder="Nhập mã bệnh nhân">
+      </div>
 
-   <section class="checkout">
+      <div class="form-group">
+         <label for="name">Họ tên</label>
+         <input type="text" id="name" name="name" placeholder="Nhập họ tên">
+      </div>
 
-      <h1 class="title">Tổng đơn hàng</h1>
+      <div class="form-group">
+         <label for="department">Khoa khám</label>
+         <select id="department" name="department">
+           
+            <option value="Nội">Nội</option>
+            <option value="Ngoại">Ngoại</option>
+            
+            <!-- Thêm các lựa chọn khoa khám khác nếu cần -->
+         </select>
+      </div>
 
-      <form action="" method="post">
+      <div class="form-group">
+         <label for="consultation_fee">Tiền khám bệnh</label>
+         <input type="number" id="consultation_fee" name="consultation_fee" placeholder="Nhập tiền khám bệnh">
+      </div>
 
-         <div class="cart-items">
-            <h3>Các mặt hàng trong giỏ hàng</h3>
-            <?php
-            $grand_total = 0;
-            $cart_items[] = '';
-            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            $select_cart->execute([$user_id]);
-            if ($select_cart->rowCount() > 0) {
-               while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                  $cart_items[] = $fetch_cart['name'] . ' (' . currency_format($fetch_cart['price']) . ' x ' . $fetch_cart['quantity'] . ')';
-                  $total_products = implode($cart_items);
-                  $grand_total += ($fetch_cart['price'] * $fetch_cart['quantity']);
-            ?>
-                  <p><span class="name"><?= $fetch_cart['name']; ?></span><span class="price"><?php echo currency_format($fetch_cart['price']); ?> x <?= $fetch_cart['quantity']; ?></span></p>
+      <div class="form-group">
+         <label for="medicine_fee">Tiền thuốc</label>
+         <input type="number" id="medicine_fee" name="medicine_fee" placeholder="Nhập tiền thuốc">
+      </div>
 
-            <?php
-               }
-            } else {
-               echo '<p class="empty">Giỏ hàng của bạn không có gì!</p>';
-            }
-            ?>
-            <p class="grand-total"><span class="name">Tổng cộng :</span><span class="price"><?php echo currency_format($grand_total); ?></span></p>
-            <a href="cart.php" class="btn">Xem giỏ hàng</a>
-         </div>
+      <div class="form-group">
+         <label for="test_fee">Tiền xét nghiệm</label>
+         <input type="number" id="test_fee" name="test_fee" placeholder="Nhập tiền xét nghiệm">
+      </div>
 
-         <input type="hidden" name="total_products" value="<?= $total_products; ?>">
-         <input type="hidden" name="total_price" value="<?= $grand_total; ?>" value="">
-         <input type="hidden" name="name" value="<?= $fetch_profile['name'] ?>">
-         <input type="hidden" name="number" value="<?= $fetch_profile['number'] ?>">
-         <input type="hidden" name="email" value="<?= $fetch_profile['email'] ?>">
-         <input type="hidden" name="address" value="<?= $fetch_profile['address'] ?>">
+      <div class="form-group">
+         <label for="insurance_id">Mã BHYT</label>
+         <input type="text" id="insurance_id" name="insurance_id" placeholder="Nhập mã BHYT">
+      </div>
 
-         <div class="user-info">
-            <h3>Thông tin của bạn</h3>
-            <p><i class="fas fa-user"></i><span><?= $fetch_profile['name'] ?></span></p>
-            <p><i class="fas fa-phone"></i><span><?= $fetch_profile['number'] ?></span></p>
-            <p><i class="fas fa-envelope"></i><span><?= $fetch_profile['email'] ?></span></p>
-            <a href="update_profile.php" class="btn">Cập nhật thông tin</a>
-            <h3>Địa chỉ giao hàng</h3>
-            <p><i class="fas fa-map-marker-alt"></i><span><?php if ($fetch_profile['address'] == '') {
-                                                               echo 'Vui lòng nhập địa chỉ của bạn!';
-                                                            } else {
-                                                               echo $fetch_profile['address'];
-                                                            } ?></span></p>
-            <a href="update_address.php" class="btn">Cập nhật địa chỉ</a>
-            <select name="method" class="box" required>
-               <option value="" disabled selected>Chọn phương thức thanh toán --</option>
-               <option value="MoMo">MoMo</option>
-               <option value="ZaloPay">ZaloPay</option>
-               <option value="Visa">Visa</option>
-               <option value="PayPal">PayPal</option>
-            </select>
-            <input type="submit" value="Đặt Hàng" class="btn <?php if ($fetch_profile['address'] == '') {
-                                                                  echo 'disabled';
-                                                               } ?>" style="width:100%; background:var(--red); color:var(--white);" name="submit">
-         </div>
+      <div class="form-group">
+         <label for="total_amount">Tổng tiền</label>
+         <input type="number" id="total_amount" name="total_amount" placeholder="Nhập tổng tiền">
+      </div>
 
-      </form>
+      <div class="form-group">
+         <label for="payment_method">Hình thức thanh toán</label>
+         <select id="payment_method" name="payment_method" required>
+            <option value="cash">Tiền mặt</option>
+            <option value="MoMo">MoMo</option>
+            <option value="ZaloPay">ZaloPay</option>
+            <option value="Visa">Visa</option>
+            <option value="PayPal">PayPal</option>
+         </select>
+      </div>
 
-   </section>
-
-
-
-
-
-
-
-
-
-   <!-- footer section starts  -->
-   <?php include 'components/footer.php'; ?>
+      <button type="submit" name="submit" class="confirm-btn">Xác nhận</button>
+   </form>
+</section>
+ <!-- footer section starts  -->
+ <?php include 'components/footer.php'; ?>
    <!-- footer section ends -->
-
-
-
-
 
 
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
-
 </body>
-
 </html>

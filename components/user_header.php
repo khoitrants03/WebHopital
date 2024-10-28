@@ -29,10 +29,11 @@ if (isset($message)) {
       <nav class="navbar">
          <a href="home.php">Trang chủ</a>
          <a href="about.php">Về chúng tôi</a>
-         <a href="register_medical.php">Dịch vụ </a>
+         <a href="product.php">Bác sĩ </a>
          <a href="patient_access.php">Bệnh nhân</a>
-         <a href="orders.php">Bác sĩ</a>
-         <a href="contact.php">Mới</a>
+         <a href="orders.php">Lịch đã đặt</a>
+         <a href="BHYT.php">Quản lý BHYT</a>
+         <a href="cart.php">Giỏ hàng </a>
          <a href="contact.php">Liên hệ</a>
          
       </nav>
@@ -65,7 +66,7 @@ if (isset($message)) {
                   class="delete-btn">Đăng xuất</a>
             </div>
             <p class="account">
-               <a href="login.php">Đăng nhập</a> or
+               <a href="login.php">Đăng nhập</a> hoặc 
                <a href="register.php">Đăng ký</a>
             </p>
             <?php
