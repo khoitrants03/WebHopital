@@ -16,13 +16,13 @@ if (isset($_POST['update'])) {
    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $price = $_POST['price'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
+   $text = $_POST['text'];
+   $text = filter_var($text, FILTER_SANITIZE_STRING);
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, category = ?, price = ? WHERE id = ?");
-   $update_product->execute([$name, $category, $price, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, category = ?, text = ? WHERE id = ?");
+   $update_product->execute([$name, $category, $text, $pid]);
 
    $message[] = 'Đã cập nhật sản phẩm';
 
@@ -88,8 +88,8 @@ if (isset($_POST['update'])) {
                <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
                <span>Tên mới</span>
                <input type="text" required placeholder="enter product name" name="name" maxlength="100" class="box" value="<?= $fetch_products['name']; ?>">
-               <span>Giá mới</span>
-               <input type="number" min="0" max="9999999999" required placeholder="enter product price" name="price" onkeypress="if(this.value.length == 10) return false;" class="box" value="<?= $fetch_products['price']; ?>">
+               <span>Thông tin mới</span>
+               <input type="text"  required placeholder="enter product text" name="text" onkeypress="if(this.value.length == 10) return false;" class="box" value="<?= $fetch_products['text']; ?>">
                <span>Chọn Thể Loại</span>
                <select name="category" class="box" required>
                   <option selected value="<?= $fetch_products['category']; ?>"><?= $fetch_products['category']; ?></option>
