@@ -49,8 +49,8 @@ include './convert_currency.php';
             <form action="" method="post" class="box">
                <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
                <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
-                  <input type="hidden" name="new" value="<?= $fetch_products['name1']; ?>">
-                  <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
+               <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+               <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
 
                <!-- Hình ảnh sản phẩm -->
                <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
