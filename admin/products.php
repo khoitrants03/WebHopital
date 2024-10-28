@@ -57,7 +57,7 @@ if (isset($_GET['delete'])) {
    $delete_cart->execute([$delete_id]);
    header('location:products.php');
 }
-include '../convert_currency.php';
+
 ?>
 
 <!DOCTYPE html>
