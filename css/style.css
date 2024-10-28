@@ -668,10 +668,10 @@ section {
 }
 
 .products .box-container .box img {
-   height: 29rem;
+   height: 33rem;
    width: 80%;
    object-fit: contain;
-   /* margin-bottom: 1rem; */
+   margin-bottom: 1rem;
    margin-left: 10%;
 }
 
