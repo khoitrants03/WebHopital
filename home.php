@@ -104,7 +104,7 @@ include './convert_currency.php';
 
       <div class="box-container">
 
-         <a href="category.php?category" class="box">
+         <a href="datlich.php" class="box">
             <img src="imgs/calendar-days-regular.svg" class="icon_svg" alt="">
             <h3>Đạt lịch khám</h3>
          </a>
