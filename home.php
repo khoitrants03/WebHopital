@@ -60,7 +60,7 @@ include './convert_currency.php';
             <div class="swiper-slide slide">
                <div class="content">
                   <!-- <span>mua sắm</span> -->
-                  <h3>TỰ HÀO LÀ BỆNH VIỆN ĐA KHOA HẠNG I</h3>
+                  <h4>TỰ HÀO LÀ BỆNH VIỆN ĐA KHOA HẠNG I</h4>
                   <a href="./product.php" class="btn">Xem thêm</a>
                </div>
                <div class="image">
@@ -71,7 +71,7 @@ include './convert_currency.php';
             <div class="swiper-slide slide">
                <div class="content">
                   <!-- <span>mua sắm</span> -->
-                  <h3>"THÂN THIỆN ĐỊNH HƯỚNG HIỆN ĐẠI" <br>LÀ CHÂM NGÔN CỦA BỆNH VIỆN</h3>
+                  <h4>"THÂN THIỆN ĐỊNH HƯỚNG HIỆN ĐẠI" <br>LÀ CHÂM NGÔN CỦA BỆNH VIỆN</h4>
                   <a href="./product.php" class="btn">Xem thêm</a>
                </div>
                <div class="image">
@@ -82,7 +82,7 @@ include './convert_currency.php';
             <div class="swiper-slide slide">
                <div class="content">
                   <!-- <span>mua sắm</span> -->
-                  <h3>TRANG THIẾT BỊ - CƠ SỞ VẬT CHẤT HIỆN ĐẠI <br> ĐÁP ỨNG NHU CẦU BỆNH NHÂN </h3>
+                  <h4>TRANG THIẾT BỊ - CƠ SỞ VẬT CHẤT HIỆN ĐẠI <br> ĐÁP ỨNG NHU CẦU BỆNH NHÂN </h4>
                   <a href="./product.php" class="btn">Xem thêm</a>
                </div>
                <div class="image">
@@ -116,7 +116,7 @@ include './convert_currency.php';
 
          <a href="category.php?category=msi" class="box">
             <img src="imgs/money-check-dollar-solid.svg" alt="">
-            <h3>Hóa Đơn Điện Tử</h3>
+            <h3>Quản lý BHYT</h3>
          </a>
 
          <!-- <a href="category.php?category=razer" class="box">
