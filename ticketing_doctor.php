@@ -38,8 +38,8 @@ include './convert_currency.php';
     <!-- header section ends -->
 
     <div class="heading">
-        <h3> Lập phiếu khám bệnh</h3>
-        <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
+        <h3>Đăng kí khám bệnh</h3>
+        <p><a href="home.php">Trang chủ</a> <span> / Dịch vụ</span></p>
     </div>
 
     <!-- menu section starts  -->
@@ -53,23 +53,25 @@ include './convert_currency.php';
                 <div class="box_register">
                     <div class="box-item">
                         <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                            Lập phiếu khám  </a1>
+                            Đăng kí khám bệnh</a1>
 
 
                     </div>
-                    <!-- <div class="box-item"  >
-                        <a href="Register_medical_new.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân mới</a>
-                    </div> -->
                     <div class="box-item">
-                        <a href="Ticketing_doctor.php">
-                            <i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân 
+                        <a href="Register_medical_new.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
+                            mới</a>
+                    </div>
+                    <div class="box-item">
+                        <a href="Register_medical_old.php">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân cũ
                         </a>
                     </div>
                 </div>
             </div>
             <div class="register">
-         <div class="form-title">Thông tin phiếu  khám bệnh  </div>
-        <form>
+                <div class="form-container">
+                    <div class="form-title">Đăng kí khám bệnh mới</div>
+                    <form>
             <div class="form-group">
                 <label for="name">Họ tên</label>
                 <input type="text" id="name" placeholder="Trần A">
@@ -99,9 +101,8 @@ include './convert_currency.php';
             </div>
             <div class="form-group">
                 <label for="appointment">Ngày khám</label>
-                <input type="datetime-local" id="bhyt">
-
-                <!-- <input type="datetime-local" id="appointment" name="appointment"> -->
+ 
+                <input type="datetime-local" id="appointment" name="appointment">
             </div>
             
             <div class="form-group">
@@ -110,7 +111,9 @@ include './convert_currency.php';
             </div>
             <button type="submit" class="submit-btn">Xác nhận</button>
         </form>
-             </div>
+      
+                </div>
+            </div>
 
     </section>
 

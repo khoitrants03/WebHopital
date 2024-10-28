@@ -18,7 +18,7 @@ if (isset($message)) {
 
       <nav class="navbar">
          <a href="#"><i class="fa-duotone fa-solid fa-phone-volume" ></i> KHẨN CẤP: 1900 10854</a>
-         <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i></i>GIỜ LÀM VIỆC: 27/7</a>
+         <i class="fa-regular fa-clock"></i>GIỜ LÀM VIỆC: 27/7</a>
          <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>
             </i>VỊ TRÍ: TP.HCM</a>
       </nav>

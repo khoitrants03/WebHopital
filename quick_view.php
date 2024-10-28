@@ -21,7 +21,7 @@ include './convert_currency.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Xem chi tiết sản phẩm</title>
+   <title>Xem chi thonong báo mới</title>
    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -55,19 +55,10 @@ include './convert_currency.php';
                <!-- Hình ảnh sản phẩm -->
                <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
                <!-- Danh mục sản phẩm -->
-               <a href="category.php?category=<?= $fetch_products['category']; ?>" class="cat"><?= $fetch_products['category']; ?></a>
                <!-- Tên sản phẩm -->
                <div class="name"><?= $fetch_products['name']; ?></div>
 
-               <div class="description"><?= $fetch_products['description']; ?></div>
-               <div class="warranty">Bảo hành: <?= $fetch_products['warranty']; ?>24 tháng</div>
-               <div class="manufacturer">Nhà sản xuất: <?= $fetch_products['manufacturer']; ?></div>
-
-               <div class="flex">
-                  <div class="price"><?php echo currency_format($fetch_products['price']); ?></div>
-                  <input type="number" name="qty" class="qty" min="1" max="99" value="1" maxlength="2">
-               </div>
-               <button type="submit" name="add_to_cart" class="cart-btn">Thêm vào giỏ hàng</button>
+             
             </form>
       <?php
          }
