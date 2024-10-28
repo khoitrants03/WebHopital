@@ -38,15 +38,15 @@ include './convert_currency.php';
    <!-- header section ends -->
 
    <div class="heading">
-      <h3>Dịch vụ hiện có</h3>
-      <p><a href="home.php">Trang chủ</a> <span> / Dịch vụ</span></p>
+      <h3>Bác sĩ hiện có</h3>
+      <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
    </div>
 
    <!-- menu section starts  -->
 
    <section class="products">
 
-      <h1 class="title">Dịch vụ mới </h1>
+      <h1 class="title">Danh sách bác sĩ </h1>
 
       <div class="box-container">
 
