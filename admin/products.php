@@ -85,17 +85,16 @@ include '../convert_currency.php';
 
    <section class="add-products">
 
-      <form action="" method="POST" enctype="multipart/form-data">
-         <h3>Thêm Sản phẩm</h3>
-         <input type="text" required placeholder="Nhập tên sản phẩm" name="name" maxlength="100" class="box">
+   <form action="" method="POST" enctype="multipart/form-data">
+         <h3>Thêm bác sĩ</h3>
+         <input type="text" required placeholder="Nhập tên bác sĩ" name="name" maxlength="100" class="box">
          <input type="number" min="0" max="9999999999" required placeholder="Nhập giá sản phẩm" name="price" onkeypress="if(this.value.length == 10) return false;" class="box">
          <select name="category" class="box" required>
-            <option value="" disabled selected>Chọn Thể Loại -- </option>
-            <option value="Asus">Asus</option>
-            <option value="Acer">Acer</option>
-            <option value="Msi">Msi</option>
-            <option value="Razer">Razer</option>
-            <option value="Razer">Apple</option>
+            <option value="" disabled selected>Chọn khoa -- </option>
+            <option value="Khoa nhi">Khoa nhi</option>
+            <option value="Khoa tai mũi họng">Khoa tai mũi họng</option>
+            <option value="Khoa tổng quát">Khoa tổng quát</option>
+            <option value="Khoa cấp cứu">Khoa cấp cứu</option>
          </select>
          <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png, image/webp" required>
          <input type="submit" value="Thêm sản phẩm" name="add_product" class="btn">
