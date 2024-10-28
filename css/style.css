@@ -100,7 +100,8 @@ textarea.box {
 }
 
 .working-hours .emergency p {
-   font-size: 24px;
+   font-size: 21px;
+   padding: 0.5rem
 }
 
 /* --------- */
@@ -361,7 +362,7 @@ section {
 
 .header .content_bg-white i {
    font-size: 2.5rem;
-   color: var(--swiper-theme-color);
+   color: var(--green);
    ;
    margin: 0 1rem;
 
