@@ -1,5 +1,5 @@
 <?php
-$db_name = 'mysql:host=localhost;dbname=laptop_db;charset=utf8mb4';
+$db_name = 'mysql:host=127.0.0.1:4306;dbname=laptop_db;charset=utf8mb4';
 $user_name = 'root';
 $user_password = '';
 
