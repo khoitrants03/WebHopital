@@ -108,9 +108,9 @@ include 'components/add_cart.php';
             <h3>Đạt lịch khám</h3>
          </a>
 
-         <a href="category.php?category=acer" class="box">
+         <a href="admin_nhathuoc.php" class="box">
             <img src="imgs/people-group-solid.svg" alt="">
-            <h3>Tìm Chuyên Gia</h3>
+            <h3>Quản lí thuốc</h3>
          </a>
 
          <a href="category.php?category=msi" class="box">

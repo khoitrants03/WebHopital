@@ -10,9 +10,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = '';
 }
 ;
-
-// include 'components/add_cart.php';
-// include './convert_currency.php';
+ 
 ?>
 
 <!DOCTYPE html>
