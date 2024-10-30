@@ -29,12 +29,21 @@ if (isset($message)) {
       <nav class="navbar">
          <a href="home.php">Trang chủ</a>
          <a href="about.php">Về chúng tôi</a>
-         <a href="product.php">Dịch vụ </a>
-         <a href="patient_access.php">Hồ sơ bệnh án</a>
-         <a href="save_record.php">Lưu trữ hồ sơ bệnh án</a>
-         <a href="bhyt.php">Bảo hiểm y tế</a>
-         
-      </nav>
+ 
+         <!-- Thêm menu thả xuống cho mục Bác sĩ -->
+         <div class="dropdown">
+            <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
+            <div class="dropdown-content">
+               <a href="product.php">Xem thông tin bác sĩ</a>
+               <a href="register_medical_new.php">Đăng ký khám bệnh</a>
+            </div>
+         </div>
+         <a href="patient_access.php">Bệnh nhân</a>
+         <a href="orders.php">Lịch đã đặt</a>
+         <a href="BHYT.php">Quản lý BHYT</a>
+         <a href="cart.php">Giỏ hàng </a>
+         <a href="contact.php">Liên hệ</a>
+       </nav>
 
       <div class="icons">
          <?php

@@ -185,7 +185,7 @@ include 'components/add_cart.php';
                      <input type="hidden" name="name" value="<?= $fetch_products['ten']; ?>">
                      <input type="hidden" name="price" value="<?= $fetch_products['chuyenkhoa']; ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
-                     <a href="quick_view.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
+                     <a  class="fas fa-eye"></a>
                      <div class="image"  >
                         <img id="img"src="uploaded_img/<?= $fetch_products['imge']; ?>" alt="">
                      </div>

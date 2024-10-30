@@ -11,8 +11,8 @@ if (isset($_SESSION['user_id'])) {
 }
 ;
 
-include 'components/add_cart.php';
-include './convert_currency.php';
+// include 'components/add_cart.php';
+// include './convert_currency.php';
 ?>
 
 <!DOCTYPE html>

@@ -664,7 +664,7 @@ section {
    position: relative;
    overflow: hidden;
    border-radius: 1rem;
-   height: 46rem;
+   height: 57rem;
 }
 
 .products .box-container .box img {
@@ -926,9 +926,9 @@ section {
 }
 
 .reviews .slide img {
-   height: 10rem;
-   width: 10rem;
-   border-radius: 50%;
+   height: 20rem;
+   width: 21rem;
+   border-radius: 3%;
 }
 
 .reviews .slide p {
