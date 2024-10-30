@@ -30,7 +30,8 @@ if (isset($message)) {
          <a href="home.php">Trang chủ</a>
          <a href="about.php">Về chúng tôi</a>
          <a href="product.php">Dịch vụ </a>
-         <a href="patient_access.php">Bệnh nhân</a>
+         <a href="patient_access.php">Hồ sơ bệnh án</a>
+         <a href="save_record.php">Lưu trữ hồ sơ bệnh án</a>
          <a href="orders.php">Bác sĩ</a>
          <a href="contact.php">Mới</a>
          <a href="contact.php">Liên hệ</a>

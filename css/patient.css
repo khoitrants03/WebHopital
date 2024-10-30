@@ -1,98 +1,136 @@
-/* Đặt nền và kiểu cho toàn bộ trang */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+* {
     margin: 0;
-}
-
-/* Khung chứa form */
-.container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-}
-
-/* Tiêu đề trang */
-h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-/* Phong cách cho các ô input */
-input[type="text"],
-input[type="date"],
-textarea {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 0;
     box-sizing: border-box;
-    font-size: 16px;
+    font-family: Arial, sans-serif;
 }
 
-/* Phong cách cho nút gửi */
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profile-picture img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+.profile-info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.profile-info h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    color: #555;
+    margin: 5px 0;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.actions button {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    width: 100%;
+    margin: 5px 0;
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
+.actions button:hover {
+    background-color: #555;
 }
 
-/* Thông báo lỗi */
-.error-message {
-    color: #ff4d4d;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Thông báo thành công */
-.success-message {
-    color: #4CAF50;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-/* Thiết lập nền cho toàn trang */
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('../imgs/background_patient.jpg'); /* Đường dẫn đến hình nền */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+.filter-section {
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    margin-bottom: 20px;
 }
 
-/* Khung chứa form */
-.container {
-    background-color: rgba(255, 255, 255, 0.85); /* Màu nền trắng với độ trong suốt */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
+.filter-section label {
+    margin-right: 10px;
+    color: #555;
+}
+
+.filter-section input[type="date"] {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-section button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-section button:hover {
+    background-color: #0056b3;
+}
+
+.results-section {
+    margin-top: 20px;
+}
+
+.results-section h3 {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.result-item {
+    background-color: #e6f7ff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.result-item h4 {
+    color: #333;
+}
+
+.diagnosis p {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #d4edda;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #155724;
+}
+
+.edit-icon {
+    cursor: pointer;
+    color: #007bff;
 }
