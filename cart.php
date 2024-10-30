@@ -1,3 +1,4 @@
+<!-- Thao My -->
 <?php
 
 include 'components/connect.php';
@@ -36,7 +37,7 @@ if (isset($_POST['update_qty'])) {
 
 $grand_total = 0;
 
-include './convert_currency.php';
+
 
 ?>
 
@@ -114,8 +115,8 @@ include './convert_currency.php';
       </div>
 
       <div class="cart-total">
-         <p>Tổng tiền : <span><?php echo currency_format($grand_total); ?></span></p>
-
+         <p>Tổng tiền : <span></span></p>
+      
          <a href="checkout.php" class="btn <?= ($grand_total > 1) ? '' : 'disabled'; ?>">Tiến hành thanh toán</a>
       </div>
 

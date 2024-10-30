@@ -1,3 +1,4 @@
+<!-- Thao My -->
 <?php
 include 'components/connect.php';
 session_start();
@@ -8,23 +9,6 @@ if (isset($_SESSION['user_id'])) {
    $user_id = '';
    header('location:home.php');
 }
-
-// Xử lý khi form được submit
-if (isset($_POST['submit'])) {
-   // Lấy dữ liệu từ form
-   $patient_id = $_POST['patient_id'];
-   $name = $_POST['name'];
-   $department = $_POST['department'];
-   $consultation_fee = $_POST['consultation_fee'];
-   $medicine_fee = $_POST['medicine_fee'];
-   $test_fee = $_POST['test_fee'];
-   $insurance_id = $_POST['insurance_id'];
-   $total_amount = $_POST['total_amount'];
-   $payment_method = $_POST['payment_method'];
-
-   // Tiếp tục xử lý dữ liệu và lưu vào cơ sở dữ liệu nếu cần
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -36,23 +20,24 @@ if (isset($_POST['submit'])) {
    <title>Thanh Toán</title>
    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <link rel="stylesheet" href="css/style.css"> 
-   <!-- Đường dẫn tới CSS -->
+   <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="css/checkout.css">
 </head>
 <body>
 <!-- header section starts  -->
 <?php include 'components/user_header.php'; ?>
-   <!-- header section ends -->
+<!-- header section ends -->
+
 <div class="heading">
    <h3>Thông tin Thanh Toán</h3>
    <p><a href="home.php">Trang chủ</a> <span> / Thanh Toán</span></p>
 </div>
+
 <section class="checkout">
    <h1 class="title">Thanh Toán</h1>
 
-   <form action="" method="post" class="payment-form">
+   <!-- Form chính -->
+   <form action="hoadon.php" method="post" class="payment-form">
       <div class="form-group">
          <label for="patient_id">Mã bệnh nhân</label>
          <input type="text" id="patient_id" name="patient_id" placeholder="Nhập mã bệnh nhân">
@@ -66,27 +51,25 @@ if (isset($_POST['submit'])) {
       <div class="form-group">
          <label for="department">Khoa khám</label>
          <select id="department" name="department">
-           
             <option value="Nội">Nội</option>
             <option value="Ngoại">Ngoại</option>
-            
             <!-- Thêm các lựa chọn khoa khám khác nếu cần -->
          </select>
       </div>
 
       <div class="form-group">
          <label for="consultation_fee">Tiền khám bệnh</label>
-         <input type="number" id="consultation_fee" name="consultation_fee" placeholder="Nhập tiền khám bệnh">
+         <input type="number" id="consultation_fee" name="consultation_fee">
       </div>
 
       <div class="form-group">
          <label for="medicine_fee">Tiền thuốc</label>
-         <input type="number" id="medicine_fee" name="medicine_fee" placeholder="Nhập tiền thuốc">
+         <input type="number" id="medicine_fee" name="medicine_fee">
       </div>
 
       <div class="form-group">
          <label for="test_fee">Tiền xét nghiệm</label>
-         <input type="number" id="test_fee" name="test_fee" placeholder="Nhập tiền xét nghiệm">
+         <input type="number" id="test_fee" name="test_fee">
       </div>
 
       <div class="form-group">
@@ -96,7 +79,7 @@ if (isset($_POST['submit'])) {
 
       <div class="form-group">
          <label for="total_amount">Tổng tiền</label>
-         <input type="number" id="total_amount" name="total_amount" placeholder="Nhập tổng tiền">
+         <input type="number" id="total_amount" name="total_amount">
       </div>
 
       <div class="form-group">
@@ -113,12 +96,12 @@ if (isset($_POST['submit'])) {
       <button type="submit" name="submit" class="confirm-btn">Xác nhận</button>
    </form>
 </section>
- <!-- footer section starts  -->
- <?php include 'components/footer.php'; ?>
-   <!-- footer section ends -->
 
+<!-- footer section starts  -->
+<?php include 'components/footer.php'; ?>
+<!-- footer section ends -->
 
-   <!-- custom js file link  -->
-   <script src="js/script.js"></script>
+<!-- custom js file link  -->
+<script src="js/script.js"></script>
 </body>
 </html>
