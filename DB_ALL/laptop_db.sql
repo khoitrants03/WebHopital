@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 28, 2024 lúc 01:43 PM
+-- Thời gian đã tạo: Th10 30, 2024 lúc 03:34 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -92,6 +92,13 @@ CREATE TABLE `messages` (
   `message` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `messages`
+--
+
+INSERT INTO `messages` (`id`, `user_id`, `name`, `email`, `number`, `message`) VALUES
+(2, 0, 'Phan Thiên Khải', 'phanthienkhai111@gmail.com', '0384104942', 'Yêu em');
+
 -- --------------------------------------------------------
 
 --
@@ -152,7 +159,7 @@ CREATE TABLE `products` (
   `id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `category` varchar(100) NOT NULL,
-  `price` int(10) NOT NULL,
+  `text` varchar(1000) NOT NULL,
   `image` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
   `khoa` varchar(100) NOT NULL
@@ -162,9 +169,10 @@ CREATE TABLE `products` (
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `category`, `price`, `image`, `description`, `khoa`) VALUES
-(13, 'Phan Thiên Khải', 'Khoa tổng quát', 1000000, 'z5911102346051_87451588c6e2a70ab5e46a793af9e30c.jpg', NULL, ''),
-(14, 'THẠC SĨ, BS LÊ THỊ THU HÀ', 'Khoa nhi', 1000000, 'BS-HA-KHOA-DD.png', NULL, '');
+INSERT INTO `products` (`id`, `name`, `category`, `text`, `image`, `description`, `khoa`) VALUES
+(14, 'THẠC SĨ, BS LÊ THỊ THU HÀ', 'Khoa nhi', 'Bác sĩ uy tín nhất bệnh viện', 'BS-HA-KHOA-DD.png', NULL, ''),
+(15, 'BSCKII. TRẦN ĐĂNG KHOA', 'Khoa tổng quát', 'Bác sĩ uy tín nhất bệnh viện', 'bs-Khoa-4x6-1-433x650.jpg', NULL, ''),
+(16, 'BSCKII ĐỖ HỮU LƯƠNG', 'Khoa tai mũi họng', 'Bác sĩ uy tín nhất bệnh viện haha', 'CNK_YHTT.jpg', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -288,7 +296,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT cho bảng `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `new`
@@ -306,7 +314,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
