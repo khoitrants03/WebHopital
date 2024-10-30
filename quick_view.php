@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 };
 
 include 'components/add_cart.php';
-include './convert_currency.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ include './convert_currency.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Xem chi thonong báo mới</title>
+   <title>Xem chi tiết</title>
    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -49,15 +49,23 @@ include './convert_currency.php';
             <form action="" method="post" class="box">
                <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
                <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
-               <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
-               <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                  <input type="hidden" name="text" value="<?= $fetch_products['text']; ?>">
+                  <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
 
                <!-- Hình ảnh sản phẩm -->
                <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
                <!-- Danh mục sản phẩm -->
                <!-- Tên sản phẩm -->
                <div class="name"><?= $fetch_products['name']; ?></div>
+               <div class="description"><?= $fetch_products['description']; ?></div>
+               <div class="price"><?= $fetch_products['text']; ?></div>
 
+
+               <div class="flex">
+                  <input type="number" name="qty" class="qty" min="1" max="99" value="1" maxlength="2">
+               </div>
+               <button type="submit" name="add_to_cart" class="cart-btn">Chọn khám</button>
+               
              
             </form>
       <?php
@@ -68,21 +76,6 @@ include './convert_currency.php';
       ?>
 
    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
    <?php include 'components/footer.php'; ?>
 

@@ -14,8 +14,8 @@ if (isset($_POST['add_product'])) {
 
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $price = $_POST['price'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
+   $text = $_POST['text'];
+   $text = filter_var($text, FILTER_SANITIZE_STRING);
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
 
@@ -36,8 +36,8 @@ if (isset($_POST['add_product'])) {
       } else {
          move_uploaded_file($image_tmp_name, $image_folder);
 
-         $insert_product = $conn->prepare("INSERT INTO `products`(name, category, price, image) VALUES(?,?,?,?)");
-         $insert_product->execute([$name, $category, $price, $image]);
+         $insert_product = $conn->prepare("INSERT INTO `products`(name, category, text, image) VALUES(?,?,?,?)");
+         $insert_product->execute([$name, $category, $text, $image]);
 
          $message[] = 'Thêm sản phẩm thành công!';
       }
@@ -57,7 +57,7 @@ if (isset($_GET['delete'])) {
    $delete_cart->execute([$delete_id]);
    header('location:products.php');
 }
-include '../convert_currency.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +88,7 @@ include '../convert_currency.php';
    <form action="" method="POST" enctype="multipart/form-data">
          <h3>Thêm bác sĩ</h3>
          <input type="text" required placeholder="Nhập tên bác sĩ" name="name" maxlength="100" class="box">
-         <input type="number" min="0" max="9999999999" required placeholder="Nhập giá sản phẩm" name="price" onkeypress="if(this.value.length == 10) return false;" class="box">
+         <input type="text" required placeholder="Nhập thông tin" name="text"  maxlength="100" class="box">
          <select name="category" class="box" required>
             <option value="" disabled selected>Chọn khoa -- </option>
             <option value="Khoa nhi">Khoa nhi</option>
@@ -119,11 +119,12 @@ include '../convert_currency.php';
                <div class="box">
                   <img src="../uploaded_img/<?= $fetch_products['image']; ?>" alt="">
                   <div class="flex">
-                     <div class="price"> <?php echo currency_format($fetch_products['price']); ?></div>
 
                      <div class="category"><?= $fetch_products['category']; ?></div>
                   </div>
                   <div class="name"><?= $fetch_products['name']; ?></div>
+                  <div class="price"><?= $fetch_products['text']; ?></div>
+
                   <div class="flex-btn">
                      <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">Sửa</a>
                      <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('Xóa sản phẩm này?');">Xóa</a>

@@ -65,7 +65,6 @@ include './convert_currency.php';
                      <p>Địa chỉ : <span><?= $fetch_orders['address']; ?></span></p>
                      <p>Hình thức thanh toán : <span><?= $fetch_orders['method']; ?></span></p>
                      <p>Đơn hàng của bạn : <span><?= $fetch_orders['total_products']; ?></span></p>
-                     <p>Tổng giá : <span><?php echo currency_format($fetch_orders['total_price']); ?></span></p>
                      <p> Trạng thái thanh toán : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
                                                                         echo 'red';
                                                                      } else {
