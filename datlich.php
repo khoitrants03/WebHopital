@@ -28,7 +28,6 @@ if (isset($_SESSION['user_id'])) {
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
-   Thao My
 </head>
 
 <body>

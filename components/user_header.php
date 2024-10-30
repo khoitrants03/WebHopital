@@ -34,8 +34,6 @@ if (isset($message)) {
          <a href="save_record.php">Lưu trữ hồ sơ bệnh án</a>
          <a href="bhyt.php">Bảo hiểm y tế</a>
          
-         <a href="contact.php">Liên hệ</a>
-         
       </nav>
 
       <div class="icons">

@@ -16,6 +16,125 @@
    --original: #F0EEFE;
 }
 
+/* css Khải - datlich.php */
+.appointment-section {
+   display: flex;
+   justify-content: space-between;
+   padding: 70px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-container {
+   width: 68%;
+
+}
+
+.appointment-form {
+   width: 66%;
+   /* display: flex; */
+   flex-wrap: wrap;
+   gap: 15px;
+   margin-left: 20%;
+
+}
+
+.appointment-form .row {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.appointment-form .box {
+   width: 49%;
+   padding: 12px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+}
+
+textarea.box {
+   width: 100%;
+   resize: none;
+}
+
+.btn {
+   width: 100%;
+   padding: 12px;
+   background-color: #0066cc;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.working-hours {
+   width: 42%;
+   background-color: #003366;
+   color: white;
+   padding: 20px;
+   border-radius: 10px;
+}
+
+.working-hours h2 {
+   margin-bottom: 20px;
+   font-size: 24px;
+}
+
+.working-hours ul {
+   list-style: none;
+   padding: 0;
+}
+
+.working-hours ul li {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px;
+   font-size: 20px;
+}
+
+.working-hours .emergency {
+   margin-top: 20px;
+   font-size: 20px;
+}
+
+.working-hours .emergency p {
+   font-size: 21px;
+   padding: 0.5rem
+}
+
+/* --------- */
+/* CSS cho menu thả xuống */
+.dropdown {
+   position: relative;
+   display: inline-block;
+}
+
+.dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #f9f9f9;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+   z-index: 1;
+}
+
+.dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.dropdown-content a:hover {
+   background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+   display: block;
+}
+/* ---------------- */
 .description .warranty .manufacturer {
    margin: 15px 0;
    font-size: 50px;
@@ -243,7 +362,7 @@ section {
 
 .header .content_bg-white i {
    font-size: 2.5rem;
-   color: var(--swiper-theme-color);
+   color: var(--green);
    ;
    margin: 0 1rem;
 
@@ -419,45 +538,126 @@ section {
    gap: 1.5rem;
 }
 
-.products .box-container .service{
+.products .box-container .service {
    width: 40%;
-    float: left;
- }
- .products .box-container .service .box_register {
+   float: left;
+}
+
+.products .box-container .service .box_register {
    display: flex;
    flex-direction: column;
    border: var(--border);
    position: relative;
    overflow: hidden;
    border-radius: 1rem;
-   width: 257%;
+   width: 265%;
    height: 29rem;
    float: right;
 }
+
 .box-item {
    padding: 3rem;
 }
 
- 
-.products .box-container .service .box_register .box-item{
+
+.products .box-container .service .box_register .box-item {
    padding: 3rem;
 }
-.products .box-container .service .box_register .box-item a1{
+
+.products .box-container .service .box_register .box-item a1 {
    font-size: 2.7rem;
    color: var(--black);
- }
-.products .box-container .service .box_register .box-item a{
+}
+
+.products .box-container .service .box_register .box-item a {
    font-size: 2.5rem;
    color: var(--black);
- }
-.products .box-container .service .box_register .box-item i{
+}
+
+.products .box-container .service .box_register .box-item i {
    font-size: 2.5rem;
    color: var(--green);
 }
-.products .box-container .register{
-   width: 60%;
-   float: left;
+
+/* trang đăng kí khám bệnh */
+
+.products .box-container .register {
+    float: left;
+   font-family: Arial, sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    margin: 0;
+   background-color: #f5f5f5;
 }
+
+.products .box-container .register .form-container {
+   padding: 20px;
+   border: 1px solid #e0e0e0;
+   border-radius: 8px;
+   background-color: #fff;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.products .box-container .register .form-container .form-title{
+   font-size: 3rem;
+   color: #4a4a4a;
+   margin-bottom: 20px;
+   font-weight: bold;
+   text-align: center;
+}
+.form-group {
+   display: flex;
+   align-items: center;
+   margin-bottom: 15px;
+}
+
+.form-group label {
+   font-size: 2rem;
+   color: #4a4a4a;
+   width: 13rem;
+   margin-right: 2rem;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group input[type="date"] {
+   padding: 8px;
+   font-size: 1.7rem;
+   border: var(--border-service);
+   border-radius: 4px;
+   flex: 1;
+}
+
+.form-group .gender-options {
+   display: flex;
+   gap: 10px;
+   flex: 1;
+}
+
+.form-group .gender-options label {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+}
+
+.submit-btn {
+   background-color: var(--blue);
+   border: none;
+   padding: 10px;
+   font-size: 19px;
+   color: var(--original);
+   cursor: pointer;
+   border-radius: 4px;
+   width: 100%;
+   margin-top: 10px;
+}
+
+.submit-btn:hover {
+   background-color: #c0c0c0;
+}
+
+
+
 .products .box-container .box {
    border: var(--border-service);
    padding: 1.5rem;
@@ -468,10 +668,10 @@ section {
 }
 
 .products .box-container .box img {
-   height: 23rem;
+   height: 33rem;
    width: 80%;
    object-fit: contain;
-   /* margin-bottom: 1rem; */
+   margin-bottom: 1rem;
    margin-left: 10%;
 }
 
@@ -526,6 +726,7 @@ section {
 .products .box-container .box .image {
    height: 60%;
 }
+
 .products .box-container .box #img {
    height: 25rem;
    width: 91%;
@@ -533,6 +734,7 @@ section {
    /* margin-bottom: 1rem; */
    margin-left: 4%;
 }
+
 .products .box-container .box .name-flex {
    height: 30%;
    background: var(--green);

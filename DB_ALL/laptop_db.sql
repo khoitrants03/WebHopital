@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 27, 2024 lúc 08:09 AM
+-- Thời gian đã tạo: Th10 28, 2024 lúc 01:43 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -76,13 +76,6 @@ CREATE TABLE `cart` (
   `quantity` int(10) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `pid`, `name`, `price`, `quantity`, `image`) VALUES
-(8, 3, 1, 'Asus ExpertBook B5402CB i5', 22000000, 1, 'latop.png');
 
 -- --------------------------------------------------------
 
@@ -162,21 +155,16 @@ CREATE TABLE `products` (
   `price` int(10) NOT NULL,
   `image` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
-  `warranty` int(11) DEFAULT NULL,
-  `manufacturer` varchar(255) DEFAULT NULL
+  `khoa` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `category`, `price`, `image`, `description`, `warranty`, `manufacturer`) VALUES
-(1, 'THẠC SĨ, BS LÊ THỊ THU HÀ', 'Asus', 22000000, 'BS-HA-KHOA-DD.png', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay!', 24, 'Asus'),
-(2, 'BSCKII. TRẦN ĐĂNG KHOA', 'Razer', 52130000, 'bs-Khoa-4x6-1-433x650.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Razer'),
-(3, 'BSCKII. Thân Hồng Anh', 'Acer', 20500000, 'BS-Than-Hong-Anh-433x650.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Acer'),
-(4, 'BS TRƯƠNG MINH THƯƠNG', 'Msi', 21490000, 'CNK_c8.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Msi'),
-(5, 'BSCKII ĐỖ HỮU LƯƠNG', 'Asus', 12999000, 'CNK_YHTT.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Asus'),
-(6, 'BS NG.THỊ HUYỀN TRANG', 'Msi', 20390000, 'NguyenThiHuyenTrang.jpg', 'Sản phẩm với cấu hình mạnh mẽ, với con chip cân tất cả mọi tựa game hiện nay! Mua ngay với mức giá đầy ưu đãi!\r\n', 24, 'Msi');
+INSERT INTO `products` (`id`, `name`, `category`, `price`, `image`, `description`, `khoa`) VALUES
+(13, 'Phan Thiên Khải', 'Khoa tổng quát', 1000000, 'z5911102346051_87451588c6e2a70ab5e46a793af9e30c.jpg', NULL, ''),
+(14, 'THẠC SĨ, BS LÊ THỊ THU HÀ', 'Khoa nhi', 1000000, 'BS-HA-KHOA-DD.png', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -318,7 +306,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
