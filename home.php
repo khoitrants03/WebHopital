@@ -147,8 +147,7 @@ include './convert_currency.php';
                   <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
                   <input type="hidden" name="new" value="<?= $fetch_products['name1']; ?>">
                   <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
-                  <!-- <a href="quick_view.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a> -->
-                  <a class="fas fa-eye"></a>
+                   <a class="fas fa-eye"></a>
 
                   <img src="uploaded_img/<?= $fetch_products['imge']; ?>" alt="">
                   <div class="name">

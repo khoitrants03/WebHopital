@@ -38,8 +38,7 @@ if (isset($message)) {
          <a href="patient_access.php">Bệnh nhân</a>
          <a href="orders.php">Lịch đã đặt</a>
          <a href="BHYT.php">Quản lý BHYT</a>
-         <a href="cart.php">Giỏ hàng </a>
-         <a href="contact.php">Liên hệ</a>
+          <a href="contact.php">Liên hệ</a>
       </nav>
 
       <div class="icons">
