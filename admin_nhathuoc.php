@@ -82,7 +82,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
          </div>
          <div class="register1">
-            <h1>Danh sách thuốc</h1>
+         <h1>Danh sách thuốc</h1>
             <div class="card-container">
                <div class="card">
                   <imgsrc="imgs/OIP.jpg"  alt="Thuốc Kháng Sinh">
@@ -112,67 +112,69 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
          </div>
-<style>
-   .register1 {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f5f5f5;
-    margin: 0;
-}
 
-h1 {
-    font-size: 2em;
-    color: #333;
-    margin: 20px 0;
-}
+      </div>
+      
+      <style>
+         .register1 {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            margin: 0;
+         }
 
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    max-width: 1000px;
-    width: 100%;
-    padding: 20px;
-}
+         h1 {
+            font-size: 2em;
+            color: #333;
+            margin: 20px 0;
+         }
 
-.card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
-    padding: 15px;
-}
+         .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px;
+         }
 
-.card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
+         .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+         }
 
-.card h2 {
-    font-size: 1.1em;
-    color: #333;
-    margin: 15px 0 10px;
-}
+         .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+         }
 
-.card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
+         .card h2 {
+            font-size: 1.1em;
+            color: #333;
+            margin: 15px 0 10px;
+         }
 
-.card a:hover {
-    color: #0056b3;
-}
+         .card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+         }
 
-</style>
+         .card a:hover {
+            color: #0056b3;
+         }
+      </style>
    </section>
 
 

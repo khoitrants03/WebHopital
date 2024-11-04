@@ -38,9 +38,7 @@ include 'components/add_cart.php';
 
    <?php include 'components/user_header.php'; ?>
 
-
    <section class="hero">
-
       <div class="swiper hero-slider">
 
          <div class="swiper-wrapper">

@@ -117,7 +117,7 @@ textarea.box {
    background-color: #f9f9f9;
    min-width: 160px;
    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-   z-index: 1;
+   z-index: 3;
 }
 
 .dropdown-content a {
@@ -134,6 +134,7 @@ textarea.box {
 .dropdown:hover .dropdown-content {
    display: block;
 }
+
 /* ---------------- */
 .description .warranty .manufacturer {
    margin: 15px 0;
@@ -417,6 +418,7 @@ section {
    width: 30rem;
    display: none;
    animation: fadeIn .2s linear;
+   z-index: 3;
 }
 
 .header .flex .profile.active {
@@ -582,12 +584,12 @@ section {
 /* trang đăng kí khám bệnh */
 
 .products .box-container .register {
-    float: left;
+   float: left;
    font-family: Arial, sans-serif;
    display: flex;
    justify-content: center;
    align-items: center;
-    margin: 0;
+   margin: 0;
    background-color: #f5f5f5;
 }
 
@@ -598,13 +600,15 @@ section {
    background-color: #fff;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.products .box-container .register .form-container .form-title{
+
+.products .box-container .register .form-container .form-title {
    font-size: 3rem;
    color: #4a4a4a;
    margin-bottom: 20px;
    font-weight: bold;
    text-align: center;
 }
+
 .form-group {
    display: flex;
    align-items: center;

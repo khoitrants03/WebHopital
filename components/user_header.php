@@ -17,7 +17,7 @@ if (isset($message)) {
       <a href="home.php" class="logo"><i id="logo" class="fa-sharp-duotone fa-solid fa-hospital"></i>Bèo Hospital</a>
 
       <nav class="navbar">
-         <a href="#"><i class="fa-duotone fa-solid fa-phone-volume" ></i> KHẨN CẤP: 1900 10854</a>
+         <a href="#"><i class="fa-duotone fa-solid fa-phone-volume"></i> KHẨN CẤP: 1900 10854</a>
          <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i></i>GIỜ LÀM VIỆC: 27/7</a>
          <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>
             </i>VỊ TRÍ: TP.HCM</a>
@@ -25,25 +25,31 @@ if (isset($message)) {
    </section>
    <section class="flex">
 
- 
+
       <nav class="navbar">
          <a href="home.php">Trang chủ</a>
          <a href="about.php">Về chúng tôi</a>
- 
+
          <!-- Thêm menu thả xuống cho mục Bác sĩ -->
          <div class="dropdown">
             <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
             <div class="dropdown-content">
                <a href="product.php">Xem thông tin bác sĩ</a>
-               <a href="register_medical_new.php">Đăng ký khám bệnh</a>
+               <a href="search_patient.php">Lập phiếu khám bệnh</a>
             </div>
          </div>
-         <a href="patient_access.php">Bệnh nhân</a>
+         <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Bệnh nhân</a>
+            <div class="dropdown-content">
+               <a href="patient_access.php">Thông tin bệnh nhân</a>
+               <a href="register_medical_old.php">Đăng kí khám bệnh</a>
+            </div>
+</div>
          <a href="orders.php">Lịch đã đặt</a>
          <a href="BHYT.php">Quản lý BHYT</a>
          <a href="cart.php">Giỏ hàng </a>
          <a href="contact.php">Liên hệ</a>
-       </nav>
+      </nav>
 
       <div class="icons">
          <?php
@@ -52,11 +58,13 @@ if (isset($message)) {
          $total_cart_items = $count_cart_items->rowCount();
          ?>
          <a href="search.php"><i class="fas fa-search"></i></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_items; ?>)</span></a>
+         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(
+               <?= $total_cart_items; ?>)
+            </span></a>
          <div id="user-btn" class="fas fa-user"></div>
          <div id="menu-btn" class="fas fa-bars"></div>
       </div>
-
+ 
       <div class="profile">
          <?php
          $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");

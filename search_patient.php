@@ -52,61 +52,27 @@ include 'components/add_cart.php';
                 <div class="box_register">
                     <div class="box-item">
                         <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                            Lập phiếu khám</a1>
+                        Lập phiếu khám</a1>
                     </div>
                     <div class="box-item">
                         <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
-                             </a>
+                        </a>
                     </div>
-                  
                 </div>
             </div>
             <div class="register">
                 <div class="form-container">
-                    <div class="form-title">Đăng kí khám bệnh mới</div>
+                    <div class="form-title">Tra cứu thông tin bệnh nhân</div>
                     <form>
             <div class="form-group">
                 <label for="name">Họ tên</label>
                 <input type="text" id="name" placeholder="Trần A">
             </div>
             <div class="form-group">
-                <label for="dob">Ngày sinh</label>
-                <input type="date" id="dob">
-            </div>
-            <div class="form-group">
-                <label>Giới tính</label>
-                <div class="gender-options">
-                    <label><input type="radio" name="gender" value="male"> Nam</label>
-                    <label><input type="radio" name="gender" value="female"> Nữ</label>
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="bhyt">Mã định danh</label>
                 <input type="text" id="bhyt">
             </div>
-            <div class="form-group">
-                <label for="department">Khoa khám bệnh</label>
-                <select id="department">
-                    <option value="tmh">Tai - Mũi - Họng</option>
-                    <option value="nhi">Nhi</option>
-                    <option value="noikhoa">Nội khoa</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="appointment">Ngày khám</label>
- 
-                <input type="datetime-local" id="appointment" name="appointment">
-            </div>
-            
-            <div class="form-group">
-                <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
-                <input type="text" id="chuandoanbenh">
-            </div>
-            <div class="form-group">
-                <label for="donthuoc">Đơn thuốc</label>
-                <input type="file" id="donthuoc">
-            </div>
-            <button type="submit" class="submit-btn">Xác nhận</button>
+           <button type="submit" class="submit-btn"  > <a href="ticketing_doctor.php">Xác nhận</a></button>
         </form>
       
                 </div>
