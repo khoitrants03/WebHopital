@@ -39,6 +39,7 @@ include 'components/add_cart.php';
    <?php include 'components/user_header.php'; ?>
 
    <section class="hero">
+
       <div class="swiper hero-slider">
 
          <div class="swiper-wrapper">
@@ -164,7 +165,7 @@ include 'components/add_cart.php';
       </div>
 
       <div class="more-btn">
-         <a href="./product.php" class="btn">Xem tất cả</a>
+         <a href="#" class="btn">Xem tất cả</a>
       </div>
 
       <section class="content">
@@ -179,9 +180,9 @@ include 'components/add_cart.php';
                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
                   ?>
                   <form action="" method="post" class="box">
-                     <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
-                     <input type="hidden" name="name" value="<?= $fetch_products['ten']; ?>">
-                     <input type="hidden" name="price" value="<?= $fetch_products['chuyenkhoa']; ?>">
+                     <input type="hidden" name="pid" value="<?= $fetch_products['MaBS']; ?>">
+                     <input type="hidden" name="name" value="<?= $fetch_products['Ten']; ?>">
+                     <input type="hidden" name="price" value="<?= $fetch_products['ChuyenKhoa']; ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
                      <a  class="fas fa-eye"></a>
                      <div class="image"  >
@@ -189,11 +190,11 @@ include 'components/add_cart.php';
                      </div>
                      <div class="name-flex"  >
                         <div class="name">
-                           <?= $fetch_products['ten']; ?>
+                           <?= $fetch_products['Ten']; ?>
                         </div>
                         <div class="flex">
                            <div class="price">
-                              <?= $fetch_products['chuyenkhoa']; ?>
+                              <?= $fetch_products['ChuyenKhoa']; ?>
                            </div>
                         </div>
 

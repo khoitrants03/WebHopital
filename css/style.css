@@ -584,8 +584,7 @@ section {
 /* trang đăng kí khám bệnh */
 
 .products .box-container .register {
-   float: left;
-   font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -608,6 +607,14 @@ section {
    font-weight: bold;
    text-align: center;
 }
+/* quản lí thuốc */
+.button-container {
+   display: flex;
+   gap: 10px;  
+   justify-content: center;  
+   margin-top: 20px;
+}
+
 
 .form-group {
    display: flex;
@@ -631,7 +638,7 @@ section {
    border-radius: 4px;
    flex: 1;
 }
-
+ 
 .form-group .gender-options {
    display: flex;
    gap: 10px;
@@ -668,7 +675,7 @@ section {
    position: relative;
    overflow: hidden;
    border-radius: 1rem;
-   height: 57rem;
+   height: auto;
 }
 
 .products .box-container .box img {
@@ -1272,18 +1279,6 @@ section {
    color: var(--white);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .footer .grid {
    /* display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
@@ -1362,8 +1357,38 @@ section {
    height: 25rem;
 }
 
-
-
+/* admin-thuốc */
+ table {
+   width: 80%;
+   border-collapse: collapse;
+   margin-top: 20px;
+   margin-left: 7rem;
+}
+th, td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: center;
+}
+th {
+   background-color: #f2f2f2;
+}
+.btn {
+   background-color: #007bff;
+   color: white;
+   border: none;
+   padding: 6px 12px;
+   cursor: pointer;
+   border-radius: 4px;
+}
+.actions a {
+   margin: 0 5px;
+   color: #007bff;
+   text-decoration: none;
+   cursor: pointer;
+}
+.actions a:hover {
+   text-decoration: underline;
+} 
 /* media queries  */
 
 @media (max-width:991px) {

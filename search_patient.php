@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
 ;
 
 include 'components/add_cart.php';
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,42 +44,80 @@ include 'components/add_cart.php';
     <!-- menu section starts  -->
 
     <section class="products">
-
-
         <div class="box-container">
-
             <div class="service">
                 <div class="box_register">
                     <div class="box-item">
-                        <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                        Lập phiếu khám</a1>
+                        <a href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>Lập phiếu khám</a>
                     </div>
                     <div class="box-item">
-                        <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
-                        </a>
+                        <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân</a>
                     </div>
                 </div>
             </div>
+
             <div class="register">
                 <div class="form-container">
                     <div class="form-title">Tra cứu thông tin bệnh nhân</div>
-                    <form>
-            <div class="form-group">
-                <label for="name">Họ tên</label>
-                <input type="text" id="name" placeholder="Trần A">
-            </div>
-            <div class="form-group">
-                <label for="bhyt">Mã định danh</label>
-                <input type="text" id="bhyt">
-            </div>
-           <button type="submit" class="submit-btn"  > <a href="ticketing_doctor.php">Xác nhận</a></button>
-        </form>
-      
+                    <form method="POST">
+
+                        <div class="form-group">
+                            <label for="mabn">Mã định danh</label>
+                            <input type="text" name="mabn">
+                        </div>
+                        <button type="submit" class="submit-btn" name="search_btn"> Xác nhận</button>
+                    </form>
                 </div>
             </div>
-
+        </div>
     </section>
 
+    <!-- tìm kiếm thông tin bệnh nhân -->
+    <section class="products" style="min-height: 100vh; padding-top:0;">
+        <div class="box-container">
+            <?php
+            if (isset($_POST['search_btn'])) {
+                // Get user input safely
+                $mabn = $_POST['mabn'];
+
+                // Secure query with parameterized SQL
+                $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN LIKE ?");
+                $search_value = "%$mabn%";
+                $select_patient->bindParam(1, $search_value, PDO::PARAM_STR);
+                $select_patient->execute();
+
+                if ($select_patient->rowCount() > 0) {
+
+                    while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <form action="" method="post" class="box">
+                            <input type="hidden" name="pid" value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>">
+                            <input type="hidden" name="name" value="<?= htmlspecialchars($fetch_patient['Ten']); ?>">
+                            <input type="hidden" name="phone" value="<?= htmlspecialchars($fetch_patient['SoDienThoai']); ?>">
+                            <a href="ticketing_doctor.php?pid=<?= $fetch_patient['MaBN']; ?>" class="fas fa-eye"></a>
+                            <div class="name">
+                                <?= htmlspecialchars($fetch_patient['Ten']); ?>
+                            </div>
+                            <div class="flex">
+                                <div class="pid">
+                                    <?= htmlspecialchars($fetch_patient['MaBN']); ?>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="phone">
+                                    <?= htmlspecialchars($fetch_patient['SoDienThoai']); ?>
+                                </div>
+                            </div>
+                        </form>
+                        <?php
+                    }
+                } else {
+                    echo '<p class="empty">Bệnh nhân không có sẵn!</p>';
+                }
+            }
+            ?>
+        </div>
+    </section>
 
     <!-- menu section ends -->
 
