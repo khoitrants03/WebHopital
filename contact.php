@@ -57,7 +57,8 @@ if (isset($_POST['send'])) {
 <body>
 
    <!-- header section starts  -->
-   <?php include 'components/user_header.php'; ?>
+   <?php include 'components/user_header.php' ?>
+
    <!-- header section ends -->
 
    <div class="heading">

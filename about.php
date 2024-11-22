@@ -35,7 +35,8 @@ if (isset($_SESSION['user_id'])) {
 <body>
 
    <!-- header section starts  -->
-   <?php include 'components/user_header.php'; ?>
+   <?php include 'components/user_header.php' ?>
+
    <!-- header section ends -->
 
    <div class="heading">

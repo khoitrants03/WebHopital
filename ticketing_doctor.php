@@ -33,8 +33,8 @@ include 'components/add_cart.php';
 <body>
 
     <!-- header section starts  -->
-    <?php include 'components/user_header.php'; ?>
-    <!-- header section ends -->
+    <?php include 'components/user_header.php' ?>
+  <!-- header section ends -->
 
     <div class="heading">
         <h3>Lập phiếu khám bệnh</h3>
@@ -155,7 +155,10 @@ include 'components/add_cart.php';
         $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS) VALUES (?, ?, ?, ?)");
         $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS]);
 
-        $message[] = 'Lập phiếu khám thành công!';
+        echo "<script>
+                    alert('Thêm  Thành Công.');
+                    window.location.href = 'xemthongtin_phieukham.php'; 
+                </script>";
 
 
     }

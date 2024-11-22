@@ -27,7 +27,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
 
     <!-- header section starts  -->
-    <?php include 'components/user_header.php'; ?>
+    <?php include 'components/user_header.php' ?>
     <!-- header section ends -->
 
     <div class="heading">
@@ -73,19 +73,28 @@ if (isset($_SESSION['user_id'])) {
                             <label for="maBN">Mã BN</label>
                             <input type="text" name="maBN" id="maBN" required>
                         </div>
- <?php
-                            $select_departments = $conn->prepare("SELECT * FROM `bacsi`");
-                            $select_departments->execute();
-                            ?>
+                        <?php
+                        $select_departments = $conn->prepare("SELECT * FROM `bacsi`");
+                        $select_departments->execute();
+                        ?>
                         <div class="form-group">
-                           
                             <label for="department">Khoa khám bệnh</label>
-                            <select name="department" id="department">
-                                <option value="tmh">Tai - Mũi - Họng</option>
-                                <option value="nhi">Nhi</option>
-                                <option value="noikhoa">Nội khoa</option>
+                            <select id="department" name="department">
+                                <?php
+                                $query = $conn->prepare("SELECT TenKhoa FROM KhoaKham");
+                                $query->execute();
+
+                                if ($query->rowCount() > 0) {
+                                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "<option value='" . $row['TenKhoa'] . "'>" . $row['TenKhoa'] . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có khoa</option>";
+                                }
+                                ?>
                             </select>
                         </div>
+                        
                         <div class="form-group" style="display: none;">
                             <label for="class">Phòng khám</label>
                             <input type="text" name="class" id="class" readonly>
@@ -99,13 +108,10 @@ if (isset($_SESSION['user_id'])) {
                             <input type="text" name="STT" id="STT" value="" readonly>
                             <script>
                                 document.addEventListener("DOMContentLoaded", function () {
-                                    // Lấy số thứ tự hiện tại từ localStorage, nếu không có sẽ mặc định là 1
-                                    let currentSTT = parseInt(localStorage.getItem("STT")) || 1;
 
-                                    // Đặt giá trị cho input STT
+                                    let currentSTT = parseInt(localStorage.getItem("STT")) || 1;
                                     document.getElementById("STT").value = currentSTT;
 
-                                    // Tăng giá trị và lưu lại vào localStorage
                                     localStorage.setItem("STT", currentSTT + 1);
                                 });
                             </script>
@@ -130,7 +136,7 @@ if (isset($_SESSION['user_id'])) {
             // chọn ngẫu nhiên bác sĩ ở khoa
             $query = $conn->prepare("SELECT MaBS,Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
             $query->execute([$khoa]);
-            // kiểm tra thông tin bệnh nhân
+
             $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE maBN = ?");
             $check_maBN->execute([$maBN]);
 
@@ -140,8 +146,7 @@ if (isset($_SESSION['user_id'])) {
                     $bs = $query->fetch(PDO::FETCH_ASSOC);
                     $doctor = $bs['MaBS'];
                     $tenBs = $bs['Ten'];
-                    // Get associated room information
-                    $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
+                      $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
                                                    JOIN phongkham p ON p.MaPhong = k.MaPhong
                                                    WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)");
                     $query_phong->execute([$doctor]);

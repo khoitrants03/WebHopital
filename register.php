@@ -8,7 +8,8 @@ if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
 } else {
    $user_id = '';
-};
+}
+;
 
 if (isset($_POST['submit'])) {
 
@@ -22,6 +23,9 @@ if (isset($_POST['submit'])) {
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = sha1($_POST['cpass']);
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+    
+
+   
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? OR number = ?");
    $select_user->execute([$email, $number]);
@@ -33,8 +37,8 @@ if (isset($_POST['submit'])) {
       if ($pass != $cpass) {
          $message[] = 'Mật khẩu không khớp!';
       } else {
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, number, password) VALUES(?,?,?,?)");
-         $insert_user->execute([$name, $email, $number, $cpass]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, number, password,phanquyen) VALUES(?,?,?,?,?)");
+         $insert_user->execute([$name, $email, $number, $cpass, $phanquyen]);
          $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
          $select_user->execute([$email, $pass]);
          $row = $select_user->fetch(PDO::FETCH_ASSOC);
@@ -56,7 +60,7 @@ if (isset($_POST['submit'])) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Đăng ký</title>
-   <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
+   <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -76,10 +80,16 @@ if (isset($_POST['submit'])) {
       <form action="" method="post">
          <h3>Đăng ký</h3>
          <input type="text" name="name" required placeholder="Nhập họ và tên của bạn" class="box" maxlength="50">
-         <input type="email" name="email" required placeholder="Nhập email của bạn" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
-         <input type="number" name="number" required placeholder="Nhập số điện thoại" class="box" min="0" max="9999999999" maxlength="10">
-         <input type="password" name="pass" required placeholder="Nhập mật khẩu của bạn" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
-         <input type="password" name="cpass" required placeholder="Xác nhận lại mật khẩu" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="text" name="phanquyen" class="box" maxlength="50" style="display: none;" value="benhnhan">
+
+         <input type="email" name="email" required placeholder="Nhập email của bạn" class="box" maxlength="50"
+            oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="number" name="number" required placeholder="Nhập số điện thoại" class="box" min="0"
+            max="9999999999" maxlength="10">
+         <input type="password" name="pass" required placeholder="Nhập mật khẩu của bạn" class="box" maxlength="50"
+            oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="cpass" required placeholder="Xác nhận lại mật khẩu" class="box" maxlength="50"
+            oninput="this.value = this.value.replace(/\s/g, '')">
          <input type="submit" value="Đăng ký" name="submit" class="btn">
          <p>Bạn đã có tài khoản? <a href="login.php">Đăng nhập ngay</a></p>
       </form>

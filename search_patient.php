@@ -33,7 +33,7 @@ include 'components/add_cart.php';
 <body>
 
     <!-- header section starts  -->
-    <?php include 'components/user_header.php'; ?>
+    <?php include 'components/user_header_doctor.php'; ?>
     <!-- header section ends -->
 
     <div class="heading">
@@ -91,7 +91,7 @@ include 'components/add_cart.php';
                     while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <form action="" method="post" class="box">
-                            <input type="hidden" name="pid" value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>">
+                            <input type="hidden" name="pid" value="  <?= htmlspecialchars($fetch_patient['MaBN']); ?>">
                             <input type="hidden" name="name" value="<?= htmlspecialchars($fetch_patient['Ten']); ?>">
                             <input type="hidden" name="phone" value="<?= htmlspecialchars($fetch_patient['SoDienThoai']); ?>">
                             <a href="ticketing_doctor.php?pid=<?= $fetch_patient['MaBN']; ?>" class="fas fa-eye"></a>
