@@ -19,11 +19,12 @@ if (isset($_POST['submit'])) {
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $number = $_POST['number'];
    $number = filter_var($number, FILTER_SANITIZE_STRING);
-   $pass = sha1($_POST['pass']);
+   $pass = $_POST['pass'];
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-   $cpass = sha1($_POST['cpass']);
+   $cpass = $_POST['cpass'];
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
-    
+   $phanquyen = filter_var($_POST['phanquyen']);
+   $phanquyen = filter_var($phanquyen, FILTER_SANITIZE_STRING);
 
    
 
@@ -44,6 +45,8 @@ if (isset($_POST['submit'])) {
          $row = $select_user->fetch(PDO::FETCH_ASSOC);
          if ($select_user->rowCount() > 0) {
             $_SESSION['user_id'] = $row['id'];
+            $_SESSION['phanquyen'] = $row['phanquyen'];
+
             header('location:home.php');
          }
       }

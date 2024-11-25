@@ -13,12 +13,11 @@ if (isset($_SESSION['user_id'])) {
 if (isset($_POST['submit'])) {
 
    $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_EMAIL); // Better for emails
-   $pass = htmlspecialchars($_POST['pass']); // Use htmlspecialchars to prevent XSS
+   $email = filter_var($email, FILTER_SANITIZE_EMAIL);  
    
-   // Hash the password (sha1 is not recommended for secure password storage, consider using password_hash)
-   $pass = sha1($pass);
-
+   $pass = $_POST['pass'];
+   $pass = filter_var($pass, FILTER_SANITIZE_EMAIL);  
+ 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
    $select_user->execute([$email, $pass]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);

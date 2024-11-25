@@ -32,21 +32,30 @@ if (isset($message)) {
 
             <!-- Thêm menu thả xuống cho mục Bác sĩ -->
             <div class="dropdown">
-            <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
-            <div class="dropdown-content">
-            <a href="admin_doctor.php">Quản lí bác sĩ</a>
-               <a href="product.php">Xem thông tin bác sĩ</a>
-               <a href="search_patient.php">Lập phiếu khám bệnh</a>
+                <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
+                <div class="dropdown-content">
+                     <a href="product.php">Xem thông tin bác sĩ</a>
+                 </div>
             </div>
-         </div>
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle">Bệnh nhân</a>
                 <div class="dropdown-content">
                     <a href="patient_access.php">Thông tin bệnh nhân</a>
-                    <!-- <a href="register_medical_old.php">Đăng kí khám bệnh</a> -->
-                </div>
+                 </div>
             </div>
-            <a href="lichhen.php">Lịch khám bệnh</a>
+            <!-- <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Tiếp tân</a>
+                <div class="dropdown-content">
+                    <a href="patient_access.php">Thông tin tiếp tân</a>
+                 </div>
+            </div> -->
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Nhà thuốc</a>
+                <div class="dropdown-content">
+                    <a href="admin_nhathuoc.php">Quản lí thuốc</a>
+                 </div>
+            </div>
+            <!-- <a href="lichhen.php">Lịch đã đặt</a> -->
              <a href="contact.php">Liên hệ</a>
         </nav>
 
