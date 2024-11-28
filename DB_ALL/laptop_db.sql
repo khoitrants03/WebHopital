@@ -218,6 +218,21 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `address`) VALUES
 (3, 'Phan Thiên Khải', 'phanthienkhai111@gmail.com', '0384104942', '722efb822db49574f7cdc65bafc8436d4b0e2acd', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234');
 
+
+
+CREATE TABLE bhyt_table (
+    bhyt_id VARCHAR(20) PRIMARY KEY, -- Mã BHYT hoặc CCCD
+    start_date DATE NOT NULL,        -- Ngày bắt đầu hiệu lực
+    end_date DATE NOT NULL           -- Ngày hết hạn
+);
+
+INSERT INTO bhyt_table (bhyt_id, start_date, end_date) VALUES
+('BHYT001', '2024-01-01', '2024-12-31'),
+('BHYT002', '2023-05-01', '2024-04-30'),
+('BHYT003', '2024-06-01', '2025-05-31'),
+('CCCD123456789', '2023-09-01', '2024-08-31'),
+('CCCD987654321', '2022-11-01', '2023-10-31');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -276,6 +291,8 @@ ALTER TABLE `tintuc`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `bhyt_table`
+  ADD PRIMARY KEY (`bhyt_id`);
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
@@ -326,3 +343,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
