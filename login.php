@@ -13,19 +13,20 @@ if (isset($_SESSION['user_id'])) {
 if (isset($_POST['submit'])) {
 
    $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_EMAIL); // Better for emails
-   $pass = htmlspecialchars($_POST['pass']); // Use htmlspecialchars to prevent XSS
+   $email = filter_var($email, FILTER_SANITIZE_EMAIL);  
    
-   // Hash the password (sha1 is not recommended for secure password storage, consider using password_hash)
-   $pass = sha1($pass);
-
+   $pass = $_POST['pass'];
+   $pass = filter_var($pass, FILTER_SANITIZE_EMAIL);  
+ 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
    $select_user->execute([$email, $pass]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if ($select_user->rowCount() > 0) {
       $_SESSION['user_id'] = $row['id'];
+      $_SESSION['phanquyen'] = $row['phanquyen']; 
       header('location:home.php');
+      exit;
    } else {
       $message[] = 'Sai tài khoản hoặc mật khẩu!';
    }
@@ -41,7 +42,7 @@ if (isset($_POST['submit'])) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Đăng nhập</title>
-   <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon">
+   <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 

@@ -36,8 +36,25 @@ include 'components/add_cart.php';
 
 <body>
 
-   <?php include 'components/user_header.php'; ?>
-
+   <?php
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>
 
    <section class="hero">
 
@@ -108,9 +125,9 @@ include 'components/add_cart.php';
             <h3>Đạt lịch khám</h3>
          </a>
 
-         <a href="category.php?category=acer" class="box">
+         <a href="admin_nhathuoc.php" class="box">
             <img src="imgs/people-group-solid.svg" alt="">
-            <h3>Tìm Chuyên Gia</h3>
+            <h3>Quản lí thuốc</h3>
          </a>
 
          <a href="category.php?category=msi" class="box">
@@ -146,7 +163,7 @@ include 'components/add_cart.php';
                   <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
                   <input type="hidden" name="new" value="<?= $fetch_products['name1']; ?>">
                   <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
-                   <a class="fas fa-eye"></a>
+                  <a class="fas fa-eye"></a>
 
                   <img src="uploaded_img/<?= $fetch_products['imge']; ?>" alt="">
                   <div class="name">
@@ -166,7 +183,7 @@ include 'components/add_cart.php';
       </div>
 
       <div class="more-btn">
-         <a href="./product.php" class="btn">Xem tất cả</a>
+         <a href="#" class="btn">Xem tất cả</a>
       </div>
 
       <section class="content">
@@ -181,34 +198,35 @@ include 'components/add_cart.php';
                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
                   ?>
                   <form action="" method="post" class="box">
-                     <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
-                     <input type="hidden" name="name" value="<?= $fetch_products['ten']; ?>">
-                     <input type="hidden" name="price" value="<?= $fetch_products['chuyenkhoa']; ?>">
+                     <input type="hidden" name="pid" value="<?= $fetch_products['MaBS']; ?>">
+                     <input type="hidden" name="name" value="<?= $fetch_products['Ten']; ?>">
+                     <input type="hidden" name="price" value=" <?= $fetch_products['ChuyenKhoa']; ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['imge']; ?>">
-                     <a href="quick_view.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
-                     <div class="image"  >
-                        <img id="img"src="uploaded_img/<?= $fetch_products['imge']; ?>" alt="">
+                     <a class="fas fa-eye"></a>
+                     <div class="image">
+                        <img id="img" src="uploaded_img/<?= $fetch_products['imge']; ?>" alt="">
                      </div>
-                     <div class="name-flex"  >
+                     <div class="name-flex">
                         <div class="name">
-                           <?= $fetch_products['ten']; ?>
+                           <?= $fetch_products['Ten']; ?>
                         </div>
                         <div class="flex">
                            <div class="price">
-                              <?= $fetch_products['chuyenkhoa']; ?>
+                              Chuyên Khoa :
+                              <?= $fetch_products['ChuyenKhoa']; ?>
                            </div>
                         </div>
 
 
                      </div>
-                     <div class="profile" >
-                  <h1>View Profile</h1>
-                  </div>
+                     <div class="profile">
+                        <h1>View Profile</h1>
+                     </div>
                   </form>
                   <?php
                }
             } else {
-               echo '<p class="empty">Không có sản phẩm để hiển thị!</p>';
+               echo '<p class="empty">Không thông tin Bác Sĩ để hiển thị!</p>';
             }
             ?>
 

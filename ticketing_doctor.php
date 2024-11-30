@@ -12,7 +12,6 @@ if (isset($_SESSION['user_id'])) {
 ;
 
 include 'components/add_cart.php';
-include './convert_currency.php';
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@ include './convert_currency.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch vụ</title>
+    <title>Bác Sĩ</title>
     <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -34,91 +33,153 @@ include './convert_currency.php';
 <body>
 
     <!-- header section starts  -->
-    <?php include 'components/user_header.php'; ?>
-    <!-- header section ends -->
-
+    <?php
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>
     <div class="heading">
-        <h3>Đăng kí khám bệnh</h3>
-        <p><a href="home.php">Trang chủ</a> <span> / Dịch vụ</span></p>
+        <h3>Lập phiếu khám bệnh</h3>
+        <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
     </div>
 
     <!-- menu section starts  -->
 
     <section class="products">
+        <?php
+        $pid = $_GET['pid'];
+        $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN = ?");
+        $select_patient->execute([$pid]);
+        if ($select_patient->rowCount() > 0) {
+            while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
+                ?>
 
+                <div class="box-container">
 
-        <div class="box-container">
+                    <div class="service">
+                        <div class="box_register">
+                            <div class="box-item">
+                                <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
+                                    Lập phiếu khám</a1>
+                            </div>
+                            <div class="box-item">
+                                <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
+                                </a>
+                            </div>
 
-            <div class="service">
-                <div class="box_register">
-                    <div class="box-item">
-                        <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                            Đăng kí khám bệnh</a1>
-
-
+                        </div>
                     </div>
-                    <div class="box-item">
-                        <a href="Register_medical_new.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
-                            mới</a>
-                    </div>
-                    <div class="box-item">
-                        <a href="Register_medical_old.php">
-                            <i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân cũ
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="register">
-                <div class="form-container">
-                    <div class="form-title">Đăng kí khám bệnh mới</div>
-                    <form>
-            <div class="form-group">
-                <label for="name">Họ tên</label>
-                <input type="text" id="name" placeholder="Trần A">
-            </div>
-            <div class="form-group">
-                <label for="dob">Ngày sinh</label>
-                <input type="date" id="dob">
-            </div>
-            <div class="form-group">
-                <label>Giới tính</label>
-                <div class="gender-options">
-                    <label><input type="radio" name="gender" value="male"> Nam</label>
-                    <label><input type="radio" name="gender" value="female"> Nữ</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bhyt">Mã định danh</label>
-                <input type="text" id="bhyt">
-            </div>
-            <div class="form-group">
-                <label for="department">Khoa khám bệnh</label>
-                <select id="department">
-                    <option value="tmh">Tai - Mũi - Họng</option>
-                    <option value="nhi">Nhi</option>
-                    <option value="noikhoa">Nội khoa</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="appointment">Ngày khám</label>
- 
-                <input type="datetime-local" id="appointment" name="appointment">
-            </div>
-            
-            <div class="form-group">
-                <label for="phong">Phòng</label>
-                <input type="text" id="phong">
-            </div>
-            <button type="submit" class="submit-btn">Xác nhận</button>
-        </form>
-      
-                </div>
-            </div>
+                    <div class="register">
+                        <?php ?>
+                        <div class="form-container">
+                            <div class="form-title">Lập phiếu khám</div>
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="name">Mã Phiếu</label>
+                                    <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;">
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const randomNum = Math.floor(Math.random() * 10000) + 1;
+                                            // Gán giá trị cho thẻ input
+                                            document.getElementById("randomNumber").value = randomNum;
+                                        });
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maBS">MaBS</label>
+                                    <input type="text" id="maBS" name="maBS">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bhyt">Mã định danh</label>
+                                    <input type="text" id="bhyt" value="<?= $fetch_patient['MaBN']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Họ tên</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['Ten']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob">Ngày sinh</label>
+                                    <input type="date" id="dob" value="<?= $fetch_patient['NgaySinh']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Giới tính</label>
+                                    <input type="text" id="dob" value="<?= $fetch_patient['GioiTinh']; ?>">
 
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="appointment">Ngày khám</label>
+                                    <input type="datetime-local" id="appointment" name="appointment">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
+                                    <textarea type="text" id="chuandoanbenh" name="chuandoanbenh" rows="4"></textarea>
+                                </div>
+                                <style>
+                                    textarea {
+                                        border: 2px solid #ccc;
+                                        border-radius: 4px;
+                                        font-size: 16px;
+                                        width: 68%;
+
+                                    }
+
+                                    textarea:valid {
+                                        border-color: green;
+                                    }
+                                </style>
+                                <button type="submit" class="submit-btn" name="add_patient">Xác nhận</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <?php
+            }
+        } else {
+            echo '<p class="empty">Chưa thông tin  bệnh nhân để hiển thị!</p>';
+        }
+        ?>
     </section>
 
 
-    <!-- menu section ends -->
+    <?php
+
+    if (isset($_POST['add_patient'])) {
+        $randomNumber = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+        $date = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
+        $chuandoanbenh = filter_var($_POST['chuandoanbenh'], FILTER_SANITIZE_STRING);
+        $maBS = filter_var($_POST['maBS'], FILTER_SANITIZE_STRING);
+
+
+        $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS) VALUES (?, ?, ?, ?)");
+        $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS]);
+
+        echo "<script>
+                    alert('Thêm  Thành Công.');
+                    window.location.href = 'xemthongtin_phieukham.php'; 
+                </script>";
+
+
+    }
+
+    ?>
 
 
     <!-- footer section starts  -->

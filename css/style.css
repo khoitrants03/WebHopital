@@ -117,7 +117,7 @@ textarea.box {
    background-color: #f9f9f9;
    min-width: 160px;
    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-   z-index: 1;
+   z-index: 3;
 }
 
 .dropdown-content a {
@@ -134,6 +134,7 @@ textarea.box {
 .dropdown:hover .dropdown-content {
    display: block;
 }
+
 /* ---------------- */
 .description .warranty .manufacturer {
    margin: 15px 0;
@@ -417,6 +418,7 @@ section {
    width: 30rem;
    display: none;
    animation: fadeIn .2s linear;
+   z-index: 3;
 }
 
 .header .flex .profile.active {
@@ -551,7 +553,7 @@ section {
    overflow: hidden;
    border-radius: 1rem;
    width: 265%;
-   height: 29rem;
+   height: auto;
    float: right;
 }
 
@@ -582,12 +584,11 @@ section {
 /* trang đăng kí khám bệnh */
 
 .products .box-container .register {
-    float: left;
-   font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
    display: flex;
    justify-content: center;
    align-items: center;
-    margin: 0;
+   margin: 0;
    background-color: #f5f5f5;
 }
 
@@ -598,13 +599,23 @@ section {
    background-color: #fff;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.products .box-container .register .form-container .form-title{
+
+.products .box-container .register .form-container .form-title {
    font-size: 3rem;
    color: #4a4a4a;
    margin-bottom: 20px;
    font-weight: bold;
    text-align: center;
 }
+/* quản lí thuốc */
+.button-container {
+   display: flex;
+   gap: 10px;  
+   justify-content: center;  
+   margin-top: 20px;
+}
+
+
 .form-group {
    display: flex;
    align-items: center;
@@ -627,7 +638,7 @@ section {
    border-radius: 4px;
    flex: 1;
 }
-
+ 
 .form-group .gender-options {
    display: flex;
    gap: 10px;
@@ -664,7 +675,7 @@ section {
    position: relative;
    overflow: hidden;
    border-radius: 1rem;
-   height: 46rem;
+   height: auto;
 }
 
 .products .box-container .box img {
@@ -926,9 +937,9 @@ section {
 }
 
 .reviews .slide img {
-   height: 10rem;
-   width: 10rem;
-   border-radius: 50%;
+   height: 20rem;
+   width: 21rem;
+   border-radius: 3%;
 }
 
 .reviews .slide p {
@@ -1268,18 +1279,6 @@ section {
    color: var(--white);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .footer .grid {
    /* display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
@@ -1358,8 +1357,38 @@ section {
    height: 25rem;
 }
 
-
-
+/* admin-thuốc */
+ table {
+   width: 80%;
+   border-collapse: collapse;
+   margin-top: 20px;
+   margin-left: 7rem;
+}
+th, td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: center;
+}
+th {
+   background-color: #f2f2f2;
+}
+.btn {
+   background-color: #007bff;
+   color: white;
+   border: none;
+   padding: 6px 12px;
+   cursor: pointer;
+   border-radius: 4px;
+}
+.actions a {
+   margin: 0 5px;
+   color: #007bff;
+   text-decoration: none;
+   cursor: pointer;
+}
+.actions a:hover {
+   text-decoration: underline;
+} 
 /* media queries  */
 
 @media (max-width:991px) {
