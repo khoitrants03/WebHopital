@@ -218,6 +218,40 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `address`) VALUES
 (3, 'Phan Thiên Khải', 'phanthienkhai111@gmail.com', '0384104942', '722efb822db49574f7cdc65bafc8436d4b0e2acd', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234');
 
+
+
+CREATE TABLE bhyt_table (
+    bhyt_id VARCHAR(20) PRIMARY KEY, -- Mã BHYT hoặc CCCD
+    start_date DATE NOT NULL,        -- Ngày bắt đầu hiệu lực
+    end_date DATE NOT NULL           -- Ngày hết hạn
+);
+
+INSERT INTO bhyt_table (bhyt_id, start_date, end_date) VALUES
+('BHYT001', '2024-01-01', '2024-12-31'),
+('BHYT002', '2023-05-01', '2024-04-30'),
+('BHYT003', '2024-06-01', '2025-05-31'),
+('CCCD123456789', '2023-09-01', '2024-08-31'),
+('CCCD987654321', '2022-11-01', '2023-10-31');
+
+
+CREATE TABLE hoadon (
+    maHoaDon INT AUTO_INCREMENT PRIMARY KEY, -- Mã hóa đơn tự động tăng
+    patient_id NVARCHAR(50) NOT NULL,        -- Mã bệnh nhân
+    name NVARCHAR(100) NOT NULL,             -- Tên bệnh nhân
+    department NVARCHAR(100),                -- Khoa khám
+    consultation_fee DECIMAL(10, 2),         -- Phí khám bệnh
+    medicine_fee DECIMAL(10, 2),             -- Tiền thuốc
+    insurance_id NVARCHAR(50),               -- Mã BHYT
+    total_amount DECIMAL(10, 2) NOT NULL,    -- Tổng số tiền
+    payment_method NVARCHAR(50),             -- Hình thức thanh toán
+    ngayLap DATE DEFAULT CURRENT_DATE        -- Ngày lập hóa đơn
+);
+
+INSERT INTO hoadon (patient_id, name, department, consultation_fee, medicine_fee, insurance_id, total_amount, payment_method)
+VALUES 
+('BN001', 'Nguyễn Văn A', 'Nội khoa', 200000, 150000, 'BHYT001', 450000, 'Tiền mặt'),
+('BN002', 'Trần Thị B', 'Nhi khoa', 300000, 200000, NULL, 500000, 'Chuyển khoản');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -276,6 +310,11 @@ ALTER TABLE `tintuc`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `bhyt_table`
+  ADD PRIMARY KEY (`bhyt_id`);
+
+ALTER TABLE `hoadon`
+  ADD PRIMARY KEY (`maHoaDon`);
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
@@ -326,3 +365,17 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+<<<<<<< HEAD
+CREATE TABLE `medical_record` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `ma_dinh_danh` VARCHAR(50) NOT NULL UNIQUE,
+    `ho_ten` VARCHAR(100) NOT NULL,
+    `ngay_sinh` DATE NOT NULL,
+    `gioi_tinh` VARCHAR(10) NOT NULL,
+    `dia_chi` VARCHAR(255),
+    `so_dien_thoai` VARCHAR(15) NOT NULL,
+    `thong_tin_benh_an` TEXT
+);
+=======
+>>>>>>> 65a130f5bf3401fca62121d374e23c2a54484b1f
