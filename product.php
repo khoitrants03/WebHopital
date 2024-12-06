@@ -34,8 +34,25 @@ include 'components/add_cart.php';
 <body>
 
    <!-- header section starts  -->
-   <?php include 'components/user_header.php'; ?>
-  <!-- header section ends -->
+   <?php
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>  <!-- header section ends -->
 
    <div class="heading">
       <h3>Bác sĩ hiện có</h3>

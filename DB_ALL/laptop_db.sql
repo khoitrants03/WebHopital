@@ -366,3 +366,16 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+<<<<<<< HEAD
+CREATE TABLE `medical_record` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `ma_dinh_danh` VARCHAR(50) NOT NULL UNIQUE,
+    `ho_ten` VARCHAR(100) NOT NULL,
+    `ngay_sinh` DATE NOT NULL,
+    `gioi_tinh` VARCHAR(10) NOT NULL,
+    `dia_chi` VARCHAR(255),
+    `so_dien_thoai` VARCHAR(15) NOT NULL,
+    `thong_tin_benh_an` TEXT
+);
+=======
+>>>>>>> 65a130f5bf3401fca62121d374e23c2a54484b1f
