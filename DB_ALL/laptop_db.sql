@@ -233,6 +233,25 @@ INSERT INTO bhyt_table (bhyt_id, start_date, end_date) VALUES
 ('CCCD123456789', '2023-09-01', '2024-08-31'),
 ('CCCD987654321', '2022-11-01', '2023-10-31');
 
+
+CREATE TABLE hoadon (
+    maHoaDon INT AUTO_INCREMENT PRIMARY KEY, -- Mã hóa đơn tự động tăng
+    patient_id NVARCHAR(50) NOT NULL,        -- Mã bệnh nhân
+    name NVARCHAR(100) NOT NULL,             -- Tên bệnh nhân
+    department NVARCHAR(100),                -- Khoa khám
+    consultation_fee DECIMAL(10, 2),         -- Phí khám bệnh
+    medicine_fee DECIMAL(10, 2),             -- Tiền thuốc
+    insurance_id NVARCHAR(50),               -- Mã BHYT
+    total_amount DECIMAL(10, 2) NOT NULL,    -- Tổng số tiền
+    payment_method NVARCHAR(50),             -- Hình thức thanh toán
+    ngayLap DATE DEFAULT CURRENT_DATE        -- Ngày lập hóa đơn
+);
+
+INSERT INTO hoadon (patient_id, name, department, consultation_fee, medicine_fee, insurance_id, total_amount, payment_method)
+VALUES 
+('BN001', 'Nguyễn Văn A', 'Nội khoa', 200000, 150000, 'BHYT001', 450000, 'Tiền mặt'),
+('BN002', 'Trần Thị B', 'Nhi khoa', 300000, 200000, NULL, 500000, 'Chuyển khoản');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -293,6 +312,9 @@ ALTER TABLE `users`
 
 ALTER TABLE `bhyt_table`
   ADD PRIMARY KEY (`bhyt_id`);
+
+ALTER TABLE `hoadon`
+  ADD PRIMARY KEY (`maHoaDon`);
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
