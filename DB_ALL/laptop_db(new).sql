@@ -164,6 +164,27 @@ CREATE TABLE `hoadon` (
   `PhuongThucThanhToan` varchar(20) DEFAULT NULL CHECK (`PhuongThucThanhToan` in ('Pending','Approved','Rejected'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+INSERT INTO `hoadon` (`MaGiaoDich`, `MaThuNgan`, `MaBN`, `MaDonThuoc`, `Ngay`, `SoTien`, `PhuongThucThanhToan`) VALUES
+('GD001', 'TN001', 'BN001', 'DT001', '2024-12-01', 500000.00, 'Pending'),
+('GD002', 'TN002', 'BN002', 'DT002', '2024-12-02', 300000.50, 'Approved'),
+('GD003', 'TN003', 'BN003', 'DT003', '2024-12-03', 150000.00, 'Rejected'),
+('GD004', 'TN004', 'BN004', 'DT004', '2024-12-04', 750000.75, 'Pending'),
+('GD005', 'TN005', 'BN005', 'DT005', '2024-12-05', 1200000.00, 'Approved');
+
+
+CREATE TABLE bhyt_table (
+    bhyt_id VARCHAR(20) PRIMARY KEY, -- Mã BHYT hoặc CCCD
+    start_date DATE NOT NULL,        -- Ngày bắt đầu hiệu lực
+    end_date DATE NOT NULL           -- Ngày hết hạn
+);
+
+INSERT INTO bhyt_table (bhyt_id, start_date, end_date) VALUES
+('BHYT001', '2024-01-01', '2024-12-31'),
+('BHYT002', '2023-05-01', '2024-04-30'),
+('BHYT003', '2024-06-01', '2025-05-31'),
+('CCCD123456789', '2023-09-01', '2024-08-31'),
+('CCCD987654321', '2022-11-01', '2023-10-31');
+
 -- --------------------------------------------------------
 
 --
@@ -411,6 +432,10 @@ CREATE TABLE `xetnghiem` (
   `Ngay` date NOT NULL,
   `KetQua` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+
 
 -- --------------------------------------------------------
 
