@@ -48,7 +48,7 @@ if (isset($message)) {
 </div>
          <a href="orders.php">Lịch đã đặt</a>
          <a href="BHYT.php">Quản lý BHYT</a>
-         <a href="cart.php">Giỏ hàng </a>
+         <a href="search_patient_thungan.php">Thu ngân </a>
          <a href="contact.php">Liên hệ</a>
       </nav>
 
