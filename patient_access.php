@@ -4,18 +4,22 @@ session_start();
 // Include database connection
 include('components/connect.php'); // Kết nối cơ sở dữ liệu
 
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+ } else {
+    $user_id = '';
+    header('Location: patient_record.php');
+ }
+ 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ma_dinh_danh = $_POST['ma_dinh_danh'];
-    $ho_ten = $_POST['ho_ten'];
-    $ngay_sinh = $_POST['ngay_sinh'];
-    $gioi_tinh = $_POST['gioi_tinh'];
-    $dia_chi = $_POST['dia_chi'];
-    $so_dien_thoai = $_POST['so_dien_thoai'];
-
-    // Xác thực đầu vào và chuyển hướng đến patient_record.php
-    // Thêm logic xác thực và chuyển hướng của bạn vào đây
-    header("Location: patient_record.php");
+    $MaBN = $_POST['MaBN'];
+    $Ten = $_POST['Ten'];
+    $NgaySinh = $_POST['NgaySinh'];
+    $GioiTinh = $_POST['GioiTinh'];
+    $DiaChi = $_POST['DiaChi'];
+    $SoDienThoai = $_POST['SoDienThoai'];
+    $ThongTinBaoHiem = $_POST['ThongTinBaoHiem'];
 }
 ?>
 
@@ -31,24 +35,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <form method="post" action="patient_access.php">
             <h2>Truy Cập Hồ Sơ Bệnh Án</h2>
-            <label for="ma_dinh_danh">Mã định danh:</label>
-            <input type="text" id="ma_dinh_danh" name="ma_dinh_danh" required>
+            <label for="MaBN">Mã bệnh nhân:</label>
+            <input type="text" id="MaBN" name="MaBN" required>
             
-            <label for="ho_ten">Họ tên:</label>
-            <input type="text" id="ho_ten" name="ho_ten" required>
+            <label for="Tên">Họ tên:</label>
+            <input type="text" id="Tên" name="Tên" required>
             
-            <label for="ngay_sinh">Ngày sinh:</label>
-            <input type="date" id="ngay_sinh" name="ngay_sinh" required>
+            <label for="NgaySinh">Ngày sinh:</label>
+            <input type="date" id="NgaySinh" name="NgaySinh" required>
             
-            <label for="gioi_tinh">Giới tính:</label>
-            <input type="text" id="gioi_tinh" name="gioi_tinh" required>
+            <label for="GioiTinh">Giới tính:</label>
+            <input type="text" id="GioiTinh" name="GioiTinh" required>
             
-            <label for="dia_chi">Địa chỉ:</label>
-            <input type="text" id="dia_chi" name="dia_chi" required>
+            <label for="DiaChi">Địa chỉ:</label>
+            <input type="text" id="DiaChi" name="DiaChi" required>
             
-            <label for="so_dien_thoai">Số điện thoại:</label>
-            <input type="text" id="so_dien_thoai" name="so_dien_thoai" required>
+            <label for="SoDienThoai">Số điện thoại:</label>
+            <input type="text" id="so_dien_thoai" name="SoDienThoai" required>
             
+            <label for="ThongTinBaoHiem">Thông tin bảo hiểm:</label>
+            <input type="text" id="ThongTinBaoHiem" name="ThongTinBaoHiem" required>
+
             <button type="submit">Truy Cập</button>
         </form>
     </div>
