@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $consultation_fee = $_POST['consultation_fee'];
     $medicine_fee = $_POST['medicine_fee'];
     $test_fee = $_POST['test_fee'];
-    $insurance_id = $_POST['insurance_id'];
+    $insurance_code = isset($_POST['insurance_code']) ? $_POST['insurance_code'] : 'Không có';
     $total_amount = $_POST['total_amount'];
     $payment_method = $_POST['payment_method'];
 }
@@ -22,51 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hóa Đơn</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .invoice-container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #333;
-            line-height: 1.5;
-        }
-        .invoice-header, .invoice-footer {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .invoice-header h1 {
-            font-size: 18px;
-            margin: 5px 0;
-        }
-        .invoice-details, .invoice-items {
-            width: 100%;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .invoice-items th, .invoice-items td {
-            text-align: right;
-            padding: 4px;
-        }
-        .invoice-items th {
-            text-align: left;
-            width: 70%;
-        }
-        .total {
-            font-weight: bold;
-            border-top: 1px solid #333;
-        }
-        .stamp {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .invoice-footer {
-            font-size: 13px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/hoadon.css">
 </head>
 <body>
 
@@ -83,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p><strong>Tên BN:</strong> <?php echo htmlspecialchars($name); ?></p>
         <p><strong>Mã bệnh nhân:</strong> <?php echo htmlspecialchars($patient_id); ?></p>
         <p><strong>Khoa khám:</strong> <?php echo htmlspecialchars($department); ?></p>
-        <p><strong>Mã BHYT:</strong> <?php echo htmlspecialchars($insurance_id); ?></p>
+        <p><strong>Mã BHYT:</strong> <?php echo htmlspecialchars($insurance_code); ?></p>
     </div>
 
     <!-- Service and Fee Table -->
@@ -92,17 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <th></th>
             <th>Số tiền (VND)</th>
         </tr>
-        <tr>
-            <td>Khám bệnh</td>
-            <td><?php echo number_format($consultation_fee); ?></td>
-        </tr>
+        
         <tr>
             <td>Tiền thuốc</td>
             <td><?php echo number_format($medicine_fee); ?></td>
         </tr>
         <tr>
-            <td>Tiền xét nghiệm</td>
+            <td>Tiền khám bệnh</td>
             <td><?php echo number_format($test_fee); ?></td>
+        </tr>
+        <tr>
+            <td>Tiền bảo hiểm</td>
+            <td>- <?php echo number_format($consultation_fee); ?></td>
         </tr>
         <tr class="total">
             <td>Tổng cộng:</td>
