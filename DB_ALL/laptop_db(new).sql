@@ -86,7 +86,8 @@ CREATE TABLE `benhnhan` (
 INSERT INTO `benhnhan` (`MaBN`, `Ten`, `NgaySinh`, `GioiTinh`, `DiaChi`, `SoDienThoai`, `ThongTinBaoHiem`) VALUES
 ('BN001', 'Phan Thiên Khải', '2024-11-03', 'Nam', '12 Nguyễn Văn Bảo', 1634052512, '0986712345'),
 ('BN002', 'Hoàng Thảo My', '2024-11-03', 'Nữ', '12 Nguyễn Văn Bảo', 0234052512, '2456789000'),
-('BN003', 'Trần Khôi', '2024-11-03', 'Nam', '12 Nguyễn Văn Bảo', 1034052512, '9876543213');
+('BN003', 'Mymy', '2024-11-03', 'Nữ', '12 Nguyễn Văn Bảo', 0234052512, '2456789000'),
+('BN004', 'Trần Khôi', '2024-11-03', 'Nam', '12 Nguyễn Văn Bảo', 1034052512, '9876543213');
 -- --------------------------------------------------------
 
 --
@@ -128,19 +129,38 @@ CREATE TABLE `chitiet_thuoc` (
 --
 
 CREATE TABLE `donthuoc` (
-  `MaDonThuoc` varchar(10) NOT NULL,
-  `Ten` varchar(10) NOT NULL,
-  `LieuLuong` float NOT NULL DEFAULT 0,
-  `MaGiaoDich` varchar(20) NOT NULL
+    `MaDonThuoc` varchar(10) NOT NULL,
+    `MaThuoc` varchar(10) NOT NULL,
+    `MaBN` varchar(10) NOT NULL,
+    `SoLuong` float NOT NULL DEFAULT 1,
+    `LieuLuong` varchar(50) NOT NULL,
+    `CachDung` varchar(100) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO `donthuoc` (`MaDonThuoc`, `Ten`, `LieuLuong`, `MaGiaoDich`) VALUES 
-('DT001', 'Paracetamol', 500.0, 'GD001'),
-('DT002', 'Amoxicillin', 250.5, 'GD002'),
-('DT003', 'Ibuprofen', 400.0, 'GD003'),
-('DT004', 'Aspirin', 100.0, 'GD004'),
-('DT005', 'Cetirizine', 10.0, 'GD005');
+INSERT INTO `donthuoc` (`MaDonThuoc`, `MaThuoc`, `MaBN`, `SoLuong`, `LieuLuong`, `CachDung`) VALUES 
+('DT001', 'T001', 'BN001', '2', '500mg', 'Uống 2 lần/ngày, sau bữa ăn'),
+('DT002', 'T002', 'BN002', '1', '250mg', 'Uống 3 lần/ngày, sau ăn'),
+('DT003', 'T003', 'BN003', '3', '400mg', 'Uống 1 viên/lần, khi đau');
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `thuoc`
+--
+
+CREATE TABLE `thuoc` (
+  `MaThuoc` varchar(10) NOT NULL,
+  `Ten` varchar(50) NOT NULL,
+  `DangThuoc` varchar(20) NOT NULL,
+  `GiaTien` int(100) NOT NULL,
+  `SoLuongTon` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+INSERT INTO `thuoc` (`MaThuoc`, `Ten`, `DangThuoc`, `GiaTien`, `SoLuongTon`) VALUES 
+('T001', 'Paracetamol', 'Viên', 5000, 500.5),
+('T002', 'Amoxicillin', 'Viên nang', 15000, 250.0),
+('T003', 'Ibuprofen', 'Viên', 7500, 300.75),
+('T004', 'Nhỏ mắt Tearisol', 'Nhỏ', 25000, 100.25),
+('T005', 'Siro ho Prospan', 'Dạng nước', 45000, 75.5);
 -- --------------------------------------------------------
 
 --
@@ -346,18 +366,6 @@ INSERT INTO `products` (`id`, `name`, `category`, `text`, `image`, `description`
 
 
 
--- --------------------------------------------------------
-
---
--- Table structure for table `thuoc`
---
-
-CREATE TABLE `thuoc` (
-  `MaThuoc` varchar(10) NOT NULL,
-  `Ten` varchar(50) NOT NULL,
-  `DangThuoc` varchar(20) NOT NULL,
-  `SoLuongTon` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -464,9 +472,9 @@ ALTER TABLE `chitiet_thuoc`
 -- Indexes for table `donthuoc`
 --
 ALTER TABLE `donthuoc`
-  ADD PRIMARY KEY (`MaDonThuoc`),
-  ADD KEY `MaGiaoDich` (`MaGiaoDich`);
-
+  ADD PRIMARY KEY (`MaDonThuoc`);
+  
+   
 --
 -- Indexes for table `hoadon`
 --
@@ -475,6 +483,7 @@ ALTER TABLE `hoadon`
   ADD KEY `MaThuNgan` (`MaThuNgan`),
   ADD KEY `MaBN` (`MaBN`),
   ADD KEY `MaDonThuoc` (`MaDonThuoc`);
+
 
 --
 -- Indexes for table `khoakham`
@@ -621,7 +630,8 @@ ALTER TABLE `chitiet_thuoc`
 -- Constraints for table `donthuoc`
 --
 ALTER TABLE `donthuoc`
-  ADD CONSTRAINT `donthuoc_ibfk_1` FOREIGN KEY (`MaGiaoDich`) REFERENCES `hoadon` (`MaGiaoDich`);
+  ADD CONSTRAINT `donthuoc_ibfk_1` FOREIGN KEY (`MaThuoc`) REFERENCES `thuoc` (`MaThuoc`),
+  ADD CONSTRAINT `donthuoc_ibfk_1`  FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`);
 
 --
 -- Constraints for table `hoadon`
