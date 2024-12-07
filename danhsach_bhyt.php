@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Truy vấn dữ liệu
-$query = "SELECT * FROM bhyt_table";
+$query = "SELECT * FROM yeucaubaohiem";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 
@@ -49,6 +49,7 @@ $bhyt_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <table>
             <thead>
                 <tr>
+                    <th>Mã bệnh nhân</th>
                     <th>Mã BHYT/CCCD</th>
                     <th>Ngày bắt đầu</th>
                     <th>Ngày hết hạn</th>
@@ -57,9 +58,10 @@ $bhyt_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
                 <?php foreach ($bhyt_list as $row): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['bhyt_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['start_date']); ?></td>
-                        <td><?php echo htmlspecialchars($row['end_date']); ?></td>
+                        <td><?php echo htmlspecialchars($row['MaBN']); ?></td>
+                        <td><?php echo htmlspecialchars($row['MaBH']); ?></td>
+                        <td><?php echo htmlspecialchars($row['NgayBD']); ?></td>
+                        <td><?php echo htmlspecialchars($row['NgayHH']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
