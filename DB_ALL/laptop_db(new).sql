@@ -60,8 +60,8 @@ CREATE TABLE `bacsi` (
 --
 
 INSERT INTO `bacsi` (`MaBS`, `MaKhoa`, `Ten`, `SoDienThoai`, `ChuyenKhoa`, `imge`) VALUES
-('120H', '1', 'Ths.Bs : Trần Khôi', 866169103, 'Chuyên khoa : Nhi', 'download (2).jfif\r\n'),
-('320T', '12', 'Trần Văn B', 1634052513, 'Chuyên khoa : Răng - Hàm - Mặt', 'download (2).jfif\r\n');
+('BS001', '1', 'Ths.Bs : Trần Khôi', 866169103, 'Chuyên khoa : Nhi', 'download (2).jfif\r\n'),
+('BS002', '12', 'Trần Văn B', 1634052513, 'Chuyên khoa : Răng - Hàm - Mặt', 'download (2).jfif\r\n');
 
 -- --------------------------------------------------------
 
@@ -122,6 +122,10 @@ CREATE TABLE `chitiet_thuoc` (
   `MaDonThuoc` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+INSERT INTO `chitiet_thuoc` (`MaThuoc`,`MaDonThuoc`) VALUES 
+('T001','DT001'),
+('T002','DT002'),
+('T001','DT003');
 -- --------------------------------------------------------
 
 --
@@ -130,17 +134,16 @@ CREATE TABLE `chitiet_thuoc` (
 
 CREATE TABLE `donthuoc` (
     `MaDonThuoc` varchar(10) NOT NULL,
-    `MaThuoc` varchar(10) NOT NULL,
     `MaBN` varchar(10) NOT NULL,
     `SoLuong` float NOT NULL DEFAULT 1,
     `LieuLuong` varchar(50) NOT NULL,
     `CachDung` varchar(100) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO `donthuoc` (`MaDonThuoc`, `MaThuoc`, `MaBN`, `SoLuong`, `LieuLuong`, `CachDung`) VALUES 
-('DT001', 'T001', 'BN001', '2', '500mg', 'Uống 2 lần/ngày, sau bữa ăn'),
-('DT002', 'T002', 'BN002', '1', '250mg', 'Uống 3 lần/ngày, sau ăn'),
-('DT003', 'T003', 'BN003', '3', '400mg', 'Uống 1 viên/lần, khi đau');
+INSERT INTO `donthuoc` (`MaDonThuoc`, `MaBN`, `SoLuong`, `LieuLuong`, `CachDung`) VALUES 
+('DT001', 'BN001', '2', '500mg', 'Uống 2 lần/ngày, sau bữa ăn'),
+('DT002', 'BN002', '1', '250mg', 'Uống 3 lần/ngày, sau ăn'),
+('DT003', 'BN003', '3', '400mg', 'Uống 1 viên/lần, khi đau');
 -- --------------------------------------------------------
 
 --
@@ -250,6 +253,10 @@ CREATE TABLE `lichhen` (
   `KhoaKham` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+INSERT INTO `lichhen` (`MaLichHen`, `MaBS`, `MaBN`, `Ngay`, `Gio`, `STT`, `PhongKham`, `KhoaKham`) VALUES 
+('LH001', 'BS001', 'BN001', '2024-02-20', '09:00:00', 1, 'PK01', 'Nội Khoa'),
+('LH002', 'BS002', 'BN002', '2024-02-21', '14:30:00', 2, 'PK02', 'Ngoại Khoa'),
+('LH003', 'BS001', 'BN003', '2024-02-22', '10:15:00', 3, 'PK03', 'Tim Mạch');
 --
 -- Dumping data for table `lichhen`
 --
@@ -422,6 +429,7 @@ CREATE TABLE `xetnghiem` (
   `MaPhieu` varchar(10) NOT NULL,
   `Ten` varchar(50) NOT NULL,
   `Ngay` date NOT NULL,
+  `Tien` int(100) NOT NULL,
   `KetQua` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -630,7 +638,6 @@ ALTER TABLE `chitiet_thuoc`
 -- Constraints for table `donthuoc`
 --
 ALTER TABLE `donthuoc`
-  ADD CONSTRAINT `donthuoc_ibfk_1` FOREIGN KEY (`MaThuoc`) REFERENCES `thuoc` (`MaThuoc`),
   ADD CONSTRAINT `donthuoc_ibfk_1`  FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`);
 
 --
