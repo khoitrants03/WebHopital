@@ -1,14 +1,13 @@
 <?php
-
 include 'components/connect.php';
 
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-   $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
 } else {
-   $user_id = '';
-};
+    $user_id = '';
+}
 
 ?>
 
@@ -16,131 +15,217 @@ if (isset($_SESSION['user_id'])) {
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Giới thiệu</title>
-   <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
-   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-
-   <!-- font awesome cdn link 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> -->
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt lịch riêng</title>
+    <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-   <!-- header section starts  -->
-   <?php include 'components/user_header.php'; ?>
-   <!-- header section ends -->
+    <!-- header section starts  -->
+    <?php
+    if (isset($_SESSION['phanquyen'])) {
+        if ($_SESSION['phanquyen'] === 'nhanvien') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+            require("components/user_header_patient.php");
+        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
+            require("components/user_header_tieptan.php");
+        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+            require("components/user_header_nhathuoc.php");
+        }
+    } else {
+        include("components/user_header.php");
+    }
+    ?> <!-- header section ends -->
 
     <div class="heading">
-    <h3>Đặt lịch khám bệnh</h3>
-    <p><a href="home.php">Trang chủ</a> <span> / lịch khám</span></p>
+        <h3>Đặt lịch khám riêng</h3>
+        <p><a href="home.php">Trang chủ</a> <span><span> / Đặt lịch khám riêng</span></p>
     </div>
 
-   <!-- about section starts  -->
+    <!-- menu section starts  -->
+    <section class="products">
+        <div class="box-container">
+            <div class="service">
+                <div class="working-hours">
+                    <h2>Giờ làm việc</h2>
+                    <ul>
+                        <li>Thứ hai <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Thứ ba <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Thứ tư <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Thứ năm <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Thứ sáu <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Thứ bảy <span>09:00 AM - 07:00 PM</span></li>
+                        <li>Chủ nhật <span>Closed</span></li>
+                    </ul>
+                    <div class="emergency">
+                        <h3>Cấp cứu</h3>
+                        <p>0384104942</p>
+                    </div>
+                </div>
+            </div>
+            <div class="register">
+                <div class="form-container">
+                    <div class="form-title">Đặt lịch khám riêng</div>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="randomNumber">Mã lịch hẹn</label>
+                            <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;"
+                                readonly>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const randomNum = Math.floor(Math.random() * 10000) + 1;
+                                    document.getElementById("randomNumber").value = randomNum;
+                                });
+                            </script>
+                        </div>
 
-   <!-- Section for Appointment Booking -->
-<div class="appointment-section">
-   <div class="appointment-container">
-      
+                        <div class="form-group">
+                            <label for="maBN">Mã BN</label>
+                            <input type="text" name="maBN" id="maBN" required>
+                        </div>
+                        <?php
+                        $select_departments = $conn->prepare("SELECT * FROM `bacsi`");
+                        $select_departments->execute();
+                        ?>
+                        <div class="form-group">
+                            <label for="department">Khoa khám bệnh</label>
+                            <select id="department" name="department">
+                                <?php
+                                $query = $conn->prepare("SELECT TenKhoa FROM KhoaKham");
+                                $query->execute();
 
-      <!-- Form đặt lịch khám -->
-      <form action="" method="post" class="appointment-form">
-        <h1>Đặt lịch khám</h1>
-      <h2>Đảm bảo sức khỏe cho bạn và gia đình bằng cách đặt lịch khám nhanh chóng và thuận tiện</h2>
-         <div class="row">
-            <input type="text" name="name" required placeholder="Họ tên" class="box">
-            <select name="gender" class="box" required>
-               <option value="" disabled selected>Giới tính</option>
-               <option value="nam">Nam</option>
-               <option value="nu">Nữ</option>
-            </select>
-         </div>
-         <div class="row">
-            <input type="email" name="email" required placeholder="Email" class="box">
-            <input type="number" name="phone" required placeholder="Số điện thoại" class="box">
-         </div>
-         <div class="row">
-            <input type="date" name="appointment_date" required class="box">
-            <select name="appointment_time" class="box" required>
-               <option value="" disabled selected>Thời gian</option>
-               <option value="09:00">09:00 - 10:00</option>
-               <option value="10:00">10:00 - 11:00</option>
-               <option value="11:00">11:00 - 12:00</option>
-               <option value="14:00">14:00 - 15:00</option>
-               <option value="15:00">15:00 - 16:00</option>
-               <option value="16:00">16:00 - 17:00</option>
-            </select>
-         </div>
-         <div class="row">
-            <select name="department" class="box" required>
-               <option value="" disabled selected>Bác sĩ</option>
-               <option value="Bác sĩ A">Bác sĩ A</option>
-               <option value="Bác sĩ B">Bác sĩ B</option>
-               <option value="Bác sĩ C">Bác sĩ C</option>
-            </select>
-            <input type="number" name="room_number" placeholder="Số phòng" class="box">
-         </div>
-         <textarea name="note" class="box" placeholder="Lời nhắn" cols="30" rows="3"></textarea>
-         <input type="submit" value="Submit" class="btn" name="submit">
-      </form>
-   </div>
+                                if ($query->rowCount() > 0) {
+                                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "<option value='" . $row['TenKhoa'] . "'>" . $row['TenKhoa'] . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có khoa</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
 
-   <div class="working-hours">
-      <h2>Giờ làm việc</h2>
-      <ul>
-         <li>Thứ hai <span>09:00 AM - 07:00 PM</span></li>
-         <li>Thứ ba <span>09:00 AM - 07:00 PM</span></li>
-         <li>Thứ tư <span>09:00 AM - 07:00 PM</span></li>
-         <li>Thứ năm <span>09:00 AM - 07:00 PM</span></li>
-         <li>Thứ sáu <span>09:00 AM - 07:00 PM</span></li>
-         <li>Thứ bảy <span>09:00 AM - 07:00 PM</span></li>
-         <li>Chủ nhật <span>Closed</span></li>
-      </ul>
-      <div class="emergency">
-         <h3>Cấp cứu</h3>
-         <p>0384104942</p>
-      </div>
-   </div>
-</div>
+                        <div class="form-group" style="display: none;">
+                            <label for="class">Phòng khám</label>
+                            <input type="text" name="class" id="class" readonly>
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label for="doctor">Bác Sĩ</label>
+                            <input type="text" name="doctor" id="doctor" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="STT">STT</label>
+                            <input type="text" name="STT" id="STT" value="" readonly>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    let currentSTT = parseInt(localStorage.getItem("STT")) || 1;
+                                    document.getElementById("STT").value = currentSTT;
+
+                                    localStorage.setItem("STT", currentSTT + 1);
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment">Ngày khám</label>
+                            <input type="date" name="appointment" id="appointment" required>
+                        </div>
+
+                        <!-- Thêm giờ khám -->
+                        <div class="form-group">
+                            <label for="time">Giờ khám</label>
+                            <select name="time" id="time" required>
+                                <?php
+                                $query = $conn->prepare("SELECT DISTINCT Gio FROM lichhen ORDER BY Gio ASC");
+                                $query->execute();
+
+                                if ($query->rowCount() > 0) {
+                                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "<option value='" . $row['Gio'] . "'>" . $row['Gio'] . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có giờ khám</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <!-- Kết thúc thêm giờ khám -->
+
+                        <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?php
+        if (isset($_POST['add_date'])) {
+            $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+            $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+            $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
+            $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
+            $gio = filter_var($_POST['time'], FILTER_SANITIZE_STRING); // Nhận giá trị giờ khám
+            $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
+
+            // chọn ngẫu nhiên bác sĩ ở khoa
+            $query = $conn->prepare("SELECT MaBS,Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
+            $query->execute([$khoa]);
+
+            $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE maBN = ?");
+            $check_maBN->execute([$maBN]);
 
 
-   <!-- footer section starts  -->
-   <?php include 'components/footer.php'; ?>
-   <!-- footer section ends -->=
+            if ($check_maBN->rowCount() > 0) {
+                if ($query->rowCount() > 0) {
+                    $bs = $query->fetch(PDO::FETCH_ASSOC);
+                    $doctor = $bs['MaBS'];
+                    $tenBs = $bs['Ten'];
+                    $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
+                                                   JOIN phongkham p ON p.MaPhong = k.MaPhong
+                                                   WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)");
+                    $query_phong->execute([$doctor]);
 
-   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+                    if ($query_phong->rowCount() > 0) {
+                        $phong = $query_phong->fetch(PDO::FETCH_ASSOC);
+                        $tenKhoa = $phong['TenKhoa'];
+                        $soPhong = $phong['SoPhong'];
 
-   <!-- custom js file link  -->
-   <script src="js/script.js"></script>
+                        echo "<script>
+                            document.getElementById('doctor').value = '$doctor';
+                            document.getElementById('class').value = '$soPhong';
+                            alert('Bác sĩ được chọn: $tenBs, Chuyên khoa: $khoa ,Phòng khám: $soPhong');
+                        </script>";
+                    } else {
+                        echo "<script>alert('Không tìm thấy phòng cho bác sĩ này.');</script>";
+                    }
+                } else {
+                    echo "<script>alert('Không có bác sĩ trong khoa này');</script>";
+                }
 
-   <script>
-      var swiper = new Swiper(".reviews-slider", {
-         loop: true,
-         grabCursor: true,
-         spaceBetween: 20,
-         pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-         },
-         breakpoints: {
-            0: {
-               slidesPerView: 1,
-            },
-            700: {
-               slidesPerView: 2,
-            },
-            1024: {
-               slidesPerView: 3,
-            },
-         },
-      });
-   </script>
+                $insert_date = $conn->prepare("INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, Gio, STT, PhongKham, KhoaKham)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $insert_date->execute([$maLichHen, $doctor, $maBN, $ngaykham, $gio, $stt, $soPhong, $tenKhoa]);
+                echo "<script>
+                    alert('Thêm Thành Công.');
+                    window.location.href = 'xemthongtin.php'; 
+                </script>";
+            } else {
+                echo "<script>alert('Mã Bệnh nhân không đã tồn tại!');</script>";
+            }
+        }
+        ?>
+    </section>
 
+    <!-- footer section starts  -->
+    <?php include 'components/footer.php'; ?>
+    <!-- footer section ends -->
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>
