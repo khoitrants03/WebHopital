@@ -51,7 +51,8 @@ include 'components/add_cart.php';
    } else {
       include("components/user_header.php");
    }
-   ?>
+   ?>  <!-- header section ends -->
+
     <div class="heading">
         <h3>Hồ sơ bệnh án</h3>
         <p><a href="home.php">Trang chủ</a> <span> / Bệnh nhân</span></p>
@@ -60,68 +61,80 @@ include 'components/add_cart.php';
     <!-- menu section starts  -->
 
     <section class="products">
-        <?php
-        $pid = $_GET['pid'];
-        $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN = ?");
-        $select_patient->execute([$pid]);
-        if ($select_patient->rowCount() > 0) {
-            while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
-                ?>
 
-                <div class="box-container">
 
-                    <div class="service">
-                        <div class="box_register">
-                            <div class="box-item">
-                                <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                                    Thông tin cá nhân</a1>
-                            </div>
-                            <div class="box-item">
-                                <a href="xemthongtinxetnghiem.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Xét nghiệm
-                                </a>
-                            </div>
-                            <div class="box-item">
-                                <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Đơn thuốc
-                                </a>
-                            </div>
-                            <div class="box-item">
-                                <a href="xemthongtinphieukham.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Phiếu khám bệnh
-                                </a>
-                            </div>
-                        </div>
+        <div class="box-container">
+
+            <div class="service">
+                <div class="box_register">
+                    <div class="box-item">
+                        <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
+                           Phiếu khám bệnh</a1>
                     </div>
-                    <div class="register">
-                        <?php ?>
+                    <div class="box-item">
+                        <a href="xemthongtinxetnghiem.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Xét nghiệm
+                        </a>
+                    </div>
+                    <div class="box-item">
+                        <a href="xemthongtindonthuoc.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Đơn thuốc
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="register">
+
+                <?php
+                $select_date = $conn->prepare("
+                                          SELECT pk.MaPhieu, pk.TinhTrang, pk.NgayGio, bn.NgaySinh, 
+                                                bc.Ten as tenBS , kh.TenKhoa 
+                                                FROM `PhieuKhamBenh` pk 
+                                                    JOIN `bacsi` bc ON pk.MaBS = bc.MaBS 
+                                                    join khoakham kh on bc.MaKhoa= kh.MaKhoa 
+                                                    join benhnhan bn on pk.MaBN= bn.MaBN
+                                                    LIMIT 1 ");
+                $select_date->execute();
+
+
+                if ($select_date->rowCount() > 0) {
+                    while ($fetch_date = $select_date->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
                         <div class="form-container">
-                            <div class="form-title">Thông tin cá nhân</div>
+                            <div class="form-title"> Thông tin phiếu khám bệnh</div>
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="bhyt">Mã bệnh nhân</label>
-                                    <input type="text" id="bhyt" value="<?= $fetch_patient['MaBN']; ?>">
+                                    <label for="name">Mã Phiếu</label>
+                                    <input type="text" id="randomNumber" value="<?= $fetch_date['MaPhieu']; ?>"
+                                        style="font-size: 2rem;">
+
                                 </div>
+
                                 <div class="form-group">
                                     <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_patient['Ten']; ?>">
+                                    <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_patient['NgaySinh']; ?>">
+                                    <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Giới tính</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['GioiTinh']; ?>">
+                                    <label for="chuyenKhoa">Khoa Khám</label>
+                                    <input type="text" id="chuyenKhoa" value="<?= $fetch_date['TenKhoa']; ?>">
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Địa chỉ</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['DiaChi']; ?>">
+                                    <label for="appointment">Ngày khám</label>
+                                    <input type="datetime-local" id="appointment" value="<?= $fetch_date['NgayGio']; ?>">
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label>Số điện thoại</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['SoDienThoai']; ?>">
+                                    <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
+                                    <textarea id="chuandoanbenh" rows="4"><?= $fetch_date['TinhTrang']; ?></textarea>
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Thông tin bảo hiểm</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['ThongTinBaoHiem']; ?>">
+                                    <label for="tenBs">Người lập</label>
+                                    <input type="text" id="tenBs" value="<?= $fetch_date['tenBS']; ?>" rows="4">
                                 </div>
                                 <style>
                                     textarea {
@@ -135,20 +148,19 @@ include 'components/add_cart.php';
                                     textarea:valid {
                                         border-color: green;
                                     }
-                                </style>
-                                <button type="submit" class="submit-btn" name="add_patient">Cập nhật</button>
+                                </style>  
                             </form>
-
-                        </div>
-                    </div>
-
+                            <?php
+                    }
+                }else {
+                    echo '<p class="empty">Chưa có thông tin  bệnh nhân để hiển thị!</p>';
+                }
+                ?>
                 </div>
-                <?php
-            }
-        } else {
-            echo '<p class="empty">Chưa thông tin  bệnh nhân để hiển thị!</p>';
-        }
-        ?>
+            </div>
+
+        </div>
+
     </section>
     <!-- footer section starts  -->
     <?php include 'components/footer.php'; ?>
