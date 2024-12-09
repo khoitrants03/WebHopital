@@ -14,12 +14,12 @@ $message = '';
 
 // Xử lý khi form được submit
 if (isset($_POST['check'])) {
-   $bhyt_id = $_POST['bhyt_id'];
+   $MaBH = $_POST['MaBH'];
    
    // Kiểm tra mã BHYT/CCCD đã tồn tại trong cơ sở dữ liệu
-   $query = "SELECT * FROM bhyt_table WHERE bhyt_id = ?";
+   $query = "SELECT * FROM yeucaubaohiem WHERE MaBH = ?";
    $stmt = $conn->prepare($query);
-   $stmt->execute([$bhyt_id]);
+   $stmt->execute([$MaBH]);
    
    if ($stmt->rowCount() > 0) {
        // Nếu mã đã tồn tại
@@ -33,58 +33,66 @@ if (isset($_POST['check'])) {
 
 
 if (isset($_POST['add'])) {
-   $bhyt_id = $_POST['bhyt_id'];
-   $start_date = $_POST['start_date'];
-   $end_date = $_POST['end_date'];
+   
+   $MaBN = $_POST['MaBN'];
+   $MaBH = $_POST['MaBH'];
+   $NgayBD = $_POST['NgayBD'];
+   $NgayHH = $_POST['NgayHH'];
+   
 
-   if (!empty($bhyt_id) && !empty($start_date) && !empty($end_date)) {
-      $query = "SELECT * FROM bhyt_table WHERE bhyt_id = ?";
+   if (!empty($MaBH) && !empty($NgayBD) && !empty($NgayHH) && !empty($MaBN)) {
+      $query = "SELECT * FROM yeucaubaohiem WHERE MaBH = ? OR MaBN = ?";
       $stmt = $conn->prepare($query);
-      $stmt->execute([$bhyt_id]);
+      $stmt->execute([$MaBH, $MaBN]);
 
       if ($stmt->rowCount() > 0) {
          $message = "Dữ liệu đã có, không thể thêm.";
       } else {
-         $insert_query = "INSERT INTO bhyt_table (bhyt_id, start_date, end_date) VALUES (?, ?, ?)";
+         $insert_query = "INSERT INTO yeucaubaohiem (MaBN, MaBH, NgayBD, NgayHH) VALUES (?, ?, ?, ?)";
          $insert_stmt = $conn->prepare($insert_query);
-         $insert_stmt->execute([$bhyt_id, $start_date, $end_date]);
+         $insert_stmt->execute([$MaBN, $MaBH, $NgayBD, $NgayHH]);
          $message = "Thêm mã BHYT/CCCD thành công.";
 
          // Xóa dữ liệu trong form
-         $_POST['bhyt_id'] = '';
-         $_POST['start_date'] = '';
-         $_POST['end_date'] = '';
+         $_POST['MaBN'] = '';
+         $_POST['MaBH'] = '';
+         $_POST['NgayBD'] = '';
+         $_POST['NgayHH'] = '';
       }
    } else {
       $message = "Vui lòng nhập đầy đủ thông tin.";
    }
 }
 
-if (isset($_POST['delete'])) {
-   $bhyt_id = $_POST['bhyt_id'];
 
-   if (!empty($bhyt_id)) {
-      $query = "SELECT * FROM bhyt_table WHERE bhyt_id = ?";
+if (isset($_POST['delete'])) {
+   $MaBH = $_POST['MaBH'];
+   $MaBN = $_POST['MaBN'];
+
+   if (!empty($MaBH) || !empty($MaBN)) {
+      $query = "SELECT * FROM yeucaubaohiem WHERE MaBH = ? OR MaBN = ?";
       $stmt = $conn->prepare($query);
-      $stmt->execute([$bhyt_id]);
+      $stmt->execute([$MaBH, $MaBN]);
 
       if ($stmt->rowCount() > 0) {
-         $delete_query = "DELETE FROM bhyt_table WHERE bhyt_id = ?";
+         $delete_query = "DELETE FROM yeucaubaohiem WHERE MaBH = ? OR MaBN = ?";
          $delete_stmt = $conn->prepare($delete_query);
-         $delete_stmt->execute([$bhyt_id]);
-         $message = "Xóa mã BHYT/CCCD thành công.";
+         $delete_stmt->execute([$MaBH, $MaBN]);
+         $message = "Xóa mã BHYT/CCCD hoặc mã bệnh nhân thành công.";
 
          // Xóa dữ liệu trong form
-         $_POST['bhyt_id'] = '';
-         $_POST['start_date'] = '';
-         $_POST['end_date'] = '';
+         $_POST['MaBN'] = '';
+         $_POST['MaBH'] = '';
+         $_POST['NgayBD'] = '';
+         $_POST['NgayHH'] = '';
       } else {
-         $message = "Mã BHYT/CCCD không tồn tại.";
+         $message = "Mã BHYT/CCCD hoặc mã bệnh nhân không tồn tại.";
       }
    } else {
-      $message = "Vui lòng nhập mã BHYT/CCCD để xóa.";
+      $message = "Vui lòng nhập mã BHYT/CCCD hoặc mã bệnh nhân để xóa.";
    }
 }
+
 
 
 ?>
@@ -120,22 +128,29 @@ if (isset($_POST['delete'])) {
    <section class="checkout">
       <?php if (isset($message)) { echo "<p>$message</p>"; } ?>
       <form action="" method="post" id="bhytForm" class="insurance-form">
+
+         <div class="form-group">   
+            <label for="MaBN">Mã Bệnh Nhân</label>
+            <input type="text" id="MaBN" name="MaBN" placeholder="Nhập mã bệnh nhân" 
+                  value="<?php echo isset($_POST['MaBN']) ? htmlspecialchars($_POST['MaBN']) : ''; ?>" required>
+         </div>
+
          <div class="form-group">
-            <label for="bhyt_id">Số BHYT/CCCD</label>
-            <input type="text" id="bhyt_id" name="bhyt_id" placeholder="Nhập số BHYT/CCCD" 
-                  value="<?php echo isset($_POST['bhyt_id']) ? htmlspecialchars($_POST['bhyt_id']) : ''; ?>" required>
+            <label for="MaBH">Số BHYT/CCCD</label>
+            <input type="text" id="MaBH" name="MaBH" placeholder="Nhập số BHYT/CCCD" 
+                  value="<?php echo isset($_POST['MaBH']) ? htmlspecialchars($_POST['MaBH']) : ''; ?>" required>
          </div>
 
          <div class="form-group">
             <label for="start_date">Ngày bắt đầu</label>
-            <input type="date" id="start_date" name="start_date" 
-                  value="<?php echo isset($_POST['start_date']) ? htmlspecialchars($_POST['start_date']) : ''; ?>" required>
+            <input type="date" id="NgayBD" name="NgayBD" 
+                  value="<?php echo isset($_POST['NgayBD']) ? htmlspecialchars($_POST['NgayBD']) : ''; ?>" required>
          </div>
 
          <div class="form-group">
-            <label for="end_date">Ngày hết hạn</label>
-            <input type="date" id="end_date" name="end_date" 
-                  value="<?php echo isset($_POST['end_date']) ? htmlspecialchars($_POST['end_date']) : ''; ?>" required>
+            <label for="NgayHH">Ngày hết hạn</label>
+            <input type="date" id="NgayHH" name="NgayHH" 
+                  value="<?php echo isset($_POST['NgayHH']) ? htmlspecialchars($_POST['NgayHH']) : ''; ?>" required>
          </div>
 
          <button type="submit" name="check" class="confirm-btn">Kiểm tra</button>

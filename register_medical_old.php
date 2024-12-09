@@ -28,24 +28,23 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- header section starts  -->
     <?php
-   if (isset($_SESSION['phanquyen'])) {
-      if ($_SESSION['phanquyen'] === 'nhanvien') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-         require("components/user_header_patient.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'tieptan') {
-         require("components/user_header_tieptan.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-         require("components/user_header_nhathuoc.php");
-      }
-   } else {
-      include("components/user_header.php");
-   }
-   ?>  <!-- header section ends -->
+    if (isset($_SESSION['phanquyen'])) {
+        if ($_SESSION['phanquyen'] === 'nhanvien') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+            require("components/user_header_patient.php");
+        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
+            require("components/user_header_tieptan.php");
+        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+            require("components/user_header_nhathuoc.php");
+        }
+    } else {
+        include("components/user_header.php");
+    }
+    ?>
+    <!-- header section ends -->
 
     <div class="heading">
         <h3>Đăng kí khám bệnh</h3>
@@ -111,7 +110,7 @@ if (isset($_SESSION['user_id'])) {
                                 ?>
                             </select>
                         </div>
-                        
+
                         <div class="form-group" style="display: none;">
                             <label for="class">Phòng khám</label>
                             <input type="text" name="class" id="class" readonly>
@@ -144,62 +143,81 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <?php
         if (isset($_POST['add_date'])) {
-            $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
-            $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
-            $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
-            $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
-            $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
+            try {
+                // Làm sạch dữ liệu đầu vào
+                $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+                $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+                $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
+                $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
+                $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
 
-            // chọn ngẫu nhiên bác sĩ ở khoa
-            $query = $conn->prepare("SELECT MaBS,Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
-            $query->execute([$khoa]);
+                // Kiểm tra mã bệnh nhân
+                $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN = ?");
+                $check_maBN->execute([$maBN]);
 
-            $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE maBN = ?");
-            $check_maBN->execute([$maBN]);
-
-
-            if ($check_maBN->rowCount() > 0) {
-                if ($query->rowCount() > 0) {
-                    $bs = $query->fetch(PDO::FETCH_ASSOC);
-                    $doctor = $bs['MaBS'];
-                    $tenBs = $bs['Ten'];
-                      $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
-                                                   JOIN phongkham p ON p.MaPhong = k.MaPhong
-                                                   WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)");
-                    $query_phong->execute([$doctor]);
-
-                    if ($query_phong->rowCount() > 0) {
-                        $phong = $query_phong->fetch(PDO::FETCH_ASSOC);
-                        $tenKhoa = $phong['TenKhoa'];
-                        $soPhong = $phong['SoPhong'];
-
-                        echo "<script>
-                            document.getElementById('doctor').value = '$doctor';
-                            document.getElementById('class').value = '$soPhong';
-                            alert('Bác sĩ được chọn: $tenBs,Chuyên khoa: $khoa ,Phòng khám: $soPhong');
-                        </script>";
-                    } else {
-                        echo "<script>alert('Không tìm thấy phòng cho bác sĩ này.');</script>";
-                    }
-                } else {
-                    echo "<script>alert('Không có bác sĩ trong khoa này');</script>";
+                if ($check_maBN->rowCount() === 0) {
+                    echo "<script>alert('Mã bệnh nhân không tồn tại!');</script>";
+                    exit;
                 }
 
-                $insert_date = $conn->prepare("INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, STT, PhongKham, KhoaKham)
-                   VALUES (?, ?, ?, ?, ?, ?, ?)");
+                // Kiểm tra viện phí
+                $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN = ? AND SoTien > 5000");
+                $check_VienPhi->execute([$maBN]);
+
+                if ($check_VienPhi->rowCount() === 0) {
+                    echo "<script>alert('Bệnh nhân chưa thanh toán!');</script>";
+                    exit;
+                }
+
+                // Chọn ngẫu nhiên bác sĩ trong khoa
+                $query = $conn->prepare("SELECT MaBS, Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
+                $query->execute([$khoa]);
+
+                if ($query->rowCount() === 0) {
+                    echo "<script>alert('Không có bác sĩ trong khoa này!');</script>";
+                    exit;
+                }
+
+                $bs = $query->fetch(PDO::FETCH_ASSOC);
+                $doctor = $bs['MaBS'];
+                $tenBs = $bs['Ten'];
+
+                // Lấy thông tin phòng khám
+                $query_phong = $conn->prepare(
+                    "SELECT k.TenKhoa, p.SoPhong 
+            FROM khoakham k
+            JOIN phongkham p ON p.MaPhong = k.MaPhong
+            WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)"
+                );
+                $query_phong->execute([$doctor]);
+
+                if ($query_phong->rowCount() === 0) {
+                    echo "<script>alert('Không tìm thấy phòng khám cho bác sĩ này!');</script>";
+                    exit;
+                }
+
+                $phong = $query_phong->fetch(PDO::FETCH_ASSOC);
+                $tenKhoa = $phong['TenKhoa'];
+                $soPhong = $phong['SoPhong'];
+
+                // Chèn lịch hẹn vào cơ sở dữ liệu
+                $insert_date = $conn->prepare(
+                    "INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, STT, PhongKham, KhoaKham)
+            VALUES (?, ?, ?, ?, ?, ?, ?)"
+                );
                 $insert_date->execute([$maLichHen, $doctor, $maBN, $ngaykham, $stt, $soPhong, $tenKhoa]);
+
                 echo "<script>
-                    alert('Thêm  Thành Công.');
-                    window.location.href = 'xemthongtin.php'; 
-                </script>";
+            alert('Thêm thành công. Bác sĩ: $tenBs, Khoa: $tenKhoa, Phòng: $soPhong');
+            window.location.href = 'xemthongtin.php'; 
+        </script>";
 
-
-            } else {
-                echo "<script>alert('Mã Bệnh nhân  không đã tồn tại!');</script>";
-
+            } catch (PDOException $e) {
+                echo "<script>alert('Lỗi hệ thống: " . $e->getMessage() . "');</script>";
             }
         }
         ?>
+
     </section>
 
     <!-- footer section starts  -->
