@@ -199,7 +199,7 @@ if (isset($_POST['add_date'])) {
                             </select>
                         </div>
 
-                        <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
+                        <button type="submit" class="submit-btn" name="add_date">Đăng ký</button>
                     </form>
                 </div>
             </div>
