@@ -60,7 +60,7 @@ include 'components/add_cart.php';
 
     <!-- menu section starts  -->
 
-    <section class="products">
+    <section class="products" style="min-height: 100vh; padding-top: 30;">
 
 
         <div class="box-container">
