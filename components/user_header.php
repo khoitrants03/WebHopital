@@ -42,7 +42,7 @@ if (isset($message)) {
          <div class="dropdown">
             <a href="#" class="dropdown-toggle">Bệnh nhân</a>
             <div class="dropdown-content">
-               <a href="patient_access.php">Thông tin bệnh nhân</a>
+               <a href="patient_access.php">Hồ sơ bệnh án</a>
                <a href="register_medical_old.php">Đăng kí khám bệnh</a>
             </div>
 </div>

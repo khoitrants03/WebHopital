@@ -4,12 +4,7 @@ session_start();
 // Include database connection
 include('components/connect.php'); // Kết nối cơ sở dữ liệu
 
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
- } else {
-    $user_id = '';
-    header('Location: patient_record.php');
- }
+header('Location: patient_record.php');
  
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truy Cập Hồ Sơ Bệnh Án</title>
-    <link rel="stylesheet" href="..css/styles.css">
+    <link rel="stylesheet" href=".css/patient.css">
 </head>
 <body>
     <div class="container">
