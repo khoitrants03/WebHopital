@@ -122,8 +122,9 @@ if (isset($_SESSION['user_id'])) {
                             <label for="phonenumber">Số điện thoại</label>
                             <input type="text" id="phonenumber" name="phonenumber">
                         </div>
+                            <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
 
-                        <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
+                         
 
 
                     </form>
@@ -141,38 +142,38 @@ if (isset($_SESSION['user_id'])) {
                 $check_bhyT = $conn->prepare("SELECT * FROM `benhnhan` WHERE ThongTinBaoHiem = ?");
                 $check_bhyT->execute([$maBHYT]);
 
-                $maBN = $_POST['randomNumber'];
-                $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN=? and SoTien>5000");
-                $check_VienPhi->execute([$maBN]);
-
-                if ($check_VienPhi->rowCount() > 0) {
-        
+                // $maBN = $_POST['randomNumber'];
+                // $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN=? and SoTien>5000");
+                // $check_VienPhi->execute([$maBN]);
+            
+                // if ($check_VienPhi->rowCount() > 0) {
+            
+                // } else {
+                //     echo "<script>alert('Bệnh nhân chưa thanh toán!');</script>";
+                // }
+                if ($check_bhyT->rowCount() > 0) {
+                    // Nếu mã BHYT đã tồn tại
+                    echo "<script>alert('Mã BHYT này đã tồn tại!');</script>";
+                } else if (!preg_match($addressPattern, $address)) {
+                    echo "<script>alert('Địa chỉ không đúng định dạng. ví dụ: Hồ Chí Minh.');</script>";
                 } else {
-                    echo "<script>alert('Bệnh nhân chưa thanh toán!');</script>";
-                }
-            if ($check_bhyT->rowCount() > 0) {
-                        // Nếu mã BHYT đã tồn tại
-                        echo "<script>alert('Mã BHYT này đã tồn tại!');</script>";
-                    } else if (!preg_match($addressPattern, $address)) {
-                        echo "<script>alert('Địa chỉ không đúng định dạng. ví dụ: Hồ Chí Minh.');</script>";
-                    } else {
-                        $maBN = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
-                        $maBHYT = filter_var($_POST['bhyt'], FILTER_SANITIZE_STRING);
-                        $ten = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-                        $ngaysinh = filter_var($_POST['dob'], FILTER_SANITIZE_STRING);
-                        $gioitinh = filter_var($_POST['gender'], FILTER_SANITIZE_STRING);
-                        $diachi = filter_var($_POST['address'], FILTER_SANITIZE_STRING);
-                        $sdt = filter_var($_POST['phonenumber'], FILTER_SANITIZE_STRING);
+                    $maBN = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+                    $maBHYT = filter_var($_POST['bhyt'], FILTER_SANITIZE_STRING);
+                    $ten = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+                    $ngaysinh = filter_var($_POST['dob'], FILTER_SANITIZE_STRING);
+                    $gioitinh = filter_var($_POST['gender'], FILTER_SANITIZE_STRING);
+                    $diachi = filter_var($_POST['address'], FILTER_SANITIZE_STRING);
+                    $sdt = filter_var($_POST['phonenumber'], FILTER_SANITIZE_STRING);
 
-                        // Chèn dữ liệu vào cơ sở dữ liệu
-                        $insert_patient = $conn->prepare("INSERT INTO `benhnhan` (MaBN, Ten, NgaySinh, GioiTinh, DiaChi, SoDienThoai, ThongTinBaoHiem) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                        $insert_patient->execute([$maBN, $ten, $ngaysinh, $gioitinh, $diachi, $sdt, $maBHYT]);
+                    // Chèn dữ liệu vào cơ sở dữ liệu
+                    $insert_patient = $conn->prepare("INSERT INTO `benhnhan` (MaBN, Ten, NgaySinh, GioiTinh, DiaChi, SoDienThoai, ThongTinBaoHiem) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    $insert_patient->execute([$maBN, $ten, $ngaysinh, $gioitinh, $diachi, $sdt, $maBHYT]);
 
-                        echo "<script>
+                    echo "<script>
                         alert('Thêm Mới Bệnh Nhân Thành Công.');
                         window.location.href = 'register_medical_old.php'; 
                     </script>";
-                    }
+                }
             }
 
             ?>

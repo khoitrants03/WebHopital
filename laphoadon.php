@@ -134,7 +134,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="form-group">
                                     <label for="payment_method">Phương thức thanh toán</label>
                                     <select id="payment_method" name="payment_method" class="form-control">
-                                        <option value="Pending">Chuyển khoản</option>
+                                        <option value="Chuyển khoản">Chuyển khoản</option>
                                         <option value="Tiền mặt">Tiền mặt</option>
                                     </select>
                                 </div>

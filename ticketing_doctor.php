@@ -34,24 +34,22 @@ include 'components/add_cart.php';
 
     <!-- header section starts  -->
     <?php
-   if (isset($_SESSION['phanquyen'])) {
-      if ($_SESSION['phanquyen'] === 'nhanvien') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-         require("components/user_header_patient.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'tieptan') {
-         require("components/user_header_tieptan.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-         require("components/user_header_nhathuoc.php");
-      }
-   } else {
-      include("components/user_header.php");
-   }
-   ?>
+    if (isset($_SESSION['phanquyen'])) {
+        if ($_SESSION['phanquyen'] === 'nhanvien') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+            require("components/user_header_patient.php");
+        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
+            require("components/user_header_tieptan.php");
+        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+            require("components/user_header_nhathuoc.php");
+        }
+    } else {
+        include("components/user_header.php");
+    }
+    ?>
     <div class="heading">
         <h3>Lập phiếu khám bệnh</h3>
         <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
@@ -103,21 +101,24 @@ include 'components/add_cart.php';
                                     <label for="maBS">MaBS</label>
                                     <input type="text" id="maBS" name="maBS">
                                 </div>
-                                <div class="form-group">
-                                    <label for="bhyt">Mã định danh</label>
-                                    <input type="text" id="bhyt" value="<?= $fetch_patient['MaBN']; ?>">
+
+                                <div class="form-group" style="display: none;">
+                                    <label for="maBN">Mã Bệnh Nhân</label>
+                                    <input type="hidden" id="maBN" name="maBN"
+                                        value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>">
+                                    <input type="text" value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_patient['Ten']; ?>">
+                                    <input type="text" id="name" value="<?= $fetch_patient['Ten']; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_patient['NgaySinh']; ?>">
+                                    <input type="date" id="dob" value="<?= $fetch_patient['NgaySinh']; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Giới tính</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['GioiTinh']; ?>">
+                                    <input type="text" id="dob" value="<?= $fetch_patient['GioiTinh']; ?>" readonly>
 
                                 </div>
 
@@ -166,10 +167,10 @@ include 'components/add_cart.php';
         $date = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
         $chuandoanbenh = filter_var($_POST['chuandoanbenh'], FILTER_SANITIZE_STRING);
         $maBS = filter_var($_POST['maBS'], FILTER_SANITIZE_STRING);
+        $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
 
-
-        $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS) VALUES (?, ?, ?, ?)");
-        $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS]);
+        $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS,MaBN) VALUES (?,?, ?, ?, ?)");
+        $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS, $maBN]);
 
         echo "<script>
                     alert('Thêm  Thành Công.');

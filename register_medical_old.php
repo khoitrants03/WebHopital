@@ -136,7 +136,9 @@ if (isset($_SESSION['user_id'])) {
                             <label for="appointment">Ngày khám</label>
                             <input type="date" name="appointment" id="appointment" required>
                         </div>
-                        <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
+                                                     <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
+
+                        
                     </form>
                 </div>
             </div>
@@ -185,9 +187,9 @@ if (isset($_SESSION['user_id'])) {
                 // Lấy thông tin phòng khám
                 $query_phong = $conn->prepare(
                     "SELECT k.TenKhoa, p.SoPhong 
-            FROM khoakham k
-            JOIN phongkham p ON p.MaPhong = k.MaPhong
-            WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)"
+                    FROM khoakham k
+                    JOIN phongkham p ON p.MaPhong = k.MaPhong
+                    WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)"
                 );
                 $query_phong->execute([$doctor]);
 
