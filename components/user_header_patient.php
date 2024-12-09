@@ -32,9 +32,9 @@ if (isset($message)) {
 
             <!-- Thêm menu thả xuống cho mục Bác sĩ -->
             <div class="dropdown">
-                <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
+                <a href="bacsi.php" class="dropdown-toggle">Bác sĩ</a>
                 <div class="dropdown-content">
-                     <a href="product.php">Xem thông tin bác sĩ</a>
+                     <a href="bacsi.php">Xem thông tin bác sĩ</a>
                  </div>
             </div>
             <div class="dropdown">
