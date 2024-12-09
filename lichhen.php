@@ -11,8 +11,7 @@ if (isset($_SESSION['user_id'])) {
    header('location:home.php');
 }
 ;
-include './convert_currency.php';
-
+ 
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@ include './convert_currency.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Đặt hàng</title>
+   <title>Lịch hẹn</title>
    <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">

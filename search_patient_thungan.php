@@ -23,25 +23,20 @@ include 'components/add_cart.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dịch vụ</title>
     <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
-    <!-- font awesome cdn link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-    <!-- header section starts  -->
-    <?php include 'components/user_header_doctor.php'; ?>
-    <!-- header section ends -->
-
+     <?php include 'components/user_header_doctor.php'; ?>
+ 
     <div class="heading">
          <p><a href="home.php">Trang chủ</a> <span> / Tra cứu</span></p>
     </div>
 
-    <!-- menu section starts  -->
-
+ 
     <section class="products">
         <div class="box-container">
             <div class="service">
@@ -76,11 +71,9 @@ include 'components/add_cart.php';
         <div class="box-container">
             <?php
             if (isset($_POST['search_btn'])) {
-                // Get user input safely
-                $mabn = $_POST['mabn'];
+                 $mabn = $_POST['mabn'];
 
-                // Secure query with parameterized SQL
-                $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN LIKE ?");
+                 $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN LIKE ?");
                 $search_value = "%$mabn%";
                 $select_patient->bindParam(1, $search_value, PDO::PARAM_STR);
                 $select_patient->execute();
@@ -118,13 +111,11 @@ include 'components/add_cart.php';
         </div>
     </section>
 
-    <!-- menu section ends -->
-
+ 
 
     <!-- footer section starts  -->
     <?php include 'components/footer.php'; ?>
-    <!-- footer section ends -->
-
+ 
 
     <!-- custom js file link  -->
     <script src=" js/script.js"></script>
