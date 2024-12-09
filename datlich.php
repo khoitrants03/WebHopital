@@ -1,14 +1,70 @@
 <?php
 include 'components/connect.php';
-
 session_start();
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     $user_id = '';
+    header('location:home.php');
 }
 
+$display_data = []; // Biến lưu dữ liệu để hiển thị
+
+if (isset($_POST['add_date'])) {
+    $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+    $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+    $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
+    $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
+    $gio = filter_var($_POST['time'], FILTER_SANITIZE_STRING);
+    $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
+
+    $query = $conn->prepare("SELECT MaBS,Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
+    $query->execute([$khoa]);
+
+    $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE maBN = ?");
+    $check_maBN->execute([$maBN]);
+
+    if ($check_maBN->rowCount() > 0) {
+        if ($query->rowCount() > 0) {
+            $bs = $query->fetch(PDO::FETCH_ASSOC);
+            $doctor = $bs['MaBS'];
+            $tenBs = $bs['Ten'];
+            $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
+                                           JOIN phongkham p ON p.MaPhong = k.MaPhong
+                                           WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)");
+            $query_phong->execute([$doctor]);
+
+            if ($query_phong->rowCount() > 0) {
+                $phong = $query_phong->fetch(PDO::FETCH_ASSOC);
+                $tenKhoa = $phong['TenKhoa'];
+                $soPhong = $phong['SoPhong'];
+
+                $insert_date = $conn->prepare("INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, Gio, STT, PhongKham, KhoaKham)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $insert_date->execute([$maLichHen, $doctor, $maBN, $ngaykham, $gio, $stt, $soPhong, $tenKhoa]);
+
+                // Lưu dữ liệu để hiển thị
+                $display_data = [
+                    'Mã lịch hẹn' => $maLichHen,
+                    'Mã bệnh nhân' => $maBN,
+                    'Chuyên khoa' => $khoa,
+                    'Ngày khám' => $ngaykham,
+                    'Giờ khám' => $gio,
+                    'STT' => $stt,
+                    'Phòng khám' => $soPhong,
+                    'Bác sĩ' => $tenBs
+                ];
+            } else {
+                echo "<script>alert('Không tìm thấy phòng cho bác sĩ này.');</script>";
+            }
+        } else {
+            echo "<script>alert('Không có bác sĩ trong khoa này');</script>";
+        }
+    } else {
+        echo "<script>alert('Mã Bệnh nhân không tồn tại!');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,14 +103,13 @@ if (isset($_SESSION['user_id'])) {
 
     <div class="heading">
         <h3>Đặt lịch khám riêng</h3>
-        <p><a href="home.php">Trang chủ</a> <span><span> / Đặt lịch khám riêng</span></p>
+        <p><a href="home.php">Trang chủ</a> <span> / Đặt lịch khám riêng</span></p>
     </div>
 
-    <!-- menu section starts  -->
     <section class="products">
         <div class="box-container">
-            <div class="service">
-                <div class="working-hours">
+ 		      <div class="service">
+               <div class="working-hours">
                     <h2>Giờ làm việc</h2>
                     <ul>
                         <li>Thứ hai <span>09:00 AM - 07:00 PM</span></li>
@@ -73,12 +128,10 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <div class="register">
                 <div class="form-container">
-                    <div class="form-title">Đặt lịch khám riêng</div>
                     <form method="POST">
                         <div class="form-group">
                             <label for="randomNumber">Mã lịch hẹn</label>
-                            <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;"
-                                readonly>
+                            <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;" readonly>
                             <script>
                                 document.addEventListener("DOMContentLoaded", function () {
                                     const randomNum = Math.floor(Math.random() * 10000) + 1;
@@ -91,10 +144,7 @@ if (isset($_SESSION['user_id'])) {
                             <label for="maBN">Mã BN</label>
                             <input type="text" name="maBN" id="maBN" required>
                         </div>
-                        <?php
-                        $select_departments = $conn->prepare("SELECT * FROM `bacsi`");
-                        $select_departments->execute();
-                        ?>
+
                         <div class="form-group">
                             <label for="department">Khoa khám bệnh</label>
                             <select id="department" name="department">
@@ -113,14 +163,6 @@ if (isset($_SESSION['user_id'])) {
                             </select>
                         </div>
 
-                        <div class="form-group" style="display: none;">
-                            <label for="class">Phòng khám</label>
-                            <input type="text" name="class" id="class" readonly>
-                        </div>
-                        <div class="form-group" style="display: none;">
-                            <label for="doctor">Bác Sĩ</label>
-                            <input type="text" name="doctor" id="doctor" value="" readonly>
-                        </div>
                         <div class="form-group">
                             <label for="STT">STT</label>
                             <input type="text" name="STT" id="STT" value="" readonly>
@@ -133,12 +175,12 @@ if (isset($_SESSION['user_id'])) {
                                 });
                             </script>
                         </div>
+
                         <div class="form-group">
                             <label for="appointment">Ngày khám</label>
                             <input type="date" name="appointment" id="appointment" required>
                         </div>
 
-                        <!-- Thêm giờ khám -->
                         <div class="form-group">
                             <label for="time">Giờ khám</label>
                             <select name="time" id="time" required>
@@ -156,76 +198,39 @@ if (isset($_SESSION['user_id'])) {
                                 ?>
                             </select>
                         </div>
-                        <!-- Kết thúc thêm giờ khám -->
 
                         <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
                     </form>
                 </div>
             </div>
         </div>
-        <?php
-        if (isset($_POST['add_date'])) {
-            $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
-            $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
-            $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
-            $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
-            $gio = filter_var($_POST['time'], FILTER_SANITIZE_STRING); // Nhận giá trị giờ khám
-            $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
 
-            // chọn ngẫu nhiên bác sĩ ở khoa
-            $query = $conn->prepare("SELECT MaBS,Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
-            $query->execute([$khoa]);
-
-            $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE maBN = ?");
-            $check_maBN->execute([$maBN]);
-
-
-            if ($check_maBN->rowCount() > 0) {
-                if ($query->rowCount() > 0) {
-                    $bs = $query->fetch(PDO::FETCH_ASSOC);
-                    $doctor = $bs['MaBS'];
-                    $tenBs = $bs['Ten'];
-                    $query_phong = $conn->prepare("SELECT k.TenKhoa, p.SoPhong FROM khoakham k
-                                                   JOIN phongkham p ON p.MaPhong = k.MaPhong
-                                                   WHERE k.MaKhoa = (SELECT MaKhoa FROM bacsi WHERE MaBS = ?)");
-                    $query_phong->execute([$doctor]);
-
-                    if ($query_phong->rowCount() > 0) {
-                        $phong = $query_phong->fetch(PDO::FETCH_ASSOC);
-                        $tenKhoa = $phong['TenKhoa'];
-                        $soPhong = $phong['SoPhong'];
-
-                        echo "<script>
-                            document.getElementById('doctor').value = '$doctor';
-                            document.getElementById('class').value = '$soPhong';
-                            alert('Bác sĩ được chọn: $tenBs, Chuyên khoa: $khoa ,Phòng khám: $soPhong');
-                        </script>";
-                    } else {
-                        echo "<script>alert('Không tìm thấy phòng cho bác sĩ này.');</script>";
-                    }
-                } else {
-                    echo "<script>alert('Không có bác sĩ trong khoa này');</script>";
-                }
-
-                $insert_date = $conn->prepare("INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, Gio, STT, PhongKham, KhoaKham)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $insert_date->execute([$maLichHen, $doctor, $maBN, $ngaykham, $gio, $stt, $soPhong, $tenKhoa]);
-                echo "<script>
-                    alert('Thêm Thành Công.');
-                    window.location.href = 'xemthongtin.php'; 
-                </script>";
-            } else {
-                echo "<script>alert('Mã Bệnh nhân không đã tồn tại!');</script>";
-            }
-        }
-        ?>
+        <!-- Hiển thị thông tin đã lưu -->
+        <?php if (!empty($display_data)) : ?>
+       <div class="display-data">
+        <h3>Thông tin đã đặt:</h3>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Thông tin</th>
+                    <th>Giá trị</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($display_data as $key => $value) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($key) ?></td>
+                        <td><?= htmlspecialchars($value) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+       </div>
+       <?php endif; ?>
     </section>
 
-    <!-- footer section starts  -->
     <?php include 'components/footer.php'; ?>
-    <!-- footer section ends -->
 
     <script src="js/script.js"></script>
 </body>
-
 </html>
