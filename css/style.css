@@ -70,7 +70,7 @@ textarea.box {
 }
 
 .working-hours {
-   width: 42%;
+   width: 231%;
    background-color: #003366;
    color: white;
    padding: 20px;
@@ -598,6 +598,8 @@ section {
    border-radius: 8px;
    background-color: #fff;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   margin-right: -44%;
+   height: 435px;
 }
 
 .products .box-container .register .form-container .form-title {
@@ -670,12 +672,13 @@ section {
 
 
 .products .box-container .box {
-   border: var(--border-service);
-   padding: 1.5rem;
+   border: 1px solid;
+   padding: 0.5rem;
    position: relative;
    overflow: hidden;
-   border-radius: 1rem;
-   height: auto;
+   /* border-radius: 0rem; */
+   height: 616px;
+   text-align: center;
 }
 
 .products .box-container .box img {
@@ -739,15 +742,13 @@ section {
 }
 
 .products .box-container .box #img {
-   height: 25rem;
-   width: 91%;
-   object-fit: none;
-   /* margin-bottom: 1rem; */
-   margin-left: 4%;
+   height: 361px;
+    width: 294px;
+    object-fit: none;
 }
 
 .products .box-container .box .name-flex {
-   height: 30%;
+   height: 21%;
    background: var(--green);
    text-align: center;
    padding: inherit;
@@ -779,7 +780,6 @@ section {
 }
 
 .products .box-container .box .profile {
-   height: 10%;
    background: var(--blue);
    text-align: center;
    padding: inherit;
@@ -1464,4 +1464,36 @@ th {
       gap: 0;
    }
 
+}
+/* Khải */
+.info-table {
+   width: 100%;
+   border-collapse: collapse;
+   margin: 20px 0;
+   font-size: 1.6rem;
+   text-align: left;
+}
+
+.info-table thead tr {
+   background-color: #f4f4f4;
+   color: #333;
+   text-transform: uppercase;
+   font-weight: bold;
+}
+
+.info-table th, .info-table td {
+   border: 1px solid #ddd;
+   padding: 12px 15px;
+}
+
+.info-table tbody tr:nth-child(even) {
+   background-color: #f9f9f9;
+}
+
+.info-table tbody tr:hover {
+   background-color: #f1f1f1;
+}
+
+.info-table tbody td {
+   font-size: 1.4rem;
 }

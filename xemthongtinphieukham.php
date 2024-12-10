@@ -21,7 +21,7 @@ include 'components/add_cart.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bác Sĩ</title>
+    <title>Bệnh nhân</title>
     <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -34,32 +34,33 @@ include 'components/add_cart.php';
 
     <!-- header section starts  -->
     <?php
-    if (isset($_SESSION['phanquyen'])) {
-        if ($_SESSION['phanquyen'] === 'nhanvien') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-            require("components/user_header_patient.php");
-        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
-            require("components/user_header_tieptan.php");
-        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-            require("components/user_header_nhathuoc.php");
-        }
-    } else {
-        include("components/user_header.php");
-    }
-    ?>
-    <!-- header section ends -->
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>  <!-- header section ends -->
 
     <div class="heading">
-        <h3>Lập phiếu khám bệnh</h3>
-        <p><a href="home.php">Trang chủ</a> <span> / Bác sĩ</span></p>
+        <h3>Hồ sơ bệnh án</h3>
+        <p><a href="home.php">Trang chủ</a> <span> / Bệnh nhân</span></p>
     </div>
 
     <!-- menu section starts  -->
 
-    <section class="products">
+    <section class="products" style="min-height: 100vh; padding-top: 30;">
 
 
         <div class="box-container">
@@ -68,27 +69,29 @@ include 'components/add_cart.php';
                 <div class="box_register">
                     <div class="box-item">
                         <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                            Lập phiếu khám</a1>
+                           Phiếu khám bệnh</a1>
                     </div>
                     <div class="box-item">
-                        <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
+                        <a href="xemthongtinxetnghiem.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Xét nghiệm
                         </a>
                     </div>
-
+                    <div class="box-item">
+                        <a href="xemthongtindonthuoc.php"><i class="fa fa-plus-square" aria-hidden="true"></i>Đơn thuốc
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="register">
 
                 <?php
                 $select_date = $conn->prepare("
-                                                SELECT pk.MaPhieu, pk.TinhTrang, pk.NgayGio, bn.NgaySinh, bn.Ten as tenBN,
-                                                bc.Ten as tenBS, bc.ChuyenKhoa, kh.TenKhoa 
+                                          SELECT pk.MaPhieu, pk.TinhTrang, pk.NgayGio, bn.NgaySinh, 
+                                                bc.Ten as tenBS , kh.TenKhoa 
                                                 FROM `PhieuKhamBenh` pk 
                                                     JOIN `bacsi` bc ON pk.MaBS = bc.MaBS 
                                                     join khoakham kh on bc.MaKhoa= kh.MaKhoa 
                                                     join benhnhan bn on pk.MaBN= bn.MaBN
-                                                     LIMIT 1;
-                                            ");
+                                                    LIMIT 1 ");
                 $select_date->execute();
 
 
@@ -96,7 +99,7 @@ include 'components/add_cart.php';
                     while ($fetch_date = $select_date->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <div class="form-container">
-                            <div class="form-title"> phiếu khám</div>
+                            <div class="form-title"> Thông tin phiếu khám bệnh</div>
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="name">Mã Phiếu</label>
@@ -109,10 +112,6 @@ include 'components/add_cart.php';
                                     <label for="name">Họ tên</label>
                                     <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>">
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="maBN">Mã Bệnh Nhân</label>
-                                    <input type="text" id="maBN" name="maBN" value="<?= ($fetch_patient['MaBN']); ?>" readonly>
-                                </div> -->
                                 <div class="form-group">
                                     <label for="dob">Ngày sinh</label>
                                     <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>">
@@ -149,15 +148,12 @@ include 'components/add_cart.php';
                                     textarea:valid {
                                         border-color: green;
                                     }
-                                </style>
-                                <button type="button" class="submit-btn"
-                                    onclick="window.location.href='search_patient.php';">sXác nhận</button>
-
+                                </style>  
                             </form>
                             <?php
                     }
-                } else {
-                    echo '<p class="empty">Chưa thông tin  bệnh nhân để hiển thị!</p>';
+                }else {
+                    echo '<p class="empty">Chưa có thông tin  bệnh nhân để hiển thị!</p>';
                 }
                 ?>
                 </div>

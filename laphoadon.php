@@ -9,9 +9,8 @@ if (isset($_SESSION['user_id'])) {
 } else {
     $user_id = '';
 }
-;
 
-include 'components/add_cart.php';
+ 
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,7 @@ include 'components/add_cart.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bác Sĩ</title>
+    <title>Thanh toán tiền</title>
     <link rel="shortcut icon" href="./imgs/hospital-solid.svg" type="image/x-icon">
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -72,7 +71,7 @@ include 'components/add_cart.php';
                         <div class="box_register">
                             <div class="box-item">
                                 <a1 href="#"><i class="fa-sharp-duotone fa-solid fa-gears"></i>
-                                    Lập phiếu khám</a1>
+                                    Lập hóa đơn</a1>
                             </div>
                             <div class="box-item">
                                 <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>Bệnh nhân
@@ -82,71 +81,66 @@ include 'components/add_cart.php';
                         </div>
                     </div>
                     <div class="register">
-                        <?php ?>
                         <div class="form-container">
-                            <div class="form-title">Lập phiếu khám</div>
+                            <div class="form-title">Lập hóa đơn</div>
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="name">Mã Phiếu</label>
-                                    <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;">
+                                    <label for="name">Mã Giao Dịch</label>
+                                    <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;" readonly>
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const randomNum = Math.floor(Math.random() * 10000) + 1;
-                                            // Gán giá trị cho thẻ input
                                             document.getElementById("randomNumber").value = randomNum;
                                         });
                                     </script>
                                 </div>
-                                <div class="form-group">
-                                    <label for="maBS">MaBS</label>
-                                    <input type="text" id="maBS" name="maBS">
-                                </div>
-
-                                <div class="form-group" style="display: none;">
-                                    <label for="maBN">Mã Bệnh Nhân</label>
-                                    <input type="hidden" id="maBN" name="maBN"
-                                        value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>">
-                                    <input type="text" value="<?= htmlspecialchars($fetch_patient['MaBN']); ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_patient['Ten']; ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_patient['NgaySinh']; ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Giới tính</label>
-                                    <input type="text" id="dob" value="<?= $fetch_patient['GioiTinh']; ?>" readonly>
-
-                                </div>
 
                                 <div class="form-group">
-                                    <label for="appointment">Ngày khám</label>
-                                    <input type="datetime-local" id="appointment" name="appointment">
+                                    <label for="maThuNgan">Mã Thu Ngân</label>
+                                    <select id="maThuNgan" name="maThuNgan">
+                                        <?php
+                                         $query = $conn->prepare("SELECT MaThuNgan FROM thungan");
+                                        $query->execute();
+
+                                         if ($query->rowCount() > 0) {
+                                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<option value='" . $row['MaThuNgan'] . "'>" . $row['MaThuNgan'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=''>Không có thu ngân</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maDonThuoc">Mã Đơn Thuốc</label>
+                                    <input type="text" id="maDonThuoc" name="maDonThuoc" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="maBN">Mã BN</label>
+                                    <input type="text" id="maBN" value="<?= $fetch_patient['MaBN']; ?>" name="maBN">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
-                                    <textarea type="text" id="chuandoanbenh" name="chuandoanbenh" rows="4"></textarea>
+                                    <label for="dob">Ngày</label>
+                                    <input type="date" id="dob" name="dob">
                                 </div>
-                                <style>
-                                    textarea {
-                                        border: 2px solid #ccc;
-                                        border-radius: 4px;
-                                        font-size: 16px;
-                                        width: 68%;
+                                <div class="form-group">
+                                    <label for="soTien">Số tiền</label>
+                                    <input type="text" id="soTien" name="soTien" class="form-control" min="0" step="1000"
+                                        placeholder="Nhập số tiền">
+                                </div>
 
-                                    }
+                                <div class="form-group">
+                                    <label for="payment_method">Phương thức thanh toán</label>
+                                    <select id="payment_method" name="payment_method" class="form-control">
+                                        <option value="Chuyển khoản">Chuyển khoản</option>
+                                        <option value="Tiền mặt">Tiền mặt</option>
+                                    </select>
+                                </div>
 
-                                    textarea:valid {
-                                        border-color: green;
-                                    }
-                                </style>
-                                <button type="submit" class="submit-btn" name="add_patient">Xác nhận</button>
+                                <button type="submit" class="submit-btn" name="add-phieuhoadon">Xác nhận</button>
                             </form>
-
                         </div>
                     </div>
 
@@ -159,34 +153,34 @@ include 'components/add_cart.php';
         ?>
     </section>
 
-
     <?php
 
-    if (isset($_POST['add_patient'])) {
-        $randomNumber = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
-        $date = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
-        $chuandoanbenh = filter_var($_POST['chuandoanbenh'], FILTER_SANITIZE_STRING);
-        $maBS = filter_var($_POST['maBS'], FILTER_SANITIZE_STRING);
-        $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+if (isset($_POST['add-phieuhoadon'])) {
+    // Lấy thông tin từ form
+    $randomNumber = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+    $maThuNgan = filter_var($_POST['maThuNgan'], FILTER_SANITIZE_STRING);
+    $maDonThuoc = isset($_POST['maDonThuoc']) && !empty($_POST['maDonThuoc']) 
+    ? filter_var($_POST['maDonThuoc'], FILTER_SANITIZE_STRING) 
+    : NULL;    $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+    $soTien = filter_var($_POST['soTien'], FILTER_SANITIZE_STRING);
+    $payment_method = filter_var($_POST['payment_method'], FILTER_SANITIZE_STRING);
+    $dob = filter_var($_POST['dob'], FILTER_SANITIZE_STRING);
 
-        $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS,MaBN) VALUES (?,?, ?, ?, ?)");
-        $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS, $maBN]);
+     $insert_patient = $conn->prepare("INSERT INTO `hoadon`(MaGiaoDich, MaThuNgan, MaBN, MaDonThuoc, Ngay, SoTien, PhuongThucThanhToan) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)");
+    
+    $insert_patient->execute([$randomNumber, $maThuNgan, $maBN, $maDonThuoc, $dob, $soTien, $payment_method]);
 
-        echo "<script>
-                    alert('Thêm  Thành Công.');
-                    window.location.href = 'xemthongtin_phieukham.php'; 
-                </script>";
+    echo "<script>
+                alert(' Thành Công.');
+             </script>";
 
-
-    }
-
-    ?>
-
+}
+?>
 
     <!-- footer section starts  -->
     <?php include 'components/footer.php'; ?>
     <!-- footer section ends -->
-
 
     <!-- custom js file link  -->
     <script src=" js/script.js"></script>

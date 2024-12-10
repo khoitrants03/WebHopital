@@ -28,24 +28,23 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- header section starts -->
     <?php
-   if (isset($_SESSION['phanquyen'])) {
-      if ($_SESSION['phanquyen'] === 'nhanvien') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-         require("components/user_header_patient.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'tieptan') {
-         require("components/user_header_tieptan.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-         require("components/user_header_nhathuoc.php");
-      }
-   } else {
-      include("components/user_header.php");
-   }
-   ?>   <!-- header section ends -->
+    if (isset($_SESSION['phanquyen'])) {
+        if ($_SESSION['phanquyen'] === 'nhanvien') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+            require("components/user_header_doctor.php");
+        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+            require("components/user_header_patient.php");
+        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
+            require("components/user_header_tieptan.php");
+        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+            require("components/user_header_nhathuoc.php");
+        }
+    } else {
+        include("components/user_header.php");
+    }
+    ?>
+    <!-- header section ends -->
 
     <div class="heading">
         <h3>Đăng kí khám bệnh</h3>
@@ -123,8 +122,9 @@ if (isset($_SESSION['user_id'])) {
                             <label for="phonenumber">Số điện thoại</label>
                             <input type="text" id="phonenumber" name="phonenumber">
                         </div>
+                            <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
 
-                        <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
+                         
 
 
                     </form>
@@ -133,6 +133,8 @@ if (isset($_SESSION['user_id'])) {
 
             <?php
             if (isset($_POST['addnew_patient'])) {
+
+
                 $address = $_POST['address'];
                 $addressPattern = '/^[A-Za-zÀ-ỹ\s]+$/';
 
@@ -140,6 +142,15 @@ if (isset($_SESSION['user_id'])) {
                 $check_bhyT = $conn->prepare("SELECT * FROM `benhnhan` WHERE ThongTinBaoHiem = ?");
                 $check_bhyT->execute([$maBHYT]);
 
+                // $maBN = $_POST['randomNumber'];
+                // $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN=? and SoTien>5000");
+                // $check_VienPhi->execute([$maBN]);
+            
+                // if ($check_VienPhi->rowCount() > 0) {
+            
+                // } else {
+                //     echo "<script>alert('Bệnh nhân chưa thanh toán!');</script>";
+                // }
                 if ($check_bhyT->rowCount() > 0) {
                     // Nếu mã BHYT đã tồn tại
                     echo "<script>alert('Mã BHYT này đã tồn tại!');</script>";
@@ -159,9 +170,9 @@ if (isset($_SESSION['user_id'])) {
                     $insert_patient->execute([$maBN, $ten, $ngaysinh, $gioitinh, $diachi, $sdt, $maBHYT]);
 
                     echo "<script>
-                    alert('Thêm Mới Bệnh Nhân Thành Công.');
-                    window.location.href = 'register_medical_old.php'; 
-                </script>";
+                        alert('Thêm Mới Bệnh Nhân Thành Công.');
+                        window.location.href = 'register_medical_old.php'; 
+                    </script>";
                 }
             }
 

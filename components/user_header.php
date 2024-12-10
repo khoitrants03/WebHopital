@@ -35,6 +35,7 @@ if (isset($message)) {
             <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
             <div class="dropdown-content">
             <a href="admin_doctor.php">Quản lí bác sĩ</a>
+               <a href="hopital_record.php">Lưu trữ hồ sơ bệnh nhân</a>
                <a href="product.php">Xem thông tin bác sĩ</a>
                <a href="search_patient.php">Lập phiếu khám bệnh</a>
             </div>
@@ -42,13 +43,13 @@ if (isset($message)) {
          <div class="dropdown">
             <a href="#" class="dropdown-toggle">Bệnh nhân</a>
             <div class="dropdown-content">
-               <a href="patient_access.php">Thông tin bệnh nhân</a>
+               <a href="patient_access.php">Hồ sơ bệnh án</a>
                <a href="register_medical_old.php">Đăng kí khám bệnh</a>
             </div>
 </div>
          <a href="orders.php">Lịch đã đặt</a>
          <a href="BHYT.php">Quản lý BHYT</a>
-         <a href="cart.php">Giỏ hàng </a>
+         <a href="search_patient_thungan.php">Thu ngân </a>
          <a href="contact.php">Liên hệ</a>
       </nav>
 
