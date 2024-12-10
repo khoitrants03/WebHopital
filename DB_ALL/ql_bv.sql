@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int(10) NOT NULL,
+  `id` int(100) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `password`) VALUES
-('1', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b');
 
 -- --------------------------------------------------------
 
@@ -76,40 +76,24 @@ CREATE TABLE `benhnhan` (
   `GioiTinh` varchar(10) DEFAULT NULL,
   `DiaChi` varchar(100) DEFAULT NULL,
   `SoDienThoai` int(11) DEFAULT NULL,
-  `ThongTinBaoHiem` varchar(10) DEFAULT NULL
+  `ThongTinBaoHiem` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `benhnhan`
 --
 
+
 INSERT INTO `benhnhan` (`MaBN`, `Ten`, `NgaySinh`, `GioiTinh`, `DiaChi`, `SoDienThoai`, `ThongTinBaoHiem`) VALUES
 ('BN001', 'Phan Thiên Khải', '2024-11-03', 'Nam', '12 Nguyễn Văn Bảo', 1634052512, '0986712345'),
 ('BN002', 'Hoàng Thảo My', '2024-11-03', 'Nữ', '12 Nguyễn Văn Bảo', 0234052512, '2456789000'),
 ('BN003', 'Mymy', '2024-11-03', 'Nữ', '12 Nguyễn Văn Bảo', 0234052512, '2456789000'),
 ('BN004', 'Trần Khôi', '2024-11-03', 'Nam', '12 Nguyễn Văn Bảo', 1034052512, '9876543213');
+
 -- --------------------------------------------------------
 
---
--- Table structure for table `cart`
---
 
-CREATE TABLE `cart` (
-  `id` int(100) NOT NULL,
-  `user_id` int(100) NOT NULL,
-  `pid` int(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `price` int(10) NOT NULL,
-  `quantity` int(10) NOT NULL,
-  `image` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `pid`, `name`, `price`, `quantity`, `image`) VALUES
-(9, 3, 15, 'BSCKII. TRẦN ĐĂNG KHOA', 0, 1, 'bs-Khoa-4x6-1-433x650.jpg');
 
 -- --------------------------------------------------------
 
@@ -125,7 +109,8 @@ CREATE TABLE `chitiet_thuoc` (
 INSERT INTO `chitiet_thuoc` (`MaThuoc`,`MaDonThuoc`) VALUES 
 ('T001','DT001'),
 ('T002','DT002'),
-('T001','DT003');
+('T003','DT003');
+
 -- --------------------------------------------------------
 
 --
@@ -133,23 +118,18 @@ INSERT INTO `chitiet_thuoc` (`MaThuoc`,`MaDonThuoc`) VALUES
 --
 
 CREATE TABLE `donthuoc` (
-    `MaDonThuoc` varchar(10) NOT NULL,
-    `MaBN` varchar(10) NOT NULL,
-    `SoLuong` float NOT NULL DEFAULT 1,
-    `LieuLuong` varchar(50) NOT NULL,
-    `CachDung` varchar(100) NULL
+  `MaDonThuoc` varchar(10) NOT NULL,
+  `MaBN` varchar(10) NOT NULL,
+  `Thuoc` varchar(500) NOT NULL,
+  `ThanhTien` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO `donthuoc` (`MaDonThuoc`, `MaBN`, `SoLuong`, `LieuLuong`, `CachDung`) VALUES 
-('DT001', 'BN001', '2', '500mg', 'Uống 2 lần/ngày, sau bữa ăn'),
-('DT002', 'BN002', '1', '250mg', 'Uống 3 lần/ngày, sau ăn'),
-('DT003', 'BN003', '3', '400mg', 'Uống 1 viên/lần, khi đau');
+ INSERT INTO `donthuoc` (`MaDonThuoc`, `MaBN`, `Thuoc`, `ThanhTien`) VALUES 
+('DT001', 'BN001', 'Paracetamol 500mg - 2 vỉ, Amoxicillin 250mg - 1 hộp', 120000),
+('DT002', 'BN002', 'Ibuprofen 200mg - 1 hộp, Vitamin C 500mg - 2 vỉ', 85000),
+('DT003', 'BN003', 'Erythromycin 250mg - 1 hộp, Metformin 500mg - 2 vỉ', 210000);
+
 -- --------------------------------------------------------
-
---
--- Table structure for table `thuoc`
---
-
 CREATE TABLE `thuoc` (
   `MaThuoc` varchar(10) NOT NULL,
   `Ten` varchar(50) NOT NULL,
@@ -186,6 +166,7 @@ INSERT INTO `hoadon` (`MaGiaoDich`, `MaThuNgan`, `MaBN`, `MaDonThuoc`, `Ngay`, `
 ('GD003', 'TN003', 'BN003', 'DT003', '2024-02-17', 300000.75, 'Visa');
 -- --------------------------------------------------------
 
+
 CREATE TABLE `yeucaubaohiem` (
   `MaBN` varchar(10) NOT NULL,
   `MaBH` varchar(10) NOT NULL,
@@ -200,23 +181,6 @@ INSERT INTO `yeucaubaohiem` (`MaBN`, `MaBH`, `NgayBD`, `NgayHH`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `thungan`
---
-
-CREATE TABLE `thungan` (
-  `MaThuNgan` varchar(10) NOT NULL,
-  `Ten` varchar(50) NOT NULL,
-  `Tien` decimal(18,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-INSERT INTO `thungan` (`MaThuNgan`, `Ten`, `Tien`) VALUES 
-('TN001', 'Hoàng Thảo My', 5000000.50),
-('TN002', 'Trần Khôi', 4500000.75),
-('TN003', 'Phan Thiên Khải', 6200000.25),
-('TN004', 'Thảo My', 4800000.60),
-('TN005', 'MyMy', 5500000.90);
-------------------------------------------------------------
 --
 -- Table structure for table `khoakham`
 --
@@ -253,16 +217,14 @@ CREATE TABLE `lichhen` (
   `KhoaKham` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO `lichhen` (`MaLichHen`, `MaBS`, `MaBN`, `Ngay`, `Gio`, `STT`, `PhongKham`, `KhoaKham`) VALUES 
-('LH001', 'BS001', 'BN001', '2024-02-20', '09:00:00', 1, 'PK01', 'Nội Khoa'),
-('LH002', 'BS002', 'BN002', '2024-02-21', '14:30:00', 2, 'PK02', 'Ngoại Khoa'),
-('LH003', 'BS001', 'BN003', '2024-02-22', '10:15:00', 3, 'PK03', 'Tim Mạch');
 --
 -- Dumping data for table `lichhen`
 --
 
-INSERT INTO `lichhen` (`MaLichHen`, `MaBS`, `MaBN`, `Ngay`, `Gio`, `STT`, `PhongKham`, `KhoaKham`) VALUES
-('123', '120H', '45B', '2024-11-14', '22:19:29', 12, '12', 'răng');
+INSERT INTO `lichhen` (`MaLichHen`, `MaBS`, `MaBN`, `Ngay`, `Gio`, `STT`, `PhongKham`, `KhoaKham`) VALUES 
+('LH001', 'BS001', 'BN001', '2024-02-20', '09:00:00', 1, 'PK01', 'Nội Khoa'),
+('LH002', 'BS002', 'BN002', '2024-02-21', '14:30:00', 2, 'PK02', 'Ngoại Khoa'),
+('LH003', 'BS001', 'BN003', '2024-02-22', '10:15:00', 3, 'PK03', 'Tim Mạch');
 
 -- --------------------------------------------------------
 
@@ -371,10 +333,27 @@ INSERT INTO `products` (`id`, `name`, `category`, `text`, `image`, `description`
 (15, 'BSCKII. TRẦN ĐĂNG KHOA', 'Khoa tổng quát', 'Bác sĩ uy tín nhất bệnh viện', 'bs-Khoa-4x6-1-433x650.jpg', NULL, ''),
 (16, 'BSCKII ĐỖ HỮU LƯƠNG', 'Khoa tai mũi họng', 'Bác sĩ uy tín nhất bệnh viện haha', 'CNK_YHTT.jpg', NULL, '');
 
-
-
-
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `thungan`
+--
+
+CREATE TABLE `thungan` (
+  `MaThuNgan` varchar(10) NOT NULL,
+  `Ten` varchar(50) NOT NULL,
+  `Tien` decimal(18,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+INSERT INTO `thungan` (`MaThuNgan`, `Ten`, `Tien`) VALUES 
+('TN001', 'Hoàng Thảo My', 5000000.50),
+('TN002', 'Trần Khôi', 4500000.75),
+('TN003', 'Phan Thiên Khải', 6200000.25),
+('TN004', 'Thảo My', 4800000.60),
+('TN005', 'MyMy', 5500000.90);
+-- --------------------------------------------------------
+
+
 
 --
 -- Table structure for table `tintuc`
@@ -416,7 +395,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `address`) VALUES
-(3, 'Phan Thiên Khải', 'phanthienkhai111@gmail.com', '0384104942', '722efb822db49574f7cdc65bafc8436d4b0e2acd', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234');
+(3, 'Phan Thiên Khải', 'phanthienkhai111@gmail.com', '0384104942', '722efb822db49574f7cdc65bafc8436d4b0e2acd', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam - 1234'),
+(1, 'hoàng thảo my', 'hoangthaomy48@gmail.com', '0384104941', '12345', '12, Nguyễn Văn Bảo, Phường 4, TP.Hồ Chí Minh, Hồ Chí Minh, Việt Nam');
 
 -- --------------------------------------------------------
 
@@ -429,15 +409,10 @@ CREATE TABLE `xetnghiem` (
   `MaPhieu` varchar(10) NOT NULL,
   `Ten` varchar(50) NOT NULL,
   `Ngay` date NOT NULL,
-  `Tien` int(100) NOT NULL,
   `KetQua` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `yeucaubaohiem`
---
 
 
 --
@@ -463,11 +438,7 @@ ALTER TABLE `bacsi`
 ALTER TABLE `benhnhan`
   ADD PRIMARY KEY (`MaBN`);
 
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`);
+
 
 --
 -- Indexes for table `chitiet_thuoc`
@@ -480,9 +451,9 @@ ALTER TABLE `chitiet_thuoc`
 -- Indexes for table `donthuoc`
 --
 ALTER TABLE `donthuoc`
-  ADD PRIMARY KEY (`MaDonThuoc`);
-  
-   
+  ADD PRIMARY KEY (`MaDonThuoc`),
+  ADD UNIQUE KEY `MaBN` (`MaBN`);
+
 --
 -- Indexes for table `hoadon`
 --
@@ -491,7 +462,6 @@ ALTER TABLE `hoadon`
   ADD KEY `MaThuNgan` (`MaThuNgan`),
   ADD KEY `MaBN` (`MaBN`),
   ADD KEY `MaDonThuoc` (`MaDonThuoc`);
-
 
 --
 -- Indexes for table `khoakham`
@@ -587,11 +557,8 @@ ALTER TABLE `yeucaubaohiem`
 ALTER TABLE `admin`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -676,9 +643,10 @@ ALTER TABLE `xetnghiem`
 --
 -- Constraints for table `yeucaubaohiem`
 --
+
 ALTER TABLE `yeucaubaohiem`
   ADD CONSTRAINT `yeucaubaohiem_ibfk_1` FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`);
-COMMIT;
+  COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
