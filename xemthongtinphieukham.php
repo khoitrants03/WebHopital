@@ -31,38 +31,57 @@ include 'components/add_cart.php';
 </head>
 
 <body>
+<?php
+// Xử lý tìm kiếm khi người dùng gửi biểu mẫu
+$searchResult = null; // Biến lưu kết quả tìm kiếm
+if (isset($_POST['search'])) {
+    $MaBN = $_POST['MaBN'];
 
-    <!-- header section starts  -->
-    <?php
-   if (isset($_SESSION['phanquyen'])) {
-      if ($_SESSION['phanquyen'] === 'nhanvien') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-         require("components/user_header_doctor.php");
-      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-         require("components/user_header_patient.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'tieptan') {
-         require("components/user_header_tieptan.php");
-      }
-      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-         require("components/user_header_nhathuoc.php");
-      }
-   } else {
-      include("components/user_header.php");
-   }
-   ?>  <!-- header section ends -->
+    if (!empty($MaBN)) {
+        try {
+            // Truy vấn thông tin phiếu khám dựa trên mã bệnh nhân
+            $select_date = $conn->prepare("
+                SELECT 
+                    pk.MaPhieu, pk.TinhTrang, pk.NgayGio, 
+                    bn.NgaySinh, bn.Ten AS tenBN, 
+                    bc.Ten AS tenBS, bc.ChuyenKhoa, kh.TenKhoa 
+                FROM 
+                    `PhieuKhamBenh` pk 
+                JOIN 
+                    `bacsi` bc ON pk.MaBS = bc.MaBS                                       
+                JOIN 
+                    `khoakham` kh ON bc.MaKhoa = kh.MaKhoa 
+                JOIN 
+                    `benhnhan` bn ON pk.MaBN = bn.MaBN 
+                WHERE 
+                    bn.MaBN = ? 
+                ORDER BY 
+                    pk.NgayGio DESC 
+                LIMIT 1
+            ");
+            $select_date->execute([$MaBN]);
+
+            if ($select_date->rowCount() > 0) {
+                $searchResult = $select_date->fetch(PDO::FETCH_ASSOC);
+            } else {
+                $searchResult = 'Không tìm thấy thông tin phiếu khám cho bệnh nhân này!';
+            }
+        } catch (Exception $e) {
+            $searchResult = 'Lỗi: ' . $e->getMessage();
+        }
+    } else {
+        $searchResult = 'Vui lòng nhập mã bệnh nhân!';
+    }
+}
+?>
+    <!-- Header Section -->
+    <?php include 'components/user_header.php'; ?>
 
     <div class="heading">
         <h3>Hồ sơ bệnh án</h3>
         <p><a href="home.php">Trang chủ</a> <span> / Bệnh nhân</span></p>
     </div>
-
-    <!-- menu section starts  -->
-
     <section class="products" style="min-height: 100vh; padding-top: 30;">
-
-
         <div class="box-container">
 
             <div class="service">
@@ -83,92 +102,68 @@ include 'components/add_cart.php';
             </div>
             <div class="register">
 
-                <?php
-                $select_date = $conn->prepare("
-                                          SELECT pk.MaPhieu, pk.TinhTrang, pk.NgayGio, bn.NgaySinh, 
-                                                bc.Ten as tenBS , kh.TenKhoa 
-                                                FROM `PhieuKhamBenh` pk 
-                                                    JOIN `bacsi` bc ON pk.MaBS = bc.MaBS 
-                                                    join khoakham kh on bc.MaKhoa= kh.MaKhoa 
-                                                    join benhnhan bn on pk.MaBN= bn.MaBN
-                                                    LIMIT 1 ");
-                $select_date->execute();
+        <!-- Form tìm kiếm -->
+        <form action="" method="post" class="search-form">
+            <label for="MaBN">Nhập mã bệnh nhân:</label>
+            <input type="text" name="MaBN" id="MaBN" placeholder="Nhập mã bệnh nhân" required>
+            <button type="submit" name="search">Tìm kiếm</button>
+        </form>
 
-
-                if ($select_date->rowCount() > 0) {
-                    while ($fetch_date = $select_date->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-                        <div class="form-container">
-                            <div class="form-title"> Thông tin phiếu khám bệnh</div>
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="name">Mã Phiếu</label>
-                                    <input type="text" id="randomNumber" value="<?= $fetch_date['MaPhieu']; ?>"
-                                        style="font-size: 2rem;">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chuyenKhoa">Khoa Khám</label>
-                                    <input type="text" id="chuyenKhoa" value="<?= $fetch_date['TenKhoa']; ?>">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="appointment">Ngày khám</label>
-                                    <input type="datetime-local" id="appointment" value="<?= $fetch_date['NgayGio']; ?>">
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
-                                    <textarea id="chuandoanbenh" rows="4"><?= $fetch_date['TinhTrang']; ?></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tenBs">Người lập</label>
-                                    <input type="text" id="tenBs" value="<?= $fetch_date['tenBS']; ?>" rows="4">
-                                </div>
-                                <style>
-                                    textarea {
-                                        border: 2px solid #ccc;
-                                        border-radius: 4px;
-                                        font-size: 16px;
-                                        width: 68%;
-
-                                    }
-
-                                    textarea:valid {
-                                        border-color: green;
-                                    }
-                                </style>  
-                            </form>
-                            <?php
-                    }
-                }else {
-                    echo '<p class="empty">Chưa có thông tin  bệnh nhân để hiển thị!</p>';
+        <!-- Kết quả tìm kiếm -->
+        <div class="result-section">
+            <?php
+            if ($searchResult) {
+                if (is_array($searchResult)) {
+                    // Hiển thị thông tin phiếu khám nếu tìm thấy
+                    ?>
+                    <div class="form-container">
+                        <div class="form-title">Thông tin phiếu khám bệnh</div>
+                        <form>
+                            <div class="form-group">
+                                <label for="randomNumber">Mã Phiếu</label>
+                                <input type="text" id="randomNumber" value="<?= $searchResult['MaPhieu']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Họ tên</label>
+                                <input type="text" id="name" value="<?= $searchResult['tenBN']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Ngày sinh</label>
+                                <input type="date" id="dob" value="<?= $searchResult['NgaySinh']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="chuyenKhoa">Khoa Khám</label>
+                                <input type="text" id="chuyenKhoa" value="<?= $searchResult['TenKhoa']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment">Ngày khám</label>
+                                <input type="datetime-local" id="appointment" value="<?= $searchResult['NgayGio']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
+                                <textarea id="chuandoanbenh" rows="4" readonly><?= $searchResult['TinhTrang']; ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="tenBs">Người lập</label>
+                                <input type="text" id="tenBs" value="<?= $searchResult['tenBS']; ?>" readonly>
+                            </div>
+                        </form>
+                    </div>
+                    <?php
+                } else {
+                    // Hiển thị thông báo lỗi
+                    echo '<p class="empty">' . $searchResult . '</p>';
                 }
-                ?>
-                </div>
-            </div>
-
+            }
+            ?>
         </div>
 
     </section>
-    <!-- footer section starts  -->
+
+    <!-- Footer Section -->
     <?php include 'components/footer.php'; ?>
-    <!-- footer section ends -->
 
-
-    <!-- custom js file link  -->
-    <script src=" js/script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 

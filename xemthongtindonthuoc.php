@@ -84,59 +84,54 @@ include 'components/add_cart.php';
             <div class="register">
 
                 <?php
-                $select_date = $conn->prepare("
-                                        SELECT pk.MaPhieu, pk.TinhTrang, pk.NgayGio, bn.NgaySinh, bn.Ten as tenBN, bc.Ten as tenBS, bc.ChuyenKhoa, kh.TenKhoa 
-                                        FROM `PhieuKhamBenh` pk 
-                                        JOIN `bacsi` bc ON pk.MaBS = bc.MaBS 
-                                        JOIN khoakham kh ON bc.MaKhoa = kh.MaKhoa 
-                                        JOIN `lichhen` lh ON lh.MaBS = bc.MaBS 
-                                        JOIN `benhnhan` bn ON bn.MaBN = lh.MaBN 
-                                        ORDER BY pk.NgayGio DESC 
-                                        LIMIT 1
+                $select_patient = $conn->prepare("
+                                    SELECT 
+                                        benhnhan.MaBN AS PatientID,
+                                        benhnhan.Ten AS PatientName,
+                                        benhnhan.GioiTinh AS Gender,
+                                        donthuoc.MaDonThuoc AS PrescriptionID,
+                                        donthuoc.Ten AS PrescriptionName,
+                                        donthuoc.LieuLuong AS Dosage
+                                    FROM 
+                                        benhnhan
+                                    JOIN 
+                                        donthuoc ON benhnhan.MaBN = donthuoc.MaDonThuoc
+                                    JOIN 
+                                        chitiet_thuoc ON donthuoc.MaDonThuoc = chitiet_thuoc.MaDonThuoc;
                                         ");
-                $select_date->execute();
+                $select_patient->execute();
 
 
-                if ($select_date->rowCount() > 0) {
-                    while ($fetch_date = $select_date->fetch(PDO::FETCH_ASSOC)) {
+                if ($select_patient->rowCount() > 0) {
+                    while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <div class="form-container">
                             <div class="form-title"> Thông tin đơn thuốc</div>
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="name">Mã Phiếu</label>
-                                    <input type="text" id="randomNumber" value="<?= $fetch_date['MaPhieu']; ?>"
-                                        style="font-size: 2rem;">
-
+                                    <label for="name">Mã bệnh nhân</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['PatientID']; ?>">
                                 </div>
-
                                 <div class="form-group">
                                     <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>">
+                                    <input type="text" id="name" value="<?= $fetch_patient['PatientName']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>">
+                                    <label for="name">Giới tính</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['Gender']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="chuyenKhoa">Khoa Khám</label>
-                                    <input type="text" id="chuyenKhoa" value="<?= $fetch_date['TenKhoa']; ?>">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="appointment">Ngày khám</label>
-                                    <input type="datetime-local" id="appointment" value="<?= $fetch_date['NgayGio']; ?>">
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
-                                    <textarea id="chuandoanbenh" rows="4"><?= $fetch_date['TinhTrang']; ?></textarea>
+                                    <label for="name">Mã đơn thuốc</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['PrescriptionID']; ?>">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tenBs">Người lập</label>
-                                    <input type="text" id="tenBs" value="<?= $fetch_date['tenBS']; ?>" rows="4">
+                                    <label for="name">Liều lượng</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['Dosage']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Tên đơn thuốc</label>
+                                    <input type="text" id="name" value="<?= $fetch_patient['PrescriptionName']; ?>">
                                 </div>
                                 <style>
                                     textarea {
