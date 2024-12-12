@@ -58,12 +58,13 @@ try {
             <p><strong>Chuyên Khoa:</strong> <?= htmlspecialchars($doctor['ChuyenKhoa']); ?></p>
             <p><strong>Số Điện Thoại:</strong> <?= htmlspecialchars($doctor['SoDienThoai']); ?></p>
         </div>
+        <a href="bacsi.php">Back</a>
     </div>
 
     <!-- Debug Information -->
-    <div style="margin-top: 20px; background: #f0f0f0; padding: 10px;">
+    <!-- <div style="margin-top: 20px; background: #f0f0f0; padding: 10px;">
         <h3>Debug Information:</h3>
         <pre><?php print_r($doctor); ?></pre>
-    </div>
+    </div> -->
 </body>
 </html>
