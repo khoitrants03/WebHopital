@@ -677,7 +677,7 @@ section {
    position: relative;
    overflow: hidden;
    /* border-radius: 0rem; */
-   height: 616px;
+   height: auto;
    text-align: center;
 }
 

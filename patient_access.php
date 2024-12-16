@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- menu section starts  -->
 
-    <section class="products">
+    <section class="products" >
         <div class="box-container">
             <div class="register">
                 <div class="form-container">
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
 
     <!-- tìm kiếm thông tin bệnh nhân -->
-    <section class="products" style="min-height: 100vh; padding-top:0;">
+    <section class="products" style="min-height: 10vh; padding-top:0;">
         <div class="box-container">
             <?php
             if (isset($_POST['search_btn'])) {

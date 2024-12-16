@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patient_id'])) {
         $stmt = $conn->prepare("SELECT * FROM benhnhan WHERE MaBN = ?");
         $stmt->execute([$patient_id]);
         $patient_data = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
         if (!$patient_data) {
             echo json_encode(['error' => 'Mã bệnh nhân không tồn tại.']);
             exit;
         }
-
+    
         // Truy vấn thông tin bảo hiểm
         $insurance_stmt = $conn->prepare("
             SELECT MaBH 
@@ -29,9 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patient_id'])) {
         ");
         $insurance_stmt->execute([$patient_id]);
         $insurance_data = $insurance_stmt->fetch(PDO::FETCH_ASSOC);
-
         $insurance_code = $insurance_data['MaBH'] ?? 'Không có bảo hiểm hợp lệ';
-
+    
         // Truy vấn khoa khám từ bảng lịch hẹn
         $appointment_stmt = $conn->prepare("
             SELECT DISTINCT KhoaKham 
@@ -40,38 +39,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patient_id'])) {
         ");
         $appointment_stmt->execute([$patient_id]);
         $appointment_data = $appointment_stmt->fetch(PDO::FETCH_ASSOC);
-
+    
         if (!$appointment_data) {
             echo json_encode(['error' => 'Không tìm thấy lịch hẹn cho bệnh nhân này.']);
             exit;
         }
-
-        // Tính tiền thuốc từ các đơn thuốc liên quan
+    
+        // Tính tiền thuốc dựa trên bảng donthuoc
         $medicine_fee = 0;
         $medicine_stmt = $conn->prepare("
-            SELECT ct.MaThuoc, t.GiaTien, dt.SoLuong 
-            FROM donthuoc dt
-            JOIN chitiet_thuoc ct ON dt.MaDonThuoc = ct.MaDonThuoc
-            JOIN thuoc t ON ct.MaThuoc = t.MaThuoc
-            WHERE dt.MaBN = ?
+            SELECT ThanhTien 
+            FROM donthuoc 
+            WHERE MaBN = ?
         ");
         $medicine_stmt->execute([$patient_id]);
-
+    
         while ($medicine = $medicine_stmt->fetch(PDO::FETCH_ASSOC)) {
-            $medicine_fee += $medicine['SoLuong'] * $medicine['GiaTien'];
+            $medicine_fee += $medicine['ThanhTien'];
         }
-
+    
         $total_amount = 150000 + $medicine_fee;
-
-      // Kiểm tra nếu bệnh nhân có bảo hiểm y tế
-         if ($insurance_code !== 'Không có bảo hiểm hợp lệ') {
+    
+        // Kiểm tra nếu bệnh nhân có bảo hiểm y tế
+        if ($insurance_code !== 'Không có bảo hiểm hợp lệ') {
             $discounted_amount = $total_amount * 0.2; // 20% chi phí
             $total_amount *= 0.8; // Bệnh nhân chỉ trả 80%
-         } else {
+        } else {
             $discounted_amount = 0; // Không có giảm giá
-         }
-
-         echo json_encode([
+        }
+    
+        echo json_encode([
             'name' => $patient_data['Ten'],
             'consultation_fee' => $discounted_amount,  // Số tiền được giảm khi có bảo hiểm
             'test_fee' => 150000,                      // Tiền xét nghiệm cố định
@@ -79,21 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patient_id'])) {
             'medicine_fee' => $medicine_fee,          // Tiền thuốc
             'insurance_code' => $insurance_code,      // Mã bảo hiểm
             'total_amount' => $total_amount           // Tổng chi phí sau giảm
-         ]);
-
-      //   // Trả về dữ liệu
-      //   echo json_encode([
-      //       'name' => $patient_data['Ten'],
-      //       'consultation_fee' => 500000,  // Tiền khám cố định
-      //       'test_fee' => 150000,          // Tiền xét nghiệm cố định
-      //       'department' => $appointment_data['KhoaKham'], // Khoa khám
-      //       'medicine_fee' => $medicine_fee,
-      //       'insurance_code' => $insurance_code, // Mã bảo hiểm
-      //       'total_amount' => 500000 + 150000 + $medicine_fee
-      //   ]);
+        ]);
+    
     } catch (Exception $e) {
         echo json_encode(['error' => 'Lỗi xử lý: ' . $e->getMessage()]);
     }
+    
     exit;
 }
 ?>

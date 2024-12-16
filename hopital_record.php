@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])) {
    ?>    <!-- header section ends -->
 
     <div class="heading">
-        <h3>Quản lí bệnh nhân</h3>
+        <h3>Lưu trữ hồ sơ bệnh nhân</h3>
         <p><a href="home.php">Trang chủ</a> <span> /Bác sĩ </span> </p>
     </div>
 
