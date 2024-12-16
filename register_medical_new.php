@@ -28,22 +28,26 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- header section starts -->
     <?php
-    if (isset($_SESSION['phanquyen'])) {
-        if ($_SESSION['phanquyen'] === 'nhanvien') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-            require("components/user_header_patient.php");
-        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
-            require("components/user_header_tieptan.php");
-        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-            require("components/user_header_nhathuoc.php");
-        }
-    } else {
-        include("components/user_header.php");
-    }
-    ?>
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      } elseif ($_SESSION['phanquyen'] === 'thungan') {
+         require("components/user_header_thungan.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>
     <!-- header section ends -->
 
     <div class="heading">
@@ -122,9 +126,12 @@ if (isset($_SESSION['user_id'])) {
                             <label for="phonenumber">Số điện thoại</label>
                             <input type="text" id="phonenumber" name="phonenumber">
                         </div>
-                            <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
 
-                         
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button type="submit" class="submit-btn" name="addnew_patient">Xác nhận</button>
+                        <?php else: ?>
+                            <p class="notice">Vui lòng <a href="login.php">đăng nhập</a> để đăng kí khám bệnh.</p>
+                        <?php endif; ?>
 
 
                     </form>

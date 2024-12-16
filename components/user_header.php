@@ -62,25 +62,24 @@ if ($user_id) {
                 <a href="home.php">Trang chủ</a>
                 <a href="about.php">Về chúng tôi</a>
 
-<<<<<<< HEAD
                  <div class="dropdown">
                     <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
                     <div class="dropdown-content">
-                        <a href="admin_doctor.php">Quản lí bác sĩ</a>
-                        <a href="product.php">Xem thông tin bác sĩ</a>
-                        <a href="search_patient.php">Lập phiếu khám bệnh</a>
+                        <!-- <a href="admin_doctor.php">Quản lí bác sĩ</a> -->
+                        <a href="bacsi.php">Xem thông tin bác sĩ</a>
+                        <!-- <a href="search_patient.php">Lập phiếu khám bệnh</a> -->
                     </div>
                 </div>
                 <div class="dropdown">
                     <a href="#" class="dropdown-toggle">Bệnh nhân</a>
                     <div class="dropdown-content">
-                        <a href="patient_access.php">Thông tin bệnh nhân</a>
+                        <!-- <a href="patient_access.php">Thông tin bệnh nhân</a> -->
                         <a href="register_medical_old.php">Đăng kí khám bệnh</a>
                     </div>
                 </div>
                 <a href="orders.php">Lịch đã đặt</a>
-                <a href="BHYT.php">Quản lý BHYT</a>
-                <a href="search_patient_thungan.php">Thu ngân</a>
+                <!-- <a href="BHYT.php">Quản lý BHYT</a> -->
+                <!-- <a href="search_patient_thungan.php">Thu ngân</a> -->
                 <a href="contact.php">Liên hệ</a>
             </nav>
 
@@ -91,36 +90,10 @@ if ($user_id) {
                 $total_cart_items = $count_cart_items->rowCount();
                 ?>
                 <a href="search.php"><i class="fas fa-search"></i></a>
-                <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_items; ?>)</span></a>
-                <div id="user-btn" class="fas fa-user"></div>
+                 <div id="user-btn" class="fas fa-user"></div>
                 <div id="menu-btn" class="fas fa-bars"></div>
             </div>
-=======
-         <!-- Thêm menu thả xuống cho mục Bác sĩ -->
-         <div class="dropdown">
-            <a href="product.php" class="dropdown-toggle">Bác sĩ</a>
-            <div class="dropdown-content">
-            <a href="admin_doctor.php">Quản lí bác sĩ</a>
-               <a href="hopital_record.php">Quản lí bệnh nhân</a>
-               <a href="product.php">Xem thông tin bác sĩ</a>
-               <a href="search_patient.php">Lập phiếu khám bệnh</a>
-            </div>
-         </div>
-         <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Bệnh nhân</a>
-            <div class="dropdown-content">
-               <a href="patient_access.php">Hồ sơ bệnh án</a>
-               <a href="register_medical_old.php">Đăng kí khám bệnh</a>
-            </div>
-</div>
-         <a href="orders.php">Lịch đã đặt</a>
-         <a href="BHYT.php">Quản lý BHYT</a>
-         <a href="search_patient_thungan.php">Thu ngân </a>
-         <a href="contact.php">Liên hệ</a>
-      </nav>
->>>>>>> b58a008c9cb1500d76999dae11a24825384cee09
 
-            <!-- Profile -->
             <div class="profile">
                 <?php if ($user_name): ?>
                     <p class="name"><?= htmlspecialchars($user_name); ?></p>

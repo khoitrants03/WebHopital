@@ -28,22 +28,26 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- header section starts  -->
     <?php
-    if (isset($_SESSION['phanquyen'])) {
-        if ($_SESSION['phanquyen'] === 'nhanvien') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-            require("components/user_header_patient.php");
-        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
-            require("components/user_header_tieptan.php");
-        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-            require("components/user_header_nhathuoc.php");
-        }
-    } else {
-        include("components/user_header.php");
-    }
-    ?>
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      } elseif ($_SESSION['phanquyen'] === 'thungan') {
+         require("components/user_header_thungan.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>
     <!-- header section ends -->
 
     <div class="heading">
@@ -136,9 +140,12 @@ if (isset($_SESSION['user_id'])) {
                             <label for="appointment">Ngày khám</label>
                             <input type="date" name="appointment" id="appointment" required>
                         </div>
-                                                     <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
-
-                        
+                         
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button type="submit" class="submit-btn" name="add_date">Xác nhận</button>
+                        <?php else: ?>
+                            <p class="notice">Vui lòng <a href="login.php">đăng nhập</a> để đăng kí khám bệnh.</p>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
@@ -146,15 +153,13 @@ if (isset($_SESSION['user_id'])) {
         <?php
         if (isset($_POST['add_date'])) {
             try {
-                // Làm sạch dữ liệu đầu vào
-                $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+                 $maLichHen = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
                 $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
                 $khoa = filter_var($_POST['department'], FILTER_SANITIZE_STRING);
                 $ngaykham = filter_var($_POST['appointment'], FILTER_SANITIZE_STRING);
                 $stt = filter_var($_POST['STT'], FILTER_SANITIZE_STRING);
 
-                // Kiểm tra mã bệnh nhân
-                $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN = ?");
+                 $check_maBN = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN = ?");
                 $check_maBN->execute([$maBN]);
 
                 if ($check_maBN->rowCount() === 0) {
@@ -162,8 +167,7 @@ if (isset($_SESSION['user_id'])) {
                     exit;
                 }
 
-                // Kiểm tra viện phí
-                $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN = ? AND SoTien > 5000");
+                 $check_VienPhi = $conn->prepare("SELECT SoTien FROM hoadon WHERE MaBN = ? AND SoTien > 5000");
                 $check_VienPhi->execute([$maBN]);
 
                 if ($check_VienPhi->rowCount() === 0) {
@@ -171,8 +175,7 @@ if (isset($_SESSION['user_id'])) {
                     exit;
                 }
 
-                // Chọn ngẫu nhiên bác sĩ trong khoa
-                $query = $conn->prepare("SELECT MaBS, Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
+                 $query = $conn->prepare("SELECT MaBS, Ten FROM bacsi WHERE ChuyenKhoa = ? ORDER BY RAND() LIMIT 1");
                 $query->execute([$khoa]);
 
                 if ($query->rowCount() === 0) {
@@ -202,8 +205,7 @@ if (isset($_SESSION['user_id'])) {
                 $tenKhoa = $phong['TenKhoa'];
                 $soPhong = $phong['SoPhong'];
 
-                // Chèn lịch hẹn vào cơ sở dữ liệu
-                $insert_date = $conn->prepare(
+                 $insert_date = $conn->prepare(
                     "INSERT INTO `lichhen` (MaLichHen, MaBS, MaBN, Ngay, STT, PhongKham, KhoaKham)
             VALUES (?, ?, ?, ?, ?, ?, ?)"
                 );

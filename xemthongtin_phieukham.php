@@ -34,22 +34,26 @@ include 'components/add_cart.php';
 
     <!-- header section starts  -->
     <?php
-    if (isset($_SESSION['phanquyen'])) {
-        if ($_SESSION['phanquyen'] === 'nhanvien') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'bacsi') {
-            require("components/user_header_doctor.php");
-        } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
-            require("components/user_header_patient.php");
-        } elseif ($_SESSION['phanquyen'] === 'tieptan') {
-            require("components/user_header_tieptan.php");
-        } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
-            require("components/user_header_nhathuoc.php");
-        }
-    } else {
-        include("components/user_header.php");
-    }
-    ?>
+   if (isset($_SESSION['phanquyen'])) {
+      if ($_SESSION['phanquyen'] === 'nhanvien') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'bacsi') {
+         require("components/user_header_doctor.php");
+      } elseif ($_SESSION['phanquyen'] === 'benhnhan') {
+         require("components/user_header_patient.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'tieptan') {
+         require("components/user_header_tieptan.php");
+      }
+      elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
+         require("components/user_header_nhathuoc.php");
+      } elseif ($_SESSION['phanquyen'] === 'thungan') {
+         require("components/user_header_thungan.php");
+      }
+   } else {
+      include("components/user_header.php");
+   }
+   ?>
     <!-- header section ends -->
 
     <div class="heading">
@@ -87,7 +91,8 @@ include 'components/add_cart.php';
                                                     JOIN `bacsi` bc ON pk.MaBS = bc.MaBS 
                                                     join khoakham kh on bc.MaKhoa= kh.MaKhoa 
                                                     join benhnhan bn on pk.MaBN= bn.MaBN
-                                                     LIMIT 1;
+                                                    ORDER BY pk.NgayGio DESC
+                                                    LIMIT 1;
                                             ");
                 $select_date->execute();
 
@@ -96,18 +101,18 @@ include 'components/add_cart.php';
                     while ($fetch_date = $select_date->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <div class="form-container">
-                            <div class="form-title"> phiếu khám</div>
+                            <div class="form-title"> Phiếu khám</div>
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="name">Mã Phiếu</label>
                                     <input type="text" id="randomNumber" value="<?= $fetch_date['MaPhieu']; ?>"
-                                        style="font-size: 2rem;">
+                                        style="font-size: 2rem;" readonly>
 
                                 </div>
 
                                 <div class="form-group">
                                     <label for="name">Họ tên</label>
-                                    <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>">
+                                    <input type="text" id="name" value="<?= $fetch_date['tenBN']; ?>" readonly>
                                 </div>
                                 <!-- <div class="form-group">
                                     <label for="maBN">Mã Bệnh Nhân</label>
@@ -115,27 +120,27 @@ include 'components/add_cart.php';
                                 </div> -->
                                 <div class="form-group">
                                     <label for="dob">Ngày sinh</label>
-                                    <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>">
+                                    <input type="date" id="dob" value="<?= $fetch_date['NgaySinh']; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="chuyenKhoa">Khoa Khám</label>
-                                    <input type="text" id="chuyenKhoa" value="<?= $fetch_date['TenKhoa']; ?>">
+                                    <input type="text" id="chuyenKhoa" value="<?= $fetch_date['TenKhoa']; ?>" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="appointment">Ngày khám</label>
-                                    <input type="datetime-local" id="appointment" value="<?= $fetch_date['NgayGio']; ?>">
+                                    <input type="datetime-local" id="appointment" value="<?= $fetch_date['NgayGio']; ?>" readonly>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="chuandoanbenh">Chuẩn đoán bệnh</label>
-                                    <textarea id="chuandoanbenh" rows="4"><?= $fetch_date['TinhTrang']; ?></textarea>
+                                    <textarea id="chuandoanbenh" rows="4" readonly><?= $fetch_date['TinhTrang']; ?></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="tenBs">Người lập</label>
-                                    <input type="text" id="tenBs" value="<?= $fetch_date['tenBS']; ?>" rows="4">
+                                    <input type="text" id="tenBs" value="<?= $fetch_date['tenBS']; ?>" readonly rows="4">
                                 </div>
                                 <style>
                                     textarea {

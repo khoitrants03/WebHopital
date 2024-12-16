@@ -18,7 +18,7 @@ if (isset($message)) {
 
         <nav class="navbar">
             <a href="#"><i class="fa-duotone fa-solid fa-phone-volume"></i> KHẨN CẤP: 1900 10854</a>
-            <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i></i>GIỜ LÀM VIỆC: 24/7</a>
+            <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i></i>GIỜ LÀM VIỆC: 27/7</a>
             <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>
                 </i>VỊ TRÍ: TP.HCM</a>
         </nav>
@@ -44,16 +44,13 @@ if (isset($message)) {
                  </div>
             </div>
             <div class="dropdown">
-                <a href="#" class="dropdown-toggle">Tiếp tân</a>
+                <a href="#" class="dropdown-toggle">Thanh toán </a>
                 <div class="dropdown-content">
-                    <a href="patient_access.php">Thông tin tiếp tân</a>
-                    <a href="register_medical_old.php">Tiếp nhận bệnh nhân</a>
-                </div>
+                    <a href="search_patient_thungan.php">Thanh toán</a>
+                 </div>
             </div>
-            <a href="search_patient_thungan.php">Thanh toán</a>
-
-            <a href="lichhen.php">Lịch đã đặt</a>
-             <a href="contact.php">Liên hệ</a>
+ 
+              <a href="contact.php">Liên hệ</a>
         </nav>
 
         <div class="icons">

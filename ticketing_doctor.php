@@ -99,7 +99,20 @@ include 'components/add_cart.php';
                                 </div>
                                 <div class="form-group">
                                     <label for="maBS">MaBS</label>
-                                    <input type="text" id="maBS" name="maBS">
+                                     <select id="maBS" name="maBS">
+                                        <?php
+                                         $query = $conn->prepare("SELECT MaBS FROM BacSi");
+                                        $query->execute();
+
+                                         if ($query->rowCount() > 0) {
+                                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<option value='" . $row['MaBS'] . "'>" . $row['MaBS'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=''>Không có Mã BS</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <div class="form-group" style="display: none;">
@@ -169,9 +182,23 @@ include 'components/add_cart.php';
         $maBS = filter_var($_POST['maBS'], FILTER_SANITIZE_STRING);
         $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
 
-        $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS,MaBN) VALUES (?,?, ?, ?, ?)");
+        // $currentDateTime = new DateTime(); // Lấy ngày giờ hiện tại
+        // $appointmentDateTime = new DateTime($date); // Thời gian được nhập vào từ form
+        
+        // // So sánh thời gian nhập với thời gian hiện tại
+        // if ($appointmentDateTime > $currentDateTime) {
+        //     echo "<script>
+        //             alert('Thời gian khám phải trước hoặc bằng thời gian hiện tại!');
+        //             window.history.back();  
+        //         </script>";
+        //     exit;
+        // }
+        
+              $insert_patient = $conn->prepare("INSERT INTO `phieukhambenh`(MaPhieu, NgayGio, TinhTrang, MaBS,MaBN) VALUES (?,?, ?, ?, ?)");
         $insert_patient->execute([$randomNumber, $date, $chuandoanbenh, $maBS, $maBN]);
 
+        
+       
         echo "<script>
                     alert('Thêm  Thành Công.');
                     window.location.href = 'xemthongtin_phieukham.php'; 

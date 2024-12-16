@@ -50,6 +50,8 @@ include 'components/add_cart.php';
       }
       elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
          require("components/user_header_nhathuoc.php");
+      } elseif ($_SESSION['phanquyen'] === 'thungan') {
+         require("components/user_header_thungan.php");
       }
    } else {
       include("components/user_header.php");
@@ -66,7 +68,7 @@ include 'components/add_cart.php';
                <div class="content">
                   <!-- <span>mua sắm</span> -->
                   <h3>Bèo Hopital</h3>
-                  <a href="./product.php" class="btn">Xem thêm</a>
+                  <a href="#" class="btn">Xem thêm</a>
                </div>
                <div class="image">
                   <img src="imgs/Raffles_Hospital.png" alt="">
@@ -77,7 +79,7 @@ include 'components/add_cart.php';
                <div class="content">
                   <!-- <span>mua sắm</span> -->
                   <h4>TỰ HÀO LÀ BỆNH VIỆN ĐA KHOA HẠNG I</h4>
-                  <a href="./product.php" class="btn">Xem thêm</a>
+                  <a href="#" class="btn">Xem thêm</a>
                </div>
                <div class="image">
                   <img src="imgs/cover-home-6.jpg" alt="">
@@ -88,7 +90,7 @@ include 'components/add_cart.php';
                <div class="content">
                   <!-- <span>mua sắm</span> -->
                   <h4>"THÂN THIỆN ĐỊNH HƯỚNG HIỆN ĐẠI" <br>LÀ CHÂM NGÔN CỦA BỆNH VIỆN</h4>
-                  <a href="./product.php" class="btn">Xem thêm</a>
+                  <a href="#" class="btn">Xem thêm</a>
                </div>
                <div class="image">
                   <img src="imgs/cover-home-5.jpg" alt="">
@@ -99,7 +101,7 @@ include 'components/add_cart.php';
                <div class="content">
                   <!-- <span>mua sắm</span> -->
                   <h4>TRANG THIẾT BỊ - CƠ SỞ VẬT CHẤT HIỆN ĐẠI <br> ĐÁP ỨNG NHU CẦU BỆNH NHÂN </h4>
-                  <a href="./product.php" class="btn">Xem thêm</a>
+                  <a href="#" class="btn">Xem thêm</a>
                </div>
                <div class="image">
                   <img src="imgs/cover-home-3.jpg " alt="">
@@ -120,17 +122,17 @@ include 'components/add_cart.php';
 
       <div class="box-container">
 
-         <a href="datlich.php" class="box">
+         <a href="#" class="box">
             <img src="imgs/calendar-days-regular.svg" class="icon_svg" alt="">
             <h3>Đạt lịch khám</h3>
          </a>
 
-         <a href="admin_nhathuoc.php" class="box">
+         <a href="#" class="box">
             <img src="imgs/people-group-solid.svg" alt="">
             <h3>Quản lí thuốc</h3>
          </a>
 
-         <a href="category.php?category=msi" class="box">
+         <a href="#" class="box">
             <img src="imgs/money-check-dollar-solid.svg" alt="">
             <h3>Quản lý BHYT</h3>
          </a>

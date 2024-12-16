@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = '';
 }
 
- 
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +44,8 @@ if (isset($_SESSION['user_id'])) {
             require("components/user_header_tieptan.php");
         } elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
             require("components/user_header_nhathuoc.php");
+        } elseif ($_SESSION['phanquyen'] === 'thungan') {
+            require("components/user_header_thungan.php");
         }
     } else {
         include("components/user_header.php");
@@ -86,7 +88,8 @@ if (isset($_SESSION['user_id'])) {
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="name">Mã Giao Dịch</label>
-                                    <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;" readonly>
+                                    <input type="number" id="randomNumber" name="randomNumber" style="font-size: 2rem;"
+                                        readonly>
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const randomNum = Math.floor(Math.random() * 10000) + 1;
@@ -99,11 +102,11 @@ if (isset($_SESSION['user_id'])) {
                                     <label for="maThuNgan">Mã Thu Ngân</label>
                                     <select id="maThuNgan" name="maThuNgan">
                                         <?php
-                                         $query = $conn->prepare("SELECT MaThuNgan FROM thungan");
+                                        $query = $conn->prepare("SELECT MaThuNgan FROM thungan");
                                         $query->execute();
 
-                                         if ($query->rowCount() > 0) {
-                                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                        if ($query->rowCount() > 0) {
+                                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                                                 echo "<option value='" . $row['MaThuNgan'] . "'>" . $row['MaThuNgan'] . "</option>";
                                             }
                                         } else {
@@ -112,9 +115,9 @@ if (isset($_SESSION['user_id'])) {
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label for="maDonThuoc">Mã Đơn Thuốc</label>
-                                    <input type="text" id="maDonThuoc" name="maDonThuoc" >
+                                    <input type="text" id="maDonThuoc" name="maDonThuoc">
                                 </div>
                                 <div class="form-group">
                                     <label for="maBN">Mã BN</label>
@@ -155,28 +158,30 @@ if (isset($_SESSION['user_id'])) {
 
     <?php
 
-if (isset($_POST['add-phieuhoadon'])) {
-    // Lấy thông tin từ form
-    $randomNumber = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
-    $maThuNgan = filter_var($_POST['maThuNgan'], FILTER_SANITIZE_STRING);
-    $maDonThuoc = isset($_POST['maDonThuoc']) && !empty($_POST['maDonThuoc']) 
-    ? filter_var($_POST['maDonThuoc'], FILTER_SANITIZE_STRING) 
-    : NULL;    $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
-    $soTien = filter_var($_POST['soTien'], FILTER_SANITIZE_STRING);
-    $payment_method = filter_var($_POST['payment_method'], FILTER_SANITIZE_STRING);
-    $dob = filter_var($_POST['dob'], FILTER_SANITIZE_STRING);
+    if (isset($_POST['add-phieuhoadon'])) {
+        $randomNumber = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+        $maThuNgan = filter_var($_POST['maThuNgan'], FILTER_SANITIZE_STRING);
 
-     $insert_patient = $conn->prepare("INSERT INTO `hoadon`(MaGiaoDich, MaThuNgan, MaBN, MaDonThuoc, Ngay, SoTien, PhuongThucThanhToan) 
+        $maDonThuoc = isset($_POST['maDonThuoc']) && !empty($_POST['maDonThuoc'])
+            ? filter_var($_POST['maDonThuoc'], FILTER_SANITIZE_STRING)
+            : NULL;
+        $maBN = filter_var($_POST['maBN'], FILTER_SANITIZE_STRING);
+
+        $soTien = filter_var($_POST['soTien'], FILTER_SANITIZE_STRING);
+        $payment_method = filter_var($_POST['payment_method'], FILTER_SANITIZE_STRING);
+        $dob = filter_var($_POST['dob'], FILTER_SANITIZE_STRING);
+
+        $insert_patient = $conn->prepare("INSERT INTO `hoadon`(MaGiaoDich, MaThuNgan, MaBN, MaDonThuoc, Ngay, SoTien, PhuongThucThanhToan) 
     VALUES (?, ?, ?, ?, ?, ?, ?)");
-    
-    $insert_patient->execute([$randomNumber, $maThuNgan, $maBN, $maDonThuoc, $dob, $soTien, $payment_method]);
 
-    echo "<script>
+        $insert_patient->execute([$randomNumber, $maThuNgan, $maBN, $maDonThuoc, $dob, $soTien, $payment_method]);
+
+        echo "<script>
                 alert(' Thành Công.');
              </script>";
 
-}
-?>
+    }
+    ?>
 
     <!-- footer section starts  -->
     <?php include 'components/footer.php'; ?>

@@ -100,6 +100,10 @@ if (isset($_SESSION['user_id'])) {
                      <input type="text" id="tenThuoc" name="tenThuoc">
                   </div>
                   <div class="form-group">
+                     <label for="loaiThuoc">Loại thuốc </label>
+                     <input type="text" id="loaiThuoc" name="loaiThuoc">
+                  </div>
+                  <div class="form-group">
                      <label for="dangThuoc">Dạng thuốc</label>
                      <input type="text" id="dangThuoc" name="dangThuoc" role="">
                   </div>
@@ -134,7 +138,7 @@ if (isset($_SESSION['user_id'])) {
          $randomNumber = $_POST['randomNumber'];
 
 
-         $select_medicine = $conn->prepare("SELECT MaThuoc, Ten, DangThuoc, SoLuongTon FROM Thuoc 
+         $select_medicine = $conn->prepare("SELECT MaThuoc, Ten, DangThuoc, SoLuongTon,LoaiThuoc FROM Thuoc 
                                              where Ten like ? and MaThuoc like ? ");
 
          $search_value = "%$tenthuoc%";
@@ -153,6 +157,8 @@ if (isset($_SESSION['user_id'])) {
                   <th>Tên</th>
                   <th>Dạng thuốc</th>
                   <th>Số lượng tồn</th>
+                  <th>Loại Thuốc</th>
+
                </tr>
             </thead>
             <tbody>';
@@ -163,6 +169,8 @@ if (isset($_SESSION['user_id'])) {
                <td><input type="text" value="' . $fetch_medicine['Ten'] . '" readonly></td>
                <td><input type="text" value="' . $fetch_medicine['DangThuoc'] . '" readonly></td>
                <td><input type="text" value="' . $fetch_medicine['SoLuongTon'] . '" readonly></td>
+               <td><input type="text" value="' . $fetch_medicine['LoaiThuoc'] . '" readonly></td>
+
             </tr>';
             }
 
@@ -187,7 +195,7 @@ if (isset($_SESSION['user_id'])) {
       <div class="form-title"> </div>
 
       <?php
-      $select_medicine = $conn->prepare("SELECT MaThuoc, Ten, DangThuoc, SoLuongTon FROM Thuoc");
+      $select_medicine = $conn->prepare("SELECT MaThuoc, Ten, DangThuoc, SoLuongTon,LoaiThuoc FROM Thuoc");
       $select_medicine->execute();
 
       if ($select_medicine->rowCount() > 0) {
@@ -198,6 +206,8 @@ if (isset($_SESSION['user_id'])) {
                   <th>Tên</th>
                   <th>Dạng thuốc</th>
                   <th>Số lượng tồn</th>
+                  <th>Loại Thuốc</th>
+
                </tr>
             </thead>
             <tbody>';
@@ -208,6 +218,8 @@ if (isset($_SESSION['user_id'])) {
                <td><input type="text" value="' . $fetch_medicine['Ten'] . '" readonly></td>
                <td><input type="text" value="' . $fetch_medicine['DangThuoc'] . '" readonly></td>
                <td><input type="text" value="' . $fetch_medicine['SoLuongTon'] . '" readonly></td>
+               <td><input type="text" value="' . $fetch_medicine['LoaiThuoc'] . '" readonly></td>
+
             </tr>';
          }
 
@@ -241,34 +253,36 @@ if (isset($_SESSION['user_id'])) {
          $tenThuoc = filter_var($_POST['tenThuoc'], FILTER_SANITIZE_STRING);
          $dangThuoc = filter_var($_POST['dangThuoc'], FILTER_SANITIZE_STRING);
          $soLuong = filter_var($_POST['soLuong'], FILTER_SANITIZE_STRING);
+         $loaiThuoc = filter_var($_POST['loaiThuoc'], FILTER_SANITIZE_STRING);
 
 
-         $insert_medicine = $conn->prepare("INSERT INTO `thuoc`(MaThuoc, Ten, DangThuoc, SoLuongTon) VALUES (?, ?, ?, ?)");
-         $insert_medicine->execute([$maThuoc, $tenThuoc, $dangThuoc, $soLuong]);
+
+         $insert_medicine = $conn->prepare("INSERT INTO `thuoc`(MaThuoc, Ten, DangThuoc, SoLuongTon,LoaiThuoc) VALUES (?,?, ?, ?, ?)");
+         $insert_medicine->execute([$maThuoc, $tenThuoc, $dangThuoc, $soLuong,$loaiThuoc]);
          echo "<script>
             alert('Thêm Mới Thành Công.');
          </script>";
        }
    }
    if (isset($_POST['update'])) {
-       // Sanitize input data
-       $maThuoc = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
+        $maThuoc = filter_var($_POST['randomNumber'], FILTER_SANITIZE_STRING);
        $tenThuoc = filter_var($_POST['tenThuoc'], FILTER_SANITIZE_STRING);
        $dangThuoc = filter_var($_POST['dangThuoc'], FILTER_SANITIZE_STRING);
-       $soLuong = filter_var($_POST['soLuong'], FILTER_SANITIZE_STRING);
-   
+       $soLuong = filter_var($_POST['soLuong'], FILTER_SANITIZE_NUMBER_INT);
+       $loaiThuoc = filter_var($_POST['loaiThuoc'], FILTER_SANITIZE_STRING);
+
         $check_medicine = $conn->prepare("SELECT COUNT(*) FROM thuoc WHERE MaThuoc = ?");
        $check_medicine->execute([$maThuoc]);
-   
-        if ($check_medicine->fetchColumn() > 0) {
-           $update_medicine = $conn->prepare("UPDATE thuoc SET Ten = ?, DangThuoc = ?, SoLuongTon = ? WHERE MaThuoc = ?");
-           $update_medicine->execute([$tenThuoc, $dangThuoc, $soLuong, $maThuoc]);
-   
+
+       if ($check_medicine->fetchColumn() > 0) {
+            $update_medicine = $conn->prepare("UPDATE thuoc SET Ten = ?, DangThuoc = ?, SoLuongTon = ?, LoaiThuoc = ? WHERE MaThuoc = ?");
+           $update_medicine->execute([$tenThuoc, $dangThuoc, $soLuong, $loaiThuoc, $maThuoc]);
+
            echo "<script>
-               alert('Cập nhật Thành Công.');
-            </script>";
+               alert('Cập nhật thành công.');
+           </script>";
        } else {
-            echo "<script>
+           echo "<script>
                alert('Mã thuốc không tồn tại.');
            </script>";
        }

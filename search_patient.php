@@ -77,10 +77,8 @@ include 'components/add_cart.php';
         <div class="box-container">
             <?php
             if (isset($_POST['search_btn'])) {
-                // Get user input safely
                 $mabn = $_POST['mabn'];
 
-                // Secure query with parameterized SQL
                 $select_patient = $conn->prepare("SELECT * FROM `benhnhan` WHERE MaBN LIKE ?");
                 $search_value = "%$mabn%";
                 $select_patient->bindParam(1, $search_value, PDO::PARAM_STR);
@@ -91,20 +89,21 @@ include 'components/add_cart.php';
                     while ($fetch_patient = $select_patient->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <form action="" method="post" class="box">
-                            <input type="hidden" name="pid" value="  <?= htmlspecialchars($fetch_patient['MaBN']); ?>">
-                            <input type="hidden" name="name" value="<?= htmlspecialchars($fetch_patient['Ten']); ?>">
-                            <input type="hidden" name="phone" value="<?= htmlspecialchars($fetch_patient['SoDienThoai']); ?>">
                             <a href="ticketing_doctor.php?pid=<?= $fetch_patient['MaBN']; ?>" class="fas fa-eye"></a>
-                            <div class="name">
-                                <?= htmlspecialchars($fetch_patient['Ten']); ?>
-                            </div>
                             <div class="flex">
                                 <div class="pid">
+                                    Mã :
                                     <?= htmlspecialchars($fetch_patient['MaBN']); ?>
                                 </div>
                             </div>
+                            <div class="name">
+                                Tên bệnh nhân:
+                                <?= htmlspecialchars($fetch_patient['Ten']); ?>
+                            </div>
+
                             <div class="flex">
                                 <div class="phone">
+                                    Số điện thoại:
                                     <?= htmlspecialchars($fetch_patient['SoDienThoai']); ?>
                                 </div>
                             </div>

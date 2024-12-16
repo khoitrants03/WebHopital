@@ -47,11 +47,13 @@ include 'components/add_cart.php';
       }
       elseif ($_SESSION['phanquyen'] === 'nhathuoc') {
          require("components/user_header_nhathuoc.php");
+      } elseif ($_SESSION['phanquyen'] === 'thungan') {
+         require("components/user_header_thungan.php");
       }
    } else {
       include("components/user_header.php");
    }
-   ?>  <!-- header section ends -->
+   ?> <!-- header section ends -->
 
     <div class="heading">
         <h3>Hồ sơ bệnh án</h3>
